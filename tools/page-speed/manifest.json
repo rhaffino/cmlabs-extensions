@@ -1,0 +1,25 @@
+{
+  "name": "Pagespeed Test - cmlabs Tools",
+  "version": "1.0",
+  "description": "PageSpeed ​Test is a free tool from cmlabs that you can use to check website performance.",
+  "manifest_version": 3,
+  "author": "Developer from cmlabs",
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icon/icon.png",
+      "48": "icon/icon.png",
+      "128": "icon/icon.png"
+    }
+  },
+  "permissions": ["activeTab", "tabs", "commands"],
+  "icons": {
+    "16": "icon/icon.png",
+    "32": "icon/icon.png",
+    "48": "icon/icon.png",
+    "128": "icon/icon.png"
+  }
+}
