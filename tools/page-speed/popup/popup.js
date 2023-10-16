@@ -3,7 +3,7 @@ var domainURL = "https://tools.cmlabs.dev"; // Tools website cmlabs
 
 document.addEventListener("DOMContentLoaded", function () {
   // Load tab Chrome
-  // tabChrome();
+  tabChrome();
 
   // Re-test load Pagespeed
   var logButton = document.getElementById("log-button");
