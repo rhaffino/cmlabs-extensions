@@ -1,0 +1,26 @@
+body {
+  width: 300px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  padding: 20px;
+}
+#url-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+#submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#submit-btn:hover {
+  background-color: #45a049;
+}
+#loading {
+  display: none;
+}
