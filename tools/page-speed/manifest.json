@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Page Speed",
+  "description": "cmlabs tools for page speed test",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "views/index/index.html"
+  },
+  "icons": {
+    "16": "assets/images/website-16.png"
+  },
+  "background": {
+    "service_worker": "service_worker/background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "tabs"]
+}
