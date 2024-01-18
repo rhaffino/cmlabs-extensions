@@ -1,6 +1,12 @@
 import getPagespeedData from "./utils/getPageSpeedData.js";
 import validateAndExtractBaseUrl from "./utils/validateUrl.js";
 
+chrome.runtime.onInstalled.addListener((details) => {
+  chrome.storage.local.clear(() => {
+    console.log("Fresh like new!");
+  });
+});
+
 chrome.runtime.onMessage.addListener((message) => {
   const { event, data } = message;
 
