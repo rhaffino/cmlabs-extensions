@@ -4,24 +4,34 @@ const loadingElement = document.getElementById("loading");
 // result
 const resultElement = document.getElementById("result");
 
-document.getElementById("url-form").addEventListener("submit", (event) => {
-  event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+  tabChrome().then((currentUrl) => {
+    var urlContainer = document.getElementById("url-input");
+    urlContainer.value = currentUrl;
+  });
 
-  loadingElement.style.display = "block";
-  resultElement.innerHTML = "";
-
-  const url = document.getElementById("url-input").value;
-  console.log(url);
-
-  const message = {
-    event: "OnStartLinkAnalysis",
-    data: {
-      url,
-    },
-  };
-
-  chrome.runtime.sendMessage(message);
+  var logButton = document.getElementById("submit-btn");
+  logButton.addEventListener("click", function () {
+    launch();
+  });
 });
+
+const launch = () => {
+  showLoading(true);
+
+  tabChrome().then((currentUrl) => {
+    console.log(currentUrl);
+
+    const message = {
+      event: "OnStartLinkAnalysis",
+      data: {
+        url: currentUrl,
+      },
+    };
+
+    chrome.runtime.sendMessage(message);
+  });
+};
 
 chrome.runtime.onMessage.addListener((message) => {
   const { event, response, status, info } = message;
@@ -31,7 +41,7 @@ chrome.runtime.onMessage.addListener((message) => {
       if (status) {
         displayResultLinkAnalysis(response);
       } else {
-        loadingElement.style.display = "none";
+        showLoading(false);
         resultElement.innerHTML = "";
 
         const noValidUrlParagraph = document.createElement("p");
@@ -44,10 +54,29 @@ chrome.runtime.onMessage.addListener((message) => {
   }
 });
 
+function tabChrome() {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var currentTab = tabs[0];
+      var currentUrl = currentTab.url;
+
+      resolve(currentUrl);
+    });
+  });
+}
+
+const showLoading = (status) => {
+  if (status) {
+    loadingElement.style.display = "block";
+  } else {
+    loadingElement.style.display = "none";
+  }
+};
+
 const displayResultLinkAnalysis = (response) => {
   console.log(response);
 
-  loadingElement.style.display = "none";
+  showLoading(false);
   resultElement.innerHTML = "";
 
   if (
@@ -93,18 +122,16 @@ const displayResultLinkAnalysis = (response) => {
 };
 
 const checkLocalStorage = () => {
-  loadingElement.style.display = "block";
+  showLoading(true);
   resultElement.innerHTML = "";
 
   chrome.storage.local.get(["response"], (result) => {
-    loadingElement.style.display = "none";
+    showLoading(false);
 
     if (result.response) {
       displayResultLinkAnalysis(result.response);
     } else {
-      const noHistoryParagraph = document.createElement("p");
-      noHistoryParagraph.textContent = "No histories";
-      resultElement.appendChild(noHistoryParagraph);
+      launch();
     }
   });
 };
