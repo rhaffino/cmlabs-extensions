@@ -21,9 +21,14 @@ After saving the file, to see this change in the browser you also have to refres
 # Features
 ## Pagespeed Test
 See your website's pagespeed score quickly and concisely with this extension. Make it easy to see the user experience at a glance based on Google's ratings.
-## Mobile-Frienly Test
-Check whether your website is mobile friendly or not, in order to provide comfort for website visitors on all devices.
+## Link Analyze
+This tool is able to analyze internal, external, nofollow, and dofollow links on the URLs you enter. The results that appear are reliable and easy to understand, so it will help webmasters and SEO specialists in doing their jobs.
 ## Robots.txt Checker
 Quickly see if your website has a robots.txt file, so you know if your website is indexed on Google correctly.
-## Security
+## Title & Lengths Checker 
+Writing titles and meta descriptions in SEO practices is an important thing that needs to be done properly.
+Quickly see if your website has a robots.txt file, so you know if your website is indexed on Google correctly.
+## SSL Checker Tool 
+Is used to check whether the SSL (Secure Socket Layer) certificate on your web server is installed correctly and is valid.
+# Security
 If you discover any security related issues, please email dev@cmlabs.co instead of using the issue tracker.
