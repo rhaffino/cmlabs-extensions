@@ -1,0 +1,238 @@
+:root {
+  --primaryblue: #18a0fb;
+  --black: #2d393d;
+  --darkgrey: #66757f;
+  --grey: #ccd6dd;
+  --lightgrey: #e1e8ed;
+  --white: #ffffff;
+  --primaryred: #fb1818;
+}
+
+body {
+  width: 700px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  padding: 20px;
+  font-size: 13px !important;
+  font-weight: 400;
+}
+
+.bg-primaryblue {
+  background: var(--primaryblue) !important;
+}
+
+.metachecker-background-text-size {
+  background: var(--black) !important;
+  width: 65.16px;
+  height: 33.16px;
+}
+
+.metachecker-background-text-size:hover {
+  background: #dcad05;
+  cursor: pointer;
+}
+
+.metachecker-background-text-size-left-edge {
+  background: var(--black) !important;
+  width: 35.16px;
+  height: 33.16px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.metachecker-background-text-size-right-edge {
+  width: 38.16px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.metachecker-background-text-size.active {
+  background: #dcad05;
+}
+
+.title-meta {
+  color: #1a0dab;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.color-green {
+  color: #009a0f !important;
+}
+
+.bg-color-lightyellow {
+  background: rgba(255, 222, 104, 0.15) !important;
+}
+
+.desc-meta {
+  color: #4d5156;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.meta-title {
+  color: var(--white) !important;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.meta-desc {
+  color: var(--white) !important;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.input-meta-title::placeholder,
+.input-meta-description::placeholder,
+.input-url::placeholder {
+  color: var(--white) !important;
+}
+
+input.input-meta-title,
+textarea.input-meta-description,
+input.input-url-meta-checker {
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid white;
+}
+
+input.input-meta-title:focus,
+textarea.input-meta-description:focus,
+input.input-url-meta-checker:focus {
+  border-bottom: 1px solid white;
+}
+
+.progress-bar_wrap {
+  width: 150px;
+  height: 11px;
+  background: var(--primaryblue) !important;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.progress-bar_item {
+  display: inline-block;
+  height: 100%;
+  width: 20%;
+  margin-right: 0.8%;
+  float: left;
+}
+
+.progress-bar_item-1.active,
+.progress-bar_item-2.active,
+.progress-bar_item-3.active {
+  background: #b1f25d;
+}
+
+.progress-bar_item-1.blank,
+.progress-bar_item-2.blank,
+.progress-bar_item-3.blank {
+  background: var(--white) !important;
+}
+
+.mr-5 {
+  margin-right: 1.25rem !important;
+}
+
+.border-radius-5px {
+  border-radius: 5px;
+}
+
+.disable-mx {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.disable-px {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Loader */
+.container-loading {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.loader {
+  border: 6px solid var(--grey);
+  border-radius: 50%;
+  border-top: 6px solid var(--primaryblue);
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#title-length-checker {
+  min-height: 100px;
+}
+
+.text-lg {
+  font-size: larger;
+}
+
+.mt-error {
+  margin-top: 2.5rem;
+}
+
+.cta-yellow {
+  background: #fbc918;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.cta-border-bottom {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.btn-cta {
+  height: 60%;
+  width: 100%;
+  background-color: var(--black) !important;
+  color: white !important;
+  border-radius: 20px !important;
+  font-weight: bold;
+}
+
+.btn-cta:hover {
+  background-color: #191f21 !important;
+  color: white !important;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.mr-3 {
+  margin-right: 0.75rem !important;
+}
