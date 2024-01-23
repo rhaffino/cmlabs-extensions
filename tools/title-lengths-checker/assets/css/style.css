@@ -201,3 +201,38 @@ input.input-url-meta-checker:focus {
 .mt-error {
   margin-top: 2.5rem;
 }
+
+.cta-yellow {
+  background: #fbc918;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.cta-border-bottom {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.btn-cta {
+  height: 60%;
+  width: 100%;
+  background-color: var(--black) !important;
+  color: white !important;
+  border-radius: 20px !important;
+  font-weight: bold;
+}
+
+.btn-cta:hover {
+  background-color: #191f21 !important;
+  color: white !important;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.mr-3 {
+  margin-right: 0.75rem !important;
+}
