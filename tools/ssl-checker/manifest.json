@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "SSL Checker - cmlabs Tools",
+  "description": "SSL Checker is a free tool from cmlabs that you can use to check SSL Certificate.",
+  "version": "1.0.0",
+  "author": "Developer from cmlabs",
+  "action": {
+    "default_popup": "views/index/index.html"
+  },
+  "icons": {
+    "16": "assets/images/icon.png",
+    "32": "assets/images/icon.png",
+    "48": "assets/images/icon.png",
+    "128": "assets/images/icon.png"
+  },
+  "background": {
+    "service_worker": "service_worker/background.js",
+    "type": "module"
+  },
+  "permissions": ["activeTab", "tabs", "commands", "storage"]
+}
