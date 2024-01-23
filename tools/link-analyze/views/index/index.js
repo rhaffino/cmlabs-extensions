@@ -1,35 +1,53 @@
-// loading
+const domainURL = "https://tools.cmlabs.dev";
+let inputUrl = "";
 const loadingElement = document.getElementById("loading");
-
-// result
 const resultElement = document.getElementById("result");
+const logButton = document.getElementById("submit-btn");
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     var urlContainer = document.getElementById("url-input");
     urlContainer.value = currentUrl;
+    inputUrl = currentUrl;
   });
 
-  var logButton = document.getElementById("submit-btn");
   logButton.addEventListener("click", function () {
     launch();
   });
+
+  checkLocalStorage();
 });
 
-const launch = () => {
-  showLoading(true);
+const launch = async () => {
+  const isDataFetched = await checkFetchStatus();
 
-  tabChrome().then((currentUrl) => {
-    console.log(currentUrl);
+  if (isDataFetched) {
+    logButton.style.display = "none";
+  } else {
+    tabChrome().then((currentUrl) => {
+      console.log(currentUrl);
 
-    const message = {
-      event: "OnStartLinkAnalysis",
-      data: {
-        url: currentUrl,
-      },
-    };
+      const message = {
+        event: "OnStartLinkAnalysis",
+        data: {
+          url: currentUrl,
+        },
+      };
 
-    chrome.runtime.sendMessage(message);
+      chrome.runtime.sendMessage(message);
+    });
+  }
+};
+
+const checkFetchStatus = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["isDataFetched"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result.isDataFetched);
+      }
+    });
   });
 };
 
@@ -50,7 +68,7 @@ chrome.runtime.onMessage.addListener((message) => {
       }
       break;
     default:
-      console.log("Unknown event");
+      console.log("Unknown event", event);
   }
 });
 
@@ -67,9 +85,11 @@ function tabChrome() {
 
 const showLoading = (status) => {
   if (status) {
-    loadingElement.style.display = "block";
+    loadingElement.classList.remove("d-none");
+    loadingElement.classList.add("d-block");
   } else {
-    loadingElement.style.display = "none";
+    loadingElement.classList.remove("d-block");
+    loadingElement.classList.add("d-none");
   }
 };
 
@@ -142,6 +162,22 @@ const displayResultLinkAnalysis = (response) => {
     listItem.textContent = `(${link.url})`;
     externalList.appendChild(listItem);
   });
+
+  logButton.classList.remove("d-none");
+  logButton.classList.add("d-block");
+
+  const urlDetail = document.getElementById("preview-detail");
+  urlDetail.textContent = "Lihat Detail";
+  urlDetail.setAttribute(
+    "href",
+    "" + domainURL + "/en/link-analyzer?url=" + inputUrl
+  );
+
+  const message = {
+    event: "onResetResponse",
+    data: null,
+  };
+  chrome.runtime.sendMessage(message);
 };
 
 const checkLocalStorage = () => {
@@ -154,9 +190,8 @@ const checkLocalStorage = () => {
     if (result.response) {
       displayResultLinkAnalysis(result.response);
     } else {
+      showLoading(true);
       launch();
     }
   });
 };
-
-checkLocalStorage();
