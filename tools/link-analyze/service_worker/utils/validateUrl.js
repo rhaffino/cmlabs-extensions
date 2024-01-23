@@ -1,6 +1,13 @@
+const whiteListedSchemes = ["http:", "https:"];
+
 const getBaseUrl = (url) => {
   try {
     const urlObj = new URL(url);
+
+    if (!whiteListedSchemes.includes(urlObj.protocol)) {
+      return null;
+    }
+
     return urlObj.origin + "/";
   } catch (_) {
     return null;
