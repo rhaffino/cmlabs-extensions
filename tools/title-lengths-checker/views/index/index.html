@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title & Lengths Checker</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/boxicons.min.css" />
+  </head>
+  <body>
+    <div id="title-length-checker">
+      <p>Title & Lengths Checker</p>
+      <div
+        class="container-loading d-flex justify-content-center align-items-center"
+        id="loading"
+      >
+        <div class="loader"></div>
+      </div>
+      <div class="mb-3" id="cta-warning" style="display: none">
+        <div class="cta-yellow px-3 py-1 cta-border-bottom">
+          <div class="row d-flex align-items-center">
+            <div
+              class="col-sm-9 col-md-10 col-lg-9 col-xl-10 d-flex align-items-center py-1"
+            >
+              <img
+                style="width: 36px"
+                class="mr-3 text-black"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAAAXNSR0IArs4c6QAAAohJREFUeF7tmm1OwzAQRNOTAScDTgY3Aywlokpjez9mdpt28xMSx355Hq+tXpa6hgQuxWdMoABNDClABcgXImXQiQz6WJblZe3v57Is375vj3n6XgxqcN53Q2qQ2t9Tr3sA9PpnzleHQnr/0juwwmmQjq50i7IBjezZgL1l5lE2oDa1evZsgFItygQksScdUiYgiT1PC0hjTyqkLIM09lyvbuH9DX/hGsq9umdWFIYHdgYgqz0bvNA+h77MaU9KFkUD+pnNIeH/w/od9qJ147nfkAp53NwWlkWRgFD2hGZRFKCj4wyrPaFZFAHIUhRK4dH7T3/B5DhDCqJ3Hz2L2ICY9oRkERuQtyiUGEa1iAlIY0+vH9KVj3aoxgSksccLiGYRC5DGnjaNvIBaGxRILEAae54OkNYeFCCKRQyDtPYgAY3akqyIN/egAVnsQQOCZhEakMUeNCCoRUhAVnsYgGAWIQFJi7qjLEAs8/t2IWODNAI4DGMAgliEAuSxhzHFYBtZBCDEYRjDIEhd5AXkCebrzGABcq9oXkDWZV0aqN6p67bIAwhlj6nCVT5kHqf5QfJRqnL809vNK5oV0Jns2eiZDtWsgFDZM/30wBtMFlkAndGejbMakgXQGe0JA8Syh1kH7WepyiKtQSx7IgGpikcNIJY9zL1YL+PFFmkAsezJACS2SAqIaU8WIJFFUkCIPdGopInOIPFxiAQQ4jgDWO9Bm5paJAHEtgc6YkNjQwYzQI9sj6h4HAFiB7PhY9Me6XIYAWIu67SRGhvuZtEI0KNnj+hUswD9YzpkMQL0DAE9DepaxSY/vJoBMmbe4zxWgCbfsgAVIN90L4PKoDLIR6AM8vGrDJrw+wWjq3NJy65B2gAAAABJRU5ErkJggg=="
+              />
+              <p class="mb-0 text-black">
+                Your meta title or description is not SEO-Friendly. Visit our
+                website and optimize your website better!
+              </p>
+            </div>
+            <div
+              class="col-sm-3 col-md-2 col-lg-3 col-xl-2 d-flex justify-content-end py-1"
+            >
+              <a
+                href="https://cmlabs.co/en-id/pricing/content-writing"
+                target="_blank"
+                rel="noreferrer nofollow external"
+                type="button"
+                class="btn btn-cta"
+                name="button"
+                >Get Quote</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="result-container" class="d-none">
+        <div class="bg-primaryblue border-radius-5px mb-3 px-3 py-3">
+          <div class="row d-flex flex-column disable-mx">
+            <div
+              class="d-flex align-items-center justify-content-between flex-row disable-px"
+            >
+              <div class="">
+                <span class="meta-title mr-5">PAGE TITLE</span>
+                <div class="progress-bar_wrap">
+                  <div
+                    id="titlebar1"
+                    class="progress-bar_item progress-bar_item-1 blank"
+                  ></div>
+                  <div
+                    id="titlebar2"
+                    class="progress-bar_item progress-bar_item-2 blank"
+                  ></div>
+                  <div
+                    id="titlebar3"
+                    class="progress-bar_item progress-bar_item-3 blank"
+                  ></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="text-center mx-2">
+                  <p class="mb-0 text-white">
+                    Character : <strong id="title-char">0</strong>
+                  </p>
+                </div>
+                <div class="text-center mx-2">
+                  <p class="mb-0 text-white">
+                    Pixel : <strong id="title-pixel">0px</strong>
+                  </p>
+                </div>
+                <div class="text-center mx-2">
+                  <p class="mb-0 text-white">
+                    Word : <strong id="title-word">0</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <input
+              id="title"
+              type="text"
+              class="form-control bg-primaryblue text-white px-0 input-meta-title mb-2"
+              autocomplete="off"
+              disabled
+            />
+            <div
+              class="align-items-center d-none disable-px"
+              id="title-bad-char"
+            >
+              <img
+                style="width: 20px"
+                class="mr-2"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
+              />
+              <p class="mb-0 text-white" id="title-bad-char-point">
+                Character More Than 12
+              </p>
+            </div>
+            <div
+              class="align-items-center d-none disable-px"
+              id="title-bad-pixel"
+            >
+              <img
+                style="width: 20px"
+                class="mr-2"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
+              />
+              <p class="mb-0 text-white" id="title-bad-pixel-point">
+                Pixel More Than 12px
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="py-3 px-3 bg-primaryblue border-radius-5px">
+          <div class="row d-flex flex-column disable-mx">
+            <div
+              class="d-flex align-items-center justify-content-between flex-row disable-px"
+            >
+              <div class="">
+                <span class="meta-desc mr-5">META DESCRIPTION</span>
+                <div class="progress-bar_wrap">
+                  <div
+                    id="descbar1"
+                    class="progress-bar_item progress-bar_item-1 blank"
+                  ></div>
+                  <div
+                    id="descbar2"
+                    class="progress-bar_item progress-bar_item-2 blank"
+                  ></div>
+                  <div
+                    id="descbar3"
+                    class="progress-bar_item progress-bar_item-3 blank"
+                  ></div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="text-center mx-2">
+                  <p class="mb-0 text-white">
+                    Character : <strong id="desc-char">0</strong>
+                  </p>
+                </div>
+                <div class="text-center mx-2">
+                  <p class="mb-0 text-white">
+                    Pixel : <strong id="desc-pixel">0px</strong>
+                  </p>
+                </div>
+                <div class="text-center mx-2">
+                  <p class="mb-0 text-white">
+                    Word : <strong id="desc-word">0</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <textarea
+              id="desc"
+              data-autoresize
+              class="mb-2 form-control bg-primaryblue text-white px-0 input-meta-description"
+              autocomplete="off"
+              disabled
+              rows="1"
+              style="resize: none; overflow: hidden"
+            ></textarea>
+            <div
+              class="align-items-center d-none disable-px"
+              id="desc-bad-char"
+            >
+              <img
+                style="width: 20px"
+                class="mr-2"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
+              />
+              <p class="mb-0 text-white" id="desc-bad-char-point">
+                Character More Than 12
+              </p>
+            </div>
+            <div
+              class="align-items-center d-none disable-px"
+              id="desc-bad-pixel"
+            >
+              <img
+                style="width: 20px"
+                class="mr-2"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
+              />
+              <p class="mb-0 text-white" id="desc-bad-pixel-point">
+                Pixel More Than 12px
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="./index.js"></script>
+    </div>
+    <span id="titlesizer"></span>
+    <span id="descsizer"></span>
+  </body>
+</html>
