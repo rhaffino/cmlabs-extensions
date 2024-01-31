@@ -1,31 +1,53 @@
 var domainURL = "https://tools.cmlabs.dev";
+const logButton = document.getElementById("log-button");
+const resultElement = document.getElementById("result");
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     var urlContainer = document.getElementById("url-container");
-    urlContainer.textContent = currentUrl;
+    urlContainer.innerText = currentUrl;
   });
 
-  var logButton = document.getElementById("log-button");
   logButton.addEventListener("click", function () {
     launch();
   });
+
+  checkLocalStorage();
 });
 
-const launch = () => {
+const launch = async () => {
   showLoading(true);
 
-  tabChrome().then((currentUrl) => {
-    console.log(currentUrl);
+  const isDataFetched = await checkFetchStatus();
 
-    const message = {
-      event: "OnStartLinkAnalysis",
-      data: {
-        url: currentUrl,
-      },
-    };
+  if (isDataFetched) {
+    logButton.classList.remove("d-block");
+    logButton.classList.add("d-none");
+  } else {
+    tabChrome().then((currentUrl) => {
+      console.log(currentUrl);
 
-    chrome.runtime.sendMessage(message);
+      const message = {
+        event: "OnStartLinkAnalysis",
+        data: {
+          url: currentUrl,
+        },
+      };
+
+      chrome.runtime.sendMessage(message);
+    });
+  }
+};
+
+const checkFetchStatus = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["isDataFetched"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result.isDataFetched);
+      }
+    });
   });
 };
 
@@ -40,10 +62,11 @@ function tabChrome() {
   });
 }
 
-const historyParagraph = document.getElementById("history");
-
 function renderResult(data) {
   showLoading(false);
+
+  logButton.classList.remove("d-none");
+  logButton.classList.add("d-block");
 
   const categories = [
     "performance",
@@ -52,10 +75,6 @@ function renderResult(data) {
     "seo",
     "pwa",
   ];
-
-  historyParagraph.innerText = `Your history: ${data.id}`;
-  historyParagraph.classList.remove("d-none");
-  historyParagraph.classList.add("d-flex");
 
   // Show Current URL Check Pagespeed Detail
   var urlDetail = document.getElementById("preview-detail");
@@ -76,6 +95,12 @@ function renderResult(data) {
     }
 
     strokeValue(score, j + 1, categories[j]);
+
+    const message = {
+      event: "onResetResponse",
+      data: null,
+    };
+    chrome.runtime.sendMessage(message);
   }
 }
 
@@ -138,7 +163,13 @@ chrome.runtime.onMessage.addListener((message) => {
       if (status) {
         renderResult(response);
       } else {
-        console.log(info);
+        showLoading(false);
+
+        resultElement.innerHTML = "";
+
+        const noValidUrlParagraph = document.createElement("p");
+        noValidUrlParagraph.textContent = info;
+        resultElement.appendChild(noValidUrlParagraph);
       }
       break;
     default:
@@ -159,15 +190,16 @@ const showLoading = (status) => {
 };
 
 const checkLocalStorage = () => {
+  showLoading(true);
+  resultElement.innerHTML = "";
+
   chrome.storage.local.get(["response"], (result) => {
+    showLoading(false);
+
     if (result.response) {
       renderResult(result.response);
     } else {
-      historyParagraph.classList.remove("d-flex");
-      historyParagraph.classList.add("d-none");
       launch();
     }
   });
 };
-
-checkLocalStorage();

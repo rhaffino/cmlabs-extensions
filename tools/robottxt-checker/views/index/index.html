@@ -1,24 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Link Analyzer</title>
-    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>Robots.txt Checker</title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
   </head>
-  <body>
-    <p>Robots.txt Checker</p>
+  <body class="p-3" style="width: 300px; margin: 0 auto">
+    <h5 class="mb-3">Robots.txt Checker</h5>
+    <div id="alert" class="alert alert-warning d-flex" role="alert">
+      You can only search 5 times in 1 hour
+    </div>
     <form id="url-form">
-      <input
-        type="text"
-        id="url-input"
-        name="url"
-        placeholder="Masukkan URL..."
-      />
-      <button type="submit" id="submit-btn">Analyze Again</button>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="url-input"
+          name="url"
+          placeholder="Masukkan URL..."
+        />
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success btn-block d-none"
+        id="submit-btn"
+      >
+        Analyze Again
+      </button>
     </form>
 
-    <p id="loading"><br />loading...<br /></p>
+    <p id="loading" class="d-none"><br />loading...<br /></p>
     <div id="result"></div>
 
+    <a href="" target="_blank" id="preview-detail"></a>
+
+    <script src="../../assets/css/bootstrap.min.js"></script>
     <script src="./index.js"></script>
   </body>
 </html>
