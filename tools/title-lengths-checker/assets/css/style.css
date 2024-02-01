@@ -1,5 +1,6 @@
 :root {
   --primaryblue: #18a0fb;
+  --primarydark: #092D49;
   --black: #2d393d;
   --darkgrey: #66757f;
   --grey: #ccd6dd;
@@ -8,9 +9,33 @@
   --primaryred: #fb1818;
 }
 
+/*
+ *  Scrollbar
+ */
+
+ #style-2::-webkit-scrollbar-track
+ {
+   /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+   /* border-radius: 10px; */
+   background-color: #F5F5F5;
+ }
+ 
+ #style-2::-webkit-scrollbar
+ {
+   width: 12px;
+   background-color: #F5F5F5;
+ }
+ 
+ #style-2::-webkit-scrollbar-thumb
+ {
+   /* border-radius: 10px; */
+   /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
+   background-color: #c3c3c3;
+ }
+
 body {
-  width: 700px;
-  font-family: Arial, sans-serif;
+  width: 410px;
+  font-family: Helvetica, sans-serif;
   margin: 0 auto;
   padding: 20px;
   font-size: 13px !important;
@@ -19,6 +44,14 @@ body {
 
 .bg-primaryblue {
   background: var(--primaryblue) !important;
+}
+
+.text-primaryblue {
+  color: var(--primaryblue) !important;
+}
+
+.bg-primarydark {
+  background: var(--primarydark) !important;
 }
 
 .metachecker-background-text-size {
@@ -71,13 +104,13 @@ body {
 }
 
 .meta-title {
-  color: var(--white) !important;
+  color: var(--black) !important;
   font-weight: 700;
   font-size: 15px;
 }
 
 .meta-desc {
-  color: var(--white) !important;
+  color: var(--black) !important;
   font-weight: 700;
   font-size: 15px;
 }
@@ -105,7 +138,6 @@ input.input-url-meta-checker:focus {
 .progress-bar_wrap {
   width: 150px;
   height: 11px;
-  background: var(--primaryblue) !important;
   display: inline-block;
   overflow: hidden;
 }
@@ -121,7 +153,8 @@ input.input-url-meta-checker:focus {
 .progress-bar_item-1.active,
 .progress-bar_item-2.active,
 .progress-bar_item-3.active {
-  background: #b1f25d;
+  background: var(--primaryblue) !important;
+  /* background: #b1f25d; */
 }
 
 .progress-bar_item-1.blank,
@@ -157,16 +190,16 @@ input.input-url-meta-checker:focus {
   right: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.5;
+  /* opacity: 0.5; */
   z-index: 1;
 }
 
 .loader {
-  border: 6px solid var(--grey);
+  border: 3px solid var(--grey);
   border-radius: 50%;
-  border-top: 6px solid var(--primaryblue);
-  width: 50px;
-  height: 50px;
+  border-top: 3px solid var(--primaryblue);
+  width: 20px;
+  height: 20px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
@@ -236,3 +269,35 @@ input.input-url-meta-checker:focus {
 .mr-3 {
   margin-right: 0.75rem !important;
 }
+
+.app-title {
+  font-size: 18px;
+  /* font-weight: 400; */
+}
+
+/* .header-text {
+  font-size: 14px;
+  line-height: 16px;
+} */
+.text-16 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.text-14 {
+  font-size: 14px;
+  line-height: 16px;
+
+}
+
+.check-stat {
+  padding-block: 10px;
+}
+
+.alert-text {
+  color: #F98181;
+}
+
+/* .btn-close {
+  top: 30px;
+} */

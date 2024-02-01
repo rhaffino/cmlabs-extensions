@@ -14,6 +14,11 @@ let urlValue = "";
 const titleElement = document.getElementById("title");
 const descElement = document.getElementById("desc");
 
+// Akbar
+const urlElement = document.getElementById("url-here");
+const urlCheck = document.getElementById("url-check");
+
+
 // Constraints
 const constrain = {
   minTitleChar: 50,
@@ -29,6 +34,9 @@ const constrain = {
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     urlValue = currentUrl;
+
+    // Akbar
+    updateUrlElement();
   });
 
   launch();
@@ -49,6 +57,13 @@ const launch = () => {
     chrome.runtime.sendMessage(message);
   });
 };
+
+// Akbar
+const updateUrlElement = () => {
+  urlElement.textContent = urlValue;
+  urlCheck.textContent = urlValue;
+};
+
 
 chrome.runtime.onMessage.addListener((message) => {
   const { event, response, status, info } = message;

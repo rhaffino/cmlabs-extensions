@@ -10,14 +10,49 @@
     />
     <link rel="stylesheet" href="../../assets/css/boxicons.min.css" />
   </head>
-  <body>
+  <body id="style-2">
     <div id="title-length-checker">
-      <p>Title & Lengths Checker</p>
+      <div class="position-relative d-flex justify-content-between align-items-center mb-3">
+        <div class="row gap-1">
+          <div class="col-4 pe-0">
+            <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-7 px-0">
+            <div class="app-title mb-0">Title Lengths Checker</div>
+          </div>
+        </div>
+          <button class="btn btn-sm btn-light px-3">Login</button>
+      </div>
       <div
-        class="container-loading d-flex justify-content-center align-items-center"
-        id="loading"
-      >
-        <div class="loader"></div>
+        class="container-loading position-relative d-flex align-items-center flex-column mb-3"
+        id="loading">
+        <div class="col-12">
+          <div class="header">
+            <div class="header-img mb-4 d-flex justify-content-center">
+              <img class="img-fluid" src="../../assets/images/icons-writing.png" alt="">
+            </div>
+            <div class="text-14 text-center">
+              <p>The length of meta-information must be ideal. So, it will display fully in SERP.</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <p class="text-warning mb-0">
+            You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="">log in or register</a> yourself.
+          </p>
+            <button type="button" class="btn-close mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div> -->
+        <div class="col-12 bg-primaryblue border-radius-5px row">
+          <div class="d-flex gap-3 align-items-center mt-3">
+            <img src="../../assets/images/guard-icon.png" alt="">
+            <p class="mb-0 text-white" id="url-here">http://....</p>
+          </div>
+          <div class="check-stat col-11 rounded-3 mx-auto bg-primarydark d-flex align-items-center my-3 gap-2 justify-content-center">
+            <p class="mb-0 text-white text-14">Checking</p>
+            <div class="loader"></div>
+          </div>
+        </div>
+        <p class="mt-2 mb-0">The checking process will take some time, while waiting please read our latest blog <a href="">here</a></p>
       </div>
       <div class="mb-3" id="cta-warning" style="display: none">
         <div class="cta-yellow px-3 py-1 cta-border-bottom">
@@ -52,14 +87,29 @@
         </div>
       </div>
       <div id="result-container" class="d-none">
-        <div class="bg-primaryblue border-radius-5px mb-3 px-3 py-3">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <p class="text-warning mb-0">
+            You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="">log in or register</a> yourself.
+          </p>
+            <button type="button" class="btn-close mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="col-12 bg-primaryblue border-radius-5px row my-3 mx-auto">
+          <div class="d-flex gap-3 align-items-center mt-3">
+            <img src="../../assets/images/guard-icon.png" alt="">
+            <p class="mb-0 text-white text-wrap" id="url-check">http://....</p>
+          </div>
+            <a href="#" class="check-stat col-11 rounded-3 mx-auto bg-white d-flex align-items-center gap-2 justify-content-center my-3 text-primaryblue fw-bold text-14 text-decoration-none">
+              Check Again!
+            </a>
+        </div>
+        <div class="border border-2 border-radius-5px mb-3 mt-4 px-3 py-3">
           <div class="row d-flex flex-column disable-mx">
             <div
-              class="d-flex align-items-center justify-content-between flex-row disable-px"
+              class="d-flex flex-column align-items-center justify-content-between flex-row disable-px"
             >
-              <div class="">
-                <span class="meta-title mr-5">PAGE TITLE</span>
-                <div class="progress-bar_wrap">
+              <div class="d-flex flex-column align-items-center">
+                <span class="meta-title">PAGE TITLE</span>
+                <div class="progress-bar_wrap d-flex justify-content-center d-none">
                   <div
                     id="titlebar1"
                     class="progress-bar_item progress-bar_item-1 blank"
@@ -74,28 +124,37 @@
                   ></div>
                 </div>
               </div>
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="text-center mx-2">
-                  <p class="mb-0 text-white">
-                    Character : <strong id="title-char">0</strong>
-                  </p>
+              <div class="d-flex align-items-center justify-content-between w-100 mt-3">
+                <div class="col-3">
+                  <div class="text-center">
+                    <p class="mb-0 text-dark">
+                      <strong class="text-primaryblue text-16" id="title-char">0</strong>
+                      <p class="text-secondary text-14 mt-1">Character</p>
+                    </p>
+                  </div>
                 </div>
-                <div class="text-center mx-2">
-                  <p class="mb-0 text-white">
-                    Pixel : <strong id="title-pixel">0px</strong>
-                  </p>
+                <div class="col-3">
+                  <div class="text-center">
+                    <p class="mb-0 text-dark">
+                      <strong class="text-16 text-primaryblue" id="title-pixel">0px</strong>
+                      <p class="text-secondary text-14 mt-1">Pixel</p>
+                    </p>
+                  </div>
                 </div>
-                <div class="text-center mx-2">
-                  <p class="mb-0 text-white">
-                    Word : <strong id="title-word">0</strong>
-                  </p>
+                <div class="col-3">
+                  <div class="text-center">
+                    <p class="mb-0 text-dark">
+                      <strong class="text-16 text-primaryblue" id="title-word">0</strong>
+                      <p class="text-secondary text-14 mt-1">Word</p>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
             <input
               id="title"
               type="text"
-              class="form-control bg-primaryblue text-white px-0 input-meta-title mb-2"
+              class="form-control bg-white text-dark px-0 input-meta-title mb-2 border-bottom"
               autocomplete="off"
               disabled
             />
@@ -103,12 +162,13 @@
               class="align-items-center d-none disable-px"
               id="title-bad-char"
             >
-              <img
-                style="width: 20px"
-                class="mr-2"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
-              />
-              <p class="mb-0 text-white" id="title-bad-char-point">
+            <img
+              style="width: 20px;"
+              class="mr-2"
+              src="../../assets/images/alert-icon.png"
+            />
+          
+              <p class="mb-0 alert-text" id="title-bad-char-point">
                 Character More Than 12
               </p>
             </div>
@@ -119,58 +179,70 @@
               <img
                 style="width: 20px"
                 class="mr-2"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
+                src="../../assets/images/alert-icon.png"
               />
-              <p class="mb-0 text-white" id="title-bad-pixel-point">
+              <p class="mb-0 text-black" id="title-bad-pixel-point">
                 Pixel More Than 12px
               </p>
             </div>
           </div>
         </div>
-        <div class="py-3 px-3 bg-primaryblue border-radius-5px">
+        <div class="border border-2 py-3 px-3 border-radius-5px">
           <div class="row d-flex flex-column disable-mx">
             <div
-              class="d-flex align-items-center justify-content-between flex-row disable-px"
+              class="d-flex flex-column align-items-center justify-content-between flex-row disable-px"
             >
               <div class="">
-                <span class="meta-desc mr-5">META DESCRIPTION</span>
-                <div class="progress-bar_wrap">
-                  <div
-                    id="descbar1"
-                    class="progress-bar_item progress-bar_item-1 blank"
-                  ></div>
-                  <div
-                    id="descbar2"
-                    class="progress-bar_item progress-bar_item-2 blank"
-                  ></div>
-                  <div
-                    id="descbar3"
-                    class="progress-bar_item progress-bar_item-3 blank"
-                  ></div>
+                <div class="d-flex flex-column align-items-center">
+                  <span class="meta-desc">META DESCRIPTION</span>
+                  <div class="progress-bar_wrap d-none">
+                    <div
+                      id="descbar1"
+                      class="progress-bar_item progress-bar_item-1 blank"
+                    ></div>
+                    <div
+                      id="descbar2"
+                      class="progress-bar_item progress-bar_item-2 blank"
+                    ></div>
+                    <div
+                      id="descbar3"
+                      class="progress-bar_item progress-bar_item-3 blank"
+                    ></div>
+                  </div>
+
                 </div>
               </div>
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="text-center mx-2">
-                  <p class="mb-0 text-white">
-                    Character : <strong id="desc-char">0</strong>
-                  </p>
+              <div class="row align-items-center justify-content-between w-100 mt-3">
+                <div class="col-3">
+                  <div class="text-center">
+                    <p class="mb-0 text-dark">
+                      <strong class="text-primaryblue text-16" id="desc-char">0</strong>
+                      <p class="text-secondary text-14 mt-1">Character</p>
+                    </p>
+                  </div>
                 </div>
-                <div class="text-center mx-2">
-                  <p class="mb-0 text-white">
-                    Pixel : <strong id="desc-pixel">0px</strong>
-                  </p>
+                <div class="col-3">
+                  <div class="text-center">
+                    <p class="mb-0 text-dark">
+                      <strong class="text-primaryblue text-16" id="desc-pixel">0px</strong>
+                      <p class="text-secondary text-14 mt-1">Pixel</p>
+                    </p>
+                  </div>
                 </div>
-                <div class="text-center mx-2">
-                  <p class="mb-0 text-white">
-                    Word : <strong id="desc-word">0</strong>
-                  </p>
+                <div class="col-3">
+                  <div class="text-center">
+                    <p class="mb-0 text-dark">
+                      <strong class="text-primaryblue text-16" id="desc-word">0</strong>
+                      <p class="text-secondary text-14 mt-1">Word</p>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
             <textarea
               id="desc"
               data-autoresize
-              class="mb-2 form-control bg-primaryblue text-white px-0 input-meta-description"
+              class="mb-2 form-control bg-white border-bottom px-0 input-meta-description"
               autocomplete="off"
               disabled
               rows="1"
@@ -183,9 +255,9 @@
               <img
                 style="width: 20px"
                 class="mr-2"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
+                src="../../assets/images/alert-icon.png"
               />
-              <p class="mb-0 text-white" id="desc-bad-char-point">
+              <p class="mb-0 alert-text" id="desc-bad-char-point">
                 Character More Than 12
               </p>
             </div>
@@ -196,9 +268,9 @@
               <img
                 style="width: 20px"
                 class="mr-2"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAdZJREFUaEPtmWtuwyAQhOFkbU7W9mRJT0a9EkgOgWV3dtzKlf0vkWPvN7MPIDmd/Monjz9dAH/t4OXAv3WglPJZ4d5SSl8558cRsIekUA3+owtYIBoUjYUOMAm+BUyHoAKUUt5TSndN3rzZQJN/y03qw0opErxAtEvyfv9Zvqe6QAOYqH+rAH093FhFzQR4UT/nLABp4AzNBQrATP2m8pFdiQUwVb8VwwCC4kIYYKW+AkApaAbAUn0NItpWQwBW9fd9v2y5xJzQUQCz+ke5AAMg6u8gaC5EAFT1+1TZ5/qoraK1AAFYAtAA6nCjuIACLF9uAJCl9dMSA3HBDWBRf6TwKDhGR0IAluo7AMIuuABGy+W2YOvX+KsUYnUkM4C3bToAQi54AFxDywoQ7UgmAK/61hpgTGcrgEt9L0Bk07MEQNRHNu3opscC4FYfAagu9AW93PSoABH1PUUc2fSsAGD1EYCJC4/ZrJH7pwAR9ZEiRjc9GgCsPgHAPNyGAFH10SJGXJgB9AqoecgIeLCWMnUkK8ARMXqfORTxTADD81StiF8KySsZ8f7pQFvNATkal21ff0ROjE19lBzPf2v/7CyXEr8VKfqeCwBVjvW7ywGWkuhzTu/AD1ayZkATnbGlAAAAAElFTkSuQmCC"
+                src="../../assets/images/alert-icon.png"
               />
-              <p class="mb-0 text-white" id="desc-bad-pixel-point">
+              <p class="mb-0 alert-text" id="desc-bad-pixel-point">
                 Pixel More Than 12px
               </p>
             </div>
