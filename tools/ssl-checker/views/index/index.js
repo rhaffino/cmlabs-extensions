@@ -72,33 +72,48 @@ function renderResult(response){
   }
 
   const display = document.createElement('div');
-  display.innerHTML = `<div class="d-flex align-items-center mx-5">
-                          ${icon}
-                          <span class="mx-3 technology-name h5 mb-0 text-darkgrey">TLS Certificate</span>
-                      </div>
-                      <hr>
-                      <div class="mx-5 text-black font-weight-bold">
-                          <p>Common Name = ${response.data.subject.CN}</p>
-                          <p>Subject Alternative Names = ${response.data.subjectaltname}</p>
-                          <p>Issuer = ${response.data.issuer.CN}</p>
-                          <p>Serial Number = ${response.data.serialNumber}</p>
-                          <p>SHA1 Thumbprint = ${response.data.fingerprint}</p>
-                      </div>
-                      <div class="d-flex align-items-center mx-5 mt-10">
-                          ${icon}
-                          <span class="mx-3 technology-name h5 mb-0 text-darkgrey">TLS Certificate Expiration Date</span>
-                      </div>
-                      <hr>
-                      <div class="mx-5 text-black font-weight-bold">
-                          <p>${displayText}</p>
-                      </div>
-                      <div class="d-flex align-items-center mx-5 mt-10">
-                          ${icon}
-                          <span class="mx-3 technology-name h5 mb-0 text-darkgrey">TLS Certificate Installation Status</span>
-                      </div>
-                      <hr>
-                      <div class="mx-5 text-black font-weight-bold">
-                          <p>${textExpired}</p>
+  display.innerHTML = `
+                      <div class="accordion" id="accordion-tsl">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              TSL Certificate
+                            </button>
+                          </h2>
+                          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              <p>Common Name = ${response.data.subject.CN}</p>
+                              <p>Subject Alternative Names = ${response.data.subjectaltname}</p>
+                              <p>Issuer = ${response.data.issuer.CN}</p>
+                              <p>Serial Number = ${response.data.serialNumber}</p>
+                              <p>SHA1 Thumbprint = ${response.data.fingerprint}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              TSL Certificate Expiration Date
+                            </button>
+                          </h2>
+                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              <p>${displayText}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                              TSL Certificate Installation Status
+                            </button>
+                          </h2>
+                          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              <p>${textExpired}</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>`;
 
   const resultElement = document.getElementById('result');
@@ -122,15 +137,15 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 const showLoading = (status) => {
-  var loading = document.getElementById("loading");
+  // var loading = document.getElementById("loading");
 
-  if (status) {
-    loading.classList.remove("d-none");
-    loading.classList.add("d-flex");
-  } else {
-    loading.classList.remove("d-flex");
-    loading.classList.add("d-none");
-  }
+  // if (status) {
+  //   loading.classList.remove("d-none");
+  //   loading.classList.add("d-flex");
+  // } else {
+  //   loading.classList.remove("d-flex");
+  //   loading.classList.add("d-none");
+  // }
 };
 
 const checkLocalStorage = () => {

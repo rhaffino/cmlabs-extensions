@@ -1,31 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
     <link
       rel="stylesheet"
       type="text/css"
       href="../../assets/css/ssl-checker.css"
     />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../assets/css/bootstrap.min.css"
-    />
   </head>
   <body>
     <div class="popup">
-      <h1>SSL CHECKER</h1>
-      <p id="url-container"></p>
-      <div
-        class="container-loading d-none justify-content-center align-items-center"
-        id="loading"
-      >
-        <div class="loader"></div>
+      <div class="header__container">
+        <div class="logo__container">
+          <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" alt="logo cmlabs" class="logo__img">
+          <span>SSL CHECKER</span>
+        </div>
+        <div class="login__container">
+          <a href="#" class="btn btn__login">Login</a>
+        </div>
       </div>
+
+      <div class="hero__extension">
+        <img src="../../assets/icon/code.svg" alt="Icon SSL Checker" class="icon__extension">
+        <p>Check the validity of the SSL certificate on your website.</p>
+      </div>
+
+      <div class="alert alert-warning alert-dismissible fade show alert__extension" role="alert">
+        You have reached the usage limit of this tool. Please <strong>log in or register</strong> yourself.
+        <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
+      </div>
+
+      <div class="form__container">
+        <div class="label__url">
+          <img src="../../assets/icon/shape.svg" alt="Icon SSL Checker" class="icon__form">
+          <span id="url-container"></span>
+        </div>
+        <div class="full__col">
+          <button href="#" class="btn btn__form">
+            Check SSL Again!
+            <img src="../../assets/icon/loader.svg" alt="Icon Loader Extension" class="icon__loader">
+          </button>
+        </div>
+      </div>
+      
+      <p class="info__text">The checking process will take some time, while waiting please read our latest blog <a href="#">here</a></p>
+
       <div id="result">
+        <!-- <div class="container-loading d-none justify-content-center align-items-center" id="loading">
+          <div class="loader"></div>
+        </div> -->
       </div>
     </div>
+    <script src="../../assets/js/bootstrap.js"></script>
     <script src="./index.js"></script>
-  </body>
+    </body>
 </html>
