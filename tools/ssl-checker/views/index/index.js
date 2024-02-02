@@ -8,20 +8,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const launch = () => {
-  showLoading(true);
-
-  tabChrome().then((currentUrl) => {
-    console.log(currentUrl);
-
-    const message = {
-      event: "OnStartLinkAnalysis",
-      data: {
-        url: currentUrl,
-      },
-    };
-
-    chrome.runtime.sendMessage(message);
-  });
+  setTimeout(() => {
+    showLoading(true);
+  
+    tabChrome().then((currentUrl) => {
+      console.log(currentUrl);
+  
+      const message = {
+        event: "OnStartLinkAnalysis",
+        data: {
+          url: currentUrl,
+        },
+      };
+  
+      chrome.runtime.sendMessage(message);
+    });
+  }, 5000);
 };
 
 function tabChrome() {
@@ -137,15 +139,21 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 const showLoading = (status) => {
-  // var loading = document.getElementById("loading");
+  var loading = document.getElementById("loading");
+  const loadingContainer = document.getElementById("loading__container");
 
-  // if (status) {
-  //   loading.classList.remove("d-none");
-  //   loading.classList.add("d-flex");
-  // } else {
-  //   loading.classList.remove("d-flex");
-  //   loading.classList.add("d-none");
-  // }
+  if (status) {
+    loading.classList.remove("d-none");
+    loading.classList.add("d-flex");
+    loadingContainer.classList.remove("d-none");
+    loadingContainer.classList.add("d-flex");
+  } else {
+    loading.classList.remove("d-flex");
+    loading.classList.add("d-none");
+    loadingContainer.classList.remove("d-flex");
+    loadingContainer.classList.add("d-none");
+
+  }
 };
 
 const checkLocalStorage = () => {

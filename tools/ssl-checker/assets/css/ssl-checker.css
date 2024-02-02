@@ -268,3 +268,17 @@
     transform: rotate(360deg);
   }
 }
+
+.loading-container {
+    background-color: var(--Primary-130);
+}
+
+
+#btn-check {
+    transition: .2s all ease-in-out;
+}
+#btn-check:hover {
+    background: var(--Primary-130);
+    color: var(--white);
+    transform: translateY(-2px);
+}
