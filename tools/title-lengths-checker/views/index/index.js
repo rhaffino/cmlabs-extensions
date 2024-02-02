@@ -43,19 +43,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const launch = () => {
-  showResult(false);
-  showLoading(true);
+  setTimeout(() => {
+    showLoading(true);
 
-  tabChrome().then((currentUrl) => {
-    const message = {
-      event: "OnStartTitleLengthChecker",
-      data: {
-        url: currentUrl,
-      },
-    };
+    tabChrome().then((currentUrl) => {
+      const message = {
+        event: "OnStartTitleLengthChecker",
+        data: {
+          url: currentUrl,
+        },
+      };
 
-    chrome.runtime.sendMessage(message);
-  });
+      chrome.runtime.sendMessage(message);
+    });
+  }, 5000); //5 detik
 };
 
 // Akbar
@@ -226,7 +227,7 @@ const fillTitleBar = function (param, cta = false) {
   }
 
   document.getElementById("title-char").textContent = param.char;
-  document.getElementById("title-pixel").textContent = param.pixel + "px";
+  document.getElementById("title-pixel").textContent = param.pixel;
   document.getElementById("title-word").textContent = param.word;
   if (param.char > 0) {
     if (param.badChar !== 0) {
@@ -288,7 +289,7 @@ const fillDescBar = function (param, cta = false) {
   }
 
   document.getElementById("desc-char").textContent = param.char;
-  document.getElementById("desc-pixel").textContent = param.pixel + "px";
+  document.getElementById("desc-pixel").textContent = param.pixel;
   document.getElementById("desc-word").textContent = param.word;
   if (param.char > 0) {
     if (param.badChar !== 0) {
@@ -370,3 +371,4 @@ const displayResultTitleLengthChecker = (response) => {
   showLoading(false);
   showResult(true);
 };
+
