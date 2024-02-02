@@ -1,5 +1,6 @@
 :root {
   --primaryblue: #18a0fb;
+  --hover-primaryblue: #42b2fd;
   --primarydark: #092D49;
   --black: #2d393d;
   --darkgrey: #66757f;
@@ -191,98 +192,26 @@ input.input-url-meta-checker:focus {
   z-index: 1;
 }
 
-/* .loader {
-  border: 3.9px dotted var(--white);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-} */
-
-.spinner {
-  /* position: absolute; */
+.loader {
   position: relative;
-  width: 3.5px;
-  height: 3.5px;
+  width: 20px; /* control the size */
+  aspect-ratio: 1;
+  display: grid;
+  animation: spin 3s infinite linear; 
 }
 
-.spinner div {
-  position: absolute;
-  width: 50%;
-  height: 150%;
-  background: #ffffff;
-  transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
-  animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
+.loader img {
+  width: 100%;
+  height: 100%;
 }
 
-.spinner div:nth-child(1) {
-  --delay: 0.1;
-  --rotation: 360;
-  --translation: 150;
-}
 
-.spinner div:nth-child(2) {
-  --delay: 0.2;
-  --rotation: 45;
-  --translation: 150;
-}
-
-.spinner div:nth-child(3) {
-  --delay: 0.3;
-  --rotation: 90;
-  --translation: 150;
-}
-
-.spinner div:nth-child(4) {
-  --delay: 0.4;
-  --rotation: 135;
-  --translation: 150;
-}
-
-.spinner div:nth-child(5) {
-  --delay: 0.5;
-  --rotation: 180;
-  --translation: 150;
-}
-
-.spinner div:nth-child(6) {
-  --delay: 0.6;
-  --rotation: 225;
-  --translation: 150;
-}
-
-.spinner div:nth-child(7) {
-  --delay: 0.7;
-  --rotation: 270;
-  --translation: 150;
-}
-
-.spinner div:nth-child(8) {
-  --delay: 0.8;
-  --rotation: 315;
-  --translation: 150;
-}
-
-.spinner div:nth-child(9) {
-  --delay: 0.9;
-  --rotation: 324;
-  --translation: 150;
-}
-
-.spinner div:nth-child(10) {
-  --delay: 1;
-  --rotation: 360;
-  --translation: 150;
-}
-
-@keyframes spinner-fzua35 {
-  0%, 10%, 20%, 30%, 50%, 60%, 70%, 80%, 90%, 100% {
-    transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-
-  50% {
-    transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1.5%));
+  100% {
+    transform: rotate(360deg);
   }
 }
 
@@ -293,15 +222,6 @@ input.input-url-meta-checker:focus {
   }
   100% {
     -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
 
@@ -374,6 +294,13 @@ input.input-url-meta-checker:focus {
 
 .check-stat {
   padding-block: 10px;
+  transition: all .2s ease-in-out;
+}
+.check-stat-btn:hover {
+  background: var(--hover-primaryblue) !important;
+  color: var(--white) !important;
+  border-bottom: .2px var(--white) solid;
+  transform: translateY(-2px);
 }
 
 .alert-text {
