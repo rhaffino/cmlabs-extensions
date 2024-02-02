@@ -3,12 +3,14 @@
   <head>
     <title>Title & Lengths Checker</title>
     <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/fonts.css" />
     <link
       rel="stylesheet"
       type="text/css"
       href="../../assets/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="../../assets/css/boxicons.min.css" />
+    
   </head>
   <body id="style-2">
     <div id="title-length-checker">
@@ -49,7 +51,9 @@
           </div>
           <div class="check-stat col-11 rounded-3 mx-auto bg-primarydark d-flex align-items-center my-3 gap-2 justify-content-center">
             <p class="mb-0 text-white text-14">Checking</p>
-            <div class="loader"></div>
+            <div class="loader">
+              <img src="../../assets/images/loader.png" alt="">
+            </div>
           </div>
         </div>
         <p class="mt-2 mb-0">The checking process will take some time, while waiting please read our latest blog <a href="">here</a></p>
@@ -87,18 +91,19 @@
         </div>
       </div>
       <div id="result-container" class="d-none">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <p class="text-warning mb-0">
-            You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="">log in or register</a> yourself.
+        <div class="alert alert-warning alert-dismissible fade show custom-alert" role="alert">
+          <p class="text-warning mb-0 fw-light">
+            You have reached the usage limit of this tool. Please <a class="text-warning fw-normal" href="#">log in or register</a> yourself.
           </p>
-            <button type="button" class="btn-close mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-sm mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+
         <div class="col-12 bg-primaryblue border-radius-5px row my-3 mx-auto">
           <div class="d-flex gap-3 align-items-center mt-3">
             <img src="../../assets/images/guard-icon.png" alt="">
-            <p class="mb-0 text-white text-wrap" id="url-check">http://....</p>
+            <p class="mb-0 text-white text-wrap fw-light" id="url-check">http://....</p>
           </div>
-            <a href="#" class="check-stat col-11 rounded-3 mx-auto bg-white d-flex align-items-center gap-2 justify-content-center my-3 text-primaryblue fw-bold text-14 text-decoration-none">
+            <a href="#" class="check-stat check-stat-btn col-11 rounded-3 mx-auto bg-white d-flex align-items-center gap-2 justify-content-center my-3 text-primaryblue fw-bold text-14 text-decoration-none">
               Check Again!
             </a>
         </div>
@@ -136,7 +141,7 @@
                 <div class="col-3">
                   <div class="text-center">
                     <p class="mb-0 text-dark">
-                      <strong class="text-16 text-primaryblue" id="title-pixel">0px</strong>
+                      <strong class="text-16 text-primaryblue" id="title-pixel">0</strong>
                       <p class="text-secondary text-14 mt-1">Pixel</p>
                     </p>
                   </div>
@@ -154,7 +159,7 @@
             <input
               id="title"
               type="text"
-              class="form-control bg-white text-dark px-0 input-meta-title mb-2 border-bottom"
+              class="form-control bg-white text-dark px-0 input-meta-title mb-2 border-bottom text-14"
               autocomplete="off"
               disabled
             />
@@ -181,7 +186,7 @@
                 class="mr-2"
                 src="../../assets/images/alert-icon.png"
               />
-              <p class="mb-0 text-black" id="title-bad-pixel-point">
+              <p class="mb-0 alert-text" id="title-bad-pixel-point">
                 Pixel More Than 12px
               </p>
             </div>
@@ -224,7 +229,7 @@
                 <div class="col-3">
                   <div class="text-center">
                     <p class="mb-0 text-dark">
-                      <strong class="text-primaryblue text-16" id="desc-pixel">0px</strong>
+                      <strong class="text-primaryblue text-16" id="desc-pixel">0</strong>
                       <p class="text-secondary text-14 mt-1">Pixel</p>
                     </p>
                   </div>
@@ -242,7 +247,7 @@
             <textarea
               id="desc"
               data-autoresize
-              class="mb-2 form-control bg-white border-bottom px-0 input-meta-description"
+              class="mb-2 form-control bg-white border-bottom px-0 input-meta-description text-14"
               autocomplete="off"
               disabled
               rows="1"
@@ -281,5 +286,8 @@
     </div>
     <span id="titlesizer"></span>
     <span id="descsizer"></span>
+
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    
   </body>
 </html>
