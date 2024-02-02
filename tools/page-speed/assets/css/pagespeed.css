@@ -59,6 +59,10 @@ header {
     left: 0;
 }
 
+.card-url {
+    background: #18a0fb;
+}
+
 .value-red {
     color:#FF5656;
 }
