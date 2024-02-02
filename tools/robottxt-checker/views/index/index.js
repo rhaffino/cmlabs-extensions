@@ -7,7 +7,7 @@ let inputUrl = "";
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     var urlContainer = document.getElementById("url-input");
-    urlContainer.value = currentUrl;
+    urlContainer.textContent = currentUrl;
     inputUrl = currentUrl;
   });
 
@@ -105,49 +105,44 @@ const displayResultLinkAnalysis = (response) => {
     response.data[0] &&
     response.data[0].robots
   ) {
+
     const robots = response.data[0].robots;
 
-    const robotsUrlParagraph = document.createElement("p");
-    robotsUrlParagraph.textContent = "Robots URL:";
+    resultElement.innerHTML = `
+      <div class="result__container result__container-active">
+        <div class="group__result">
+          <label for="url-website" class="result__label">URL Website</label>
+          <input type="text" id="url-website" placeholder="`+ robots.url +`" value="`+ robots.url +`" class="result__input" readonly>          
+          <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
+        </div>
 
-    const robotsUrlLink = document.createElement("a");
-    robotsUrlLink.href = robots.url;
-    robotsUrlLink.textContent = robots.url;
+        <div class="group__result">
+          <label for="url-website" class="result__label">Host</label>
+          <input type="text" id="url-website" placeholder="`+ robots.parser.host +`" value="`+ robots.parser.host +`" class="result__input error__result" readonly>
+          <img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">
+        </div>
 
-    robotsUrlParagraph.appendChild(robotsUrlLink);
+        <div class="group__result">
+          <label for="url-website" class="result__label">Sitemap</label>
+          <input type="text" id="url-website" placeholder="`+ robots.parser.sitemaps +`" value="`+ robots.parser.sitemaps +`" class="result__input" readonly>
+          <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
+        </div>
 
-    const allowOnNeutralParagraph = document.createElement("p");
-    allowOnNeutralParagraph.textContent = "Allow on neutral:";
+        <div class="group__result">
+          <label for="url-website" class="result__label">Robots.txt</label>
+          <input type="text" id="url-website" placeholder="Available" value="Available" class="result__input" readonly>
+          <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
+        </div>
 
-    const allowOnNeutralText = document.createElement("span");
-    allowOnNeutralText.textContent = robots.allowOnNeutral ? "Yes" : "No";
-
-    allowOnNeutralParagraph.appendChild(allowOnNeutralText);
-
-    const rawRobotsParagraph = document.createElement("p");
-    rawRobotsParagraph.textContent = "Raw robots.txt:";
-
-    const rawRobotsTextArea = document.createElement("textarea");
-    rawRobotsTextArea.textContent = robots.rawRobots;
-
-    rawRobotsTextArea.style.minWidth = "300px";
-    rawRobotsTextArea.style.minHeight = "200px";
-
-    rawRobotsParagraph.appendChild(rawRobotsTextArea);
-
-    document.body.appendChild(robotsUrlParagraph);
-    document.body.appendChild(allowOnNeutralParagraph);
-    document.body.appendChild(rawRobotsParagraph);
+        <div class="details__container">
+          <a href="`+ domainURL + `/en/robotstxt-checker=` + inputUrl+`" class="see__details">Want to see more details? See details</a>
+          <img src="../../assets/icon/arrow-right.svg" alt="icon arrow" class="detail__icon">
+        </div>
+      </div>
+    `;
 
     logButton.classList.remove("d-none");
     logButton.classList.add("d-block");
-
-    const urlDetail = document.getElementById("preview-detail");
-    urlDetail.textContent = "Lihat Detail";
-    urlDetail.setAttribute(
-      "href",
-      "" + domainURL + "/en/robotstxt-checker=" + inputUrl
-    );
 
     const message = {
       event: "onResetResponse",

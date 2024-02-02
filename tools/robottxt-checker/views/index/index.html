@@ -3,37 +3,53 @@
   <head>
     <title>Robots.txt Checker</title>
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/robots-txt-checker.css"/>
   </head>
-  <body class="p-3" style="width: 300px; margin: 0 auto">
-    <h5 class="mb-3">Robots.txt Checker</h5>
-    <div id="alert" class="alert alert-warning d-flex" role="alert">
-      You can only search 5 times in 1 hour
-    </div>
-    <form id="url-form">
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          id="url-input"
-          name="url"
-          placeholder="Masukkan URL..."
-        />
+  <body>
+    <div class="popup">
+      <div class="header__container">
+        <div class="logo__container">
+          <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" alt="logo cmlabs" class="logo__img">
+          <span>Robots.txt Checker</span>
+        </div>
+        <div class="login__container">
+          <a href="#" class="btn btn__login">Login</a>
+        </div>
       </div>
-      <button
-        type="submit"
-        class="btn btn-success btn-block d-none"
-        id="submit-btn"
-      >
-        Analyze Again
-      </button>
-    </form>
 
-    <p id="loading" class="d-none"><br />loading...<br /></p>
-    <div id="result"></div>
+      <div class="hero__extension">
+        <img src="../../assets/icon/writing.svg" alt="Icon Robots.txt Checker" class="icon__extension">
+        <p>Set the index status of the link on your website. Help Google optimize the indexing process and improve the performance of your website.</p>
+      </div>
 
-    <a href="" target="_blank" id="preview-detail"></a>
+      <div class="alert alert-warning alert-dismissible fade show alert__extension" role="alert">
+        You have reached the usage limit of this tool, to use this tool for further activities, please <strong>log in / register</strong> yourself. Kindly try again in one hour.
+        <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
+      </div>
 
-    <script src="../../assets/css/bootstrap.min.js"></script>
+      <div class="form__container">
+        <div class="label__url">
+          <img src="../../assets/icon/shape.svg" alt="Icon SSL Checker" class="icon__form">
+          <span id="url-input"></span>
+        </div>
+        <div class="full__col">
+          <button href="#" class="btn btn__form" id="submit-btn">
+            Check URL Again!
+            <img src="../../assets/icon/loader.svg" alt="Icon Loader Extension" class="icon__loader">
+          </button>
+        </div>
+      </div>
+
+      <p class="info__text">The checking process will take some time, while waiting please read our latest blog <a href="#">here</a></p>
+
+      <p id="loading" class="d-none"><br />loading...<br /></p>
+      <div id="result"></div>
+      <a href="" target="_blank" id="preview-detail"></a>
+    </div>
+
+    <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="./index.js"></script>
   </body>
 </html>
