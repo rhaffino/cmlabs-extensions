@@ -9,19 +9,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const launch = () => {
   showLoading(true);
-
-  tabChrome().then((currentUrl) => {
-    console.log(currentUrl);
-
-    const message = {
-      event: "OnStartLinkAnalysis",
-      data: {
-        url: currentUrl,
-      },
-    };
-
-    chrome.runtime.sendMessage(message);
-  });
+  setTimeout(() => {
+  
+    tabChrome().then((currentUrl) => {
+      console.log(currentUrl);
+  
+      const message = {
+        event: "OnStartLinkAnalysis",
+        data: {
+          url: currentUrl,
+        },
+      };
+  
+      chrome.runtime.sendMessage(message);
+    });
+  }, 5000);
 };
 
 function tabChrome() {
@@ -137,15 +139,31 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 const showLoading = (status) => {
-  // var loading = document.getElementById("loading");
+  var loading = document.getElementById("loading");
+  const loadingContainer = document.getElementById("loading__container");
+  const headerHero = document.getElementById("header");
+  const btnCheck = document.getElementById("btn-check");
 
-  // if (status) {
-  //   loading.classList.remove("d-none");
-  //   loading.classList.add("d-flex");
-  // } else {
-  //   loading.classList.remove("d-flex");
-  //   loading.classList.add("d-none");
-  // }
+  if (status) {
+    loading.classList.remove("d-none");
+    loading.classList.add("d-flex");
+    loadingContainer.classList.remove("d-none");
+    loadingContainer.classList.add("d-flex");
+    headerHero.classList.remove("d-none");
+    headerHero.classList.add("d-flex");
+    btnCheck.classList.remove("d-block");
+    btnCheck.classList.add("d-none");
+  } else {
+    loading.classList.remove("d-flex");
+    loading.classList.add("d-none");
+    loadingContainer.classList.remove("d-flex");
+    loadingContainer.classList.add("d-none");
+    headerHero.classList.remove("d-block");
+    headerHero.classList.add("d-none");
+    btnCheck.classList.remove("d-none");
+    btnCheck.classList.add("d-flex");
+
+  }
 };
 
 const checkLocalStorage = () => {

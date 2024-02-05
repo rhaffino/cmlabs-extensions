@@ -15,6 +15,16 @@
   --primary-font: "Helvetica Now Display", sans-serif;
 }
 
+.text-14 {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.text-16 {
+    font-size: 16px;
+    line-height: 20px;
+}
+
 /* Header */
 .header__container{
     display: flex;
@@ -172,6 +182,7 @@
 }
 
 .icon__loader{
+    width: 20px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
@@ -336,4 +347,18 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.loading-container {
+    background-color: var(--Primary-130);
+}
+
+
+#btn-check {
+    transition: .2s all ease-in-out;
+}
+#btn-check:hover {
+    background: var(--Primary-130);
+    color: var(--white);
+    transform: translateY(-2px);
 }
