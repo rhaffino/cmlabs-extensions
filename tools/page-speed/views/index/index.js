@@ -188,6 +188,8 @@ const showLoading = (status) => {
     loading.classList.add("d-flex");
     chartElement.classList.remove("d-flex");
     chartElement.classList.add("d-none");
+    logButton.classList.remove("d-flex");
+    logButton.classList.add("d-none");
     crawlingElement.classList.add("d-flex");
     crawlingElement.classList.remove("d-none");
   } else {
@@ -195,6 +197,8 @@ const showLoading = (status) => {
     loading.classList.add("d-none");
     chartElement.classList.remove("d-none");
     chartElement.classList.add("d-flex");
+    logButton.classList.remove("d-none");
+    logButton.classList.add("d-flex");
     crawlingElement.classList.add("d-none");
     crawlingElement.classList.remove("d-flex");
   }
