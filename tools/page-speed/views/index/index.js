@@ -2,7 +2,8 @@ var domainURL = "https://tools.cmlabs.dev";
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const crawlingElement = document.getElementById("crawling-status");
-const chartElement = document.getElementById("pagespeed-tab")
+const chartElement = document.getElementById("pagespeed-tab");
+
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
@@ -23,9 +24,8 @@ const launch = async () => {
   const isDataFetched = await checkFetchStatus();
 
   if (isDataFetched) {
-    logButton.classList.remove("d-block");
-    logButton.classList.add("d-none");
-    crawlingElement.classList.remove("d-block");
+    
+    crawlingElement.classList.add("d-flex");
     crawlingElement.classList.remove("d-none");
   } else {
     tabChrome().then((currentUrl) => {
@@ -188,15 +188,15 @@ const showLoading = (status) => {
     loading.classList.add("d-flex");
     chartElement.classList.remove("d-flex");
     chartElement.classList.add("d-none");
-    crawlingElement.classList.remove("d-flex")
-    crawlingElement.classList.remove("d-none")
+    crawlingElement.classList.add("d-flex");
+    crawlingElement.classList.remove("d-none");
   } else {
     loading.classList.remove("d-flex");
     loading.classList.add("d-none");
     chartElement.classList.remove("d-none");
     chartElement.classList.add("d-flex");
-    crawlingElement.classList.remove("d-none")
-    crawlingElement.classList.remove("d-flex")
+    crawlingElement.classList.add("d-none");
+    crawlingElement.classList.remove("d-flex");
   }
 };
 
