@@ -1,3 +1,21 @@
+/* Global Color */
+:root {
+    --Gray-20: #F9F9F9;
+    --Dark-30: #92959C;
+    --Gray-60: #F0F0F0;
+    --Gray-80: #D0D0D0;
+    --Dark-60: #3B3F4C;
+    --Dark-70: #252A38;
+    --Primary-70: #1F95F5;
+    --Primary-130: #092D49;
+    --Secondary-70: #FFBE40;
+    --primary-font: "Plus Jakarta Sans", "Helvetica Now Display", sans-serif;
+  }
+  
+body {
+    font-family: var(--primary-font);
+}
+
 
 header {
     width: 100%;

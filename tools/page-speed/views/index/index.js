@@ -3,6 +3,7 @@ const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const crawlingElement = document.getElementById("crawling-status");
 const chartElement = document.getElementById("pagespeed-tab");
+const footerLoading = document.getElementById("footer-loading");
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -82,7 +83,11 @@ function renderResult(data) {
 
   // Show Current URL Check Pagespeed Detail
   var urlDetail = document.getElementById("preview-detail");
-  urlDetail.textContent = "Lihat Detail";
+  // const node = document.createElement("span");
+  // const textNode = document.createTextNode("Want to see more details? See details");
+  // node.appendChild(textNode);
+  // urlDetail.appendChild(node);
+  urlDetail.textContent = "Want to see more details? See details";
   urlDetail.setAttribute(
     "href",
     "" + domainURL + "/en/pagespeed-test?url=" + data.id
@@ -192,6 +197,8 @@ const showLoading = (status) => {
     logButton.classList.add("d-none");
     crawlingElement.classList.add("d-flex");
     crawlingElement.classList.remove("d-none");
+    footerLoading.classList.remove("d-none");
+    footerLoading.classList.add("d-block");
   } else {
     loading.classList.remove("d-flex");
     loading.classList.add("d-none");
@@ -200,7 +207,10 @@ const showLoading = (status) => {
     logButton.classList.remove("d-none");
     logButton.classList.add("d-flex");
     crawlingElement.classList.add("d-none");
-    crawlingElement.classList.remove("d-flex");
+    crawlingElement.classList.remove("d-block");
+    footerLoading.classList.remove("d-block");
+    footerLoading.classList.add("d-none");
+
   }
 };
 
