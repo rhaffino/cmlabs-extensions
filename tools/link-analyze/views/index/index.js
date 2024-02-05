@@ -1,6 +1,9 @@
 const domainURL = "https://tools.cmlabs.dev";
 let inputUrl = "";
 const loadingElement = document.getElementById("loading");
+const loadingContainer = document.getElementById("loading__container");
+const headerHero = document.getElementById("header");
+const btnCheck = document.getElementById("btn-check");
 const resultElement = document.getElementById("result");
 const logButton = document.getElementById("submit-btn");
 var analyzeChart = undefined;
@@ -88,9 +91,21 @@ const showLoading = (status) => {
   if (status) {
     loadingElement.classList.remove("d-none");
     loadingElement.classList.add("d-block");
+    loadingContainer.classList.remove("d-none");
+    loadingContainer.classList.add("d-block");
+    headerHero.classList.remove("d-none");
+    headerHero.classList.add("d-flex");
+    btnCheck.classList.remove("d-block");
+    btnCheck.classList.add("d-none");
   } else {
     loadingElement.classList.remove("d-block");
     loadingElement.classList.add("d-none");
+    loadingContainer.classList.remove("d-block");
+    loadingContainer.classList.add("d-none");
+    headerHero.classList.remove("d-block");
+    headerHero.classList.add("d-none");
+    btnCheck.classList.remove("d-none");
+    btnCheck.classList.add("d-flex");
   }
 };
 
