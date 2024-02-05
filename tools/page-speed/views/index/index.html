@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
     <link
       rel="stylesheet"
@@ -15,145 +16,179 @@
   </head>
   <body>
     <div class="popup">
-      <h1>PAGESPEED TEST</h1>
-      <p>Check Up Page Speed And Web Issues</p>
-      <p id="url-container"></p>
+      <header>
+        <span>
+          <img src="/assets/images/icon-header.svg" alt="" />
+          Page Speed Test
+        </span>
+        <button class="btn btn-sm bg-white">Login</button>
+      </header>
+      <img src="/assets/images/timer-logo.svg" alt="" />
+      <p>
+        See your website performance on mobile and desktop gadget versions. Get
+        the guidance to improve your web pages score for better SEO.
+      </p>
       <div id="result"></div>
-      <div class="d-flex justify-content-center">
-        <button id="log-button" class="btn btn-success btn-block d-none">
-          Re-Test
-        </button>
-      </div>
 
       <div class="row">
         <div class="col-12">
-          <div class="card mt-4">
-            <div class="card-body">
+          <div
+            class="card p-3 flex flex-row align-items-center justify-content-between"
+            style="background-color: #18a0fb; color: white; margin-top: 25px"
+          >
+            <div class="">
+              <img
+                src="/assets/images/guard.svg"
+                alt=""
+                class=""
+                style="width: 32px"
+              />
+              <span id="url-container" class="text-white"></span>
+            </div>
+            <button
+              class="btn w-25 px-2 py-1 text-white d-flex justify-content-center align-items-center gap-3"
+              style="background-color: #2d393d"
+              id="crawling-status"
+            >
+              <span> Crawling </span>
               <div
-                class="container-loading d-none justify-content-center align-items-center"
+                class="container-loading d-none justify-content-end align-items-center"
                 id="loading"
               >
-                <div class="loader"></div>
+              <img class="loader" src="/assets/images/loader.svg" alt="">
               </div>
-              <div class="row justify-content-between" id="pagespeed-tab">
-                <div class="col-2">
-                  <div class="circleProgressBar" id="performancePB">
-                    <div
-                      class="progress progress-red performance"
-                      data-percentage="0"
-                    >
-                      <span class="progress-left">
-                        <span
-                          class="progress-bar progress-bar-performance"
-                        ></span>
-                      </span>
-                      <span class="progress-right">
-                        <span
-                          class="progress-bar progress-bar-performance"
-                        ></span>
-                      </span>
-                      <div class="progress-value" style="width: 100%">
-                        <div class="value-performance value-red">0</div>
-                      </div>
+            </button>
+            <button
+              id="log-button"
+              class="btn bg-white w-25 px-2 py-1 d-none justify-content-center"
+              style="color: #18a0fb;"
+            >
+              Re-Test
+            </button>
+          </div>
+          <div class="mt-4">
+            <div class="row justify-content-between d-none" id="pagespeed-tab">
+              <div class="col-2">
+                <div class="circleProgressBar" id="performancePB">
+                  <div
+                    class="progress progress-red performance"
+                    data-percentage="0"
+                  >
+                    <span class="progress-left">
+                      <span
+                        class="progress-bar progress-bar-performance"
+                      ></span>
+                    </span>
+                    <span class="progress-right">
+                      <span
+                        class="progress-bar progress-bar-performance"
+                      ></span>
+                    </span>
+                    <div class="progress-value" style="width: 100%">
+                      <div class="value-performance value-red">0</div>
                     </div>
-                    <h2 class="font-weight-bold text-center mb-4 h6 text-black">
-                      Peformance
-                    </h2>
                   </div>
+                  <h2 class="font-weight-bold text-center mb-4 h6 text-black">
+                    Peformance
+                  </h2>
                 </div>
-                <div class="col-2">
-                  <div class="circleProgressBar" id="accessibilityPB">
-                    <div
-                      class="progress progress-red accessibility"
-                      data-percentage="0"
-                    >
-                      <span class="progress-left">
-                        <span
-                          class="progress-bar progress-bar-accessibility"
-                        ></span>
-                      </span>
-                      <span class="progress-right">
-                        <span
-                          class="progress-bar progress-bar-accessibility"
-                        ></span>
-                      </span>
-                      <div class="progress-value" style="width: 100%">
-                        <div class="value-accessibility value-red">0</div>
-                      </div>
+              </div>
+              <div class="col-2">
+                <div class="circleProgressBar" id="accessibilityPB">
+                  <div
+                    class="progress progress-red accessibility"
+                    data-percentage="0"
+                  >
+                    <span class="progress-left">
+                      <span
+                        class="progress-bar progress-bar-accessibility"
+                      ></span>
+                    </span>
+                    <span class="progress-right">
+                      <span
+                        class="progress-bar progress-bar-accessibility"
+                      ></span>
+                    </span>
+                    <div class="progress-value" style="width: 100%">
+                      <div class="value-accessibility value-red">0</div>
                     </div>
-                    <h2 class="font-weight-bold text-center mb-4 h6 text-black">
-                      Accesibility
-                    </h2>
                   </div>
+                  <h2 class="font-weight-bold text-center mb-4 h6 text-black">
+                    Accesibility
+                  </h2>
                 </div>
-                <div class="col-2">
-                  <div class="circleProgressBar" id="practicePB">
-                    <div
-                      class="progress progress-red best-practices"
-                      data-percentage="0"
-                    >
-                      <span class="progress-left">
-                        <span
-                          class="progress-bar progress-bar-best-practices"
-                        ></span>
-                      </span>
-                      <span class="progress-right">
-                        <span
-                          class="progress-bar progress-bar-best-practices"
-                        ></span>
-                      </span>
-                      <div class="progress-value" style="width: 100%">
-                        <div class="value-best-practices value-red">0</div>
-                      </div>
+              </div>
+              <div class="col-2">
+                <div class="circleProgressBar" id="practicePB">
+                  <div
+                    class="progress progress-red best-practices"
+                    data-percentage="0"
+                  >
+                    <span class="progress-left">
+                      <span
+                        class="progress-bar progress-bar-best-practices"
+                      ></span>
+                    </span>
+                    <span class="progress-right">
+                      <span
+                        class="progress-bar progress-bar-best-practices"
+                      ></span>
+                    </span>
+                    <div class="progress-value" style="width: 100%">
+                      <div class="value-best-practices value-red">0</div>
                     </div>
-                    <h2 class="font-weight-bold text-center mb-4 h6 text-black">
-                      Best Practices
-                    </h2>
                   </div>
+                  <h2 class="font-weight-bold text-center mb-4 h6 text-black">
+                    Best Practices
+                  </h2>
                 </div>
-                <div class="col-2">
-                  <div class="circleProgressBar" id="seoPB">
-                    <div class="progress progress-red seo" data-percentage="0">
-                      <span class="progress-left">
-                        <span class="progress-bar progress-bar-seo"></span>
-                      </span>
-                      <span class="progress-right">
-                        <span class="progress-bar progress-bar-seo"></span>
-                      </span>
-                      <div class="progress-value" style="width: 100%">
-                        <div class="value-seo value-red">0</div>
-                      </div>
+              </div>
+              <div class="col-2">
+                <div class="circleProgressBar" id="seoPB">
+                  <div class="progress progress-red seo" data-percentage="0">
+                    <span class="progress-left">
+                      <span class="progress-bar progress-bar-seo"></span>
+                    </span>
+                    <span class="progress-right">
+                      <span class="progress-bar progress-bar-seo"></span>
+                    </span>
+                    <div class="progress-value" style="width: 100%">
+                      <div class="value-seo value-red">0</div>
                     </div>
-                    <h2 class="font-weight-bold text-center mb-4 h6 text-black">
-                      SEO
-                    </h2>
                   </div>
+                  <h2 class="font-weight-bold text-center mb-4 h6 text-black">
+                    SEO
+                  </h2>
                 </div>
-                <div class="col-2">
-                  <div class="circleProgressBar" id="pwaPB">
-                    <div class="progress progress-red pwa" data-percentage="0">
-                      <span class="progress-left">
-                        <span class="progress-bar progress-bar-pwa"></span>
-                      </span>
-                      <span class="progress-right">
-                        <span class="progress-bar progress-bar-pwa"></span>
-                      </span>
-                      <div class="progress-value" style="width: 100%">
-                        <div class="value-pwa value-red">0</div>
-                      </div>
+              </div>
+              <div class="col-2">
+                <div class="circleProgressBar" id="pwaPB">
+                  <div class="progress progress-red pwa" data-percentage="0">
+                    <span class="progress-left">
+                      <span class="progress-bar progress-bar-pwa"></span>
+                    </span>
+                    <span class="progress-right">
+                      <span class="progress-bar progress-bar-pwa"></span>
+                    </span>
+                    <div class="progress-value" style="width: 100%">
+                      <div class="value-pwa value-red">0</div>
                     </div>
-                    <h2 class="font-weight-bold text-center mb-4 h6 text-black">
-                      PWA
-                    </h2>
                   </div>
+                  <h2 class="font-weight-bold text-center mb-4 h6 text-black">
+                    PWA
+                  </h2>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <footer class="col-12 text-start mt-3 d-block" id="footer-loading">
+          The crawling process will take some time, while waiting please read
+          our latest blog <a href="#">here</a>
+        </footer>
       </div>
     </div>
-    <a href="" target="_blank" id="preview-detail"></a>
+    <a href="" class="w-100 text-center d-block cta-footer"  target="_blank" id="preview-detail"></a>
     <script src="./index.js"></script>
   </body>
 </html>

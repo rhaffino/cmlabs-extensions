@@ -126,7 +126,7 @@
     font-size: 1rem;
     position: absolute;
     right: 0.5rem;
-    top: 1.1rem;
+    top: 1.75rem;
 }
 
 .btn__alert-close:hover{
@@ -302,6 +302,7 @@
     border-color: var(--Danger-50, #F98181);
 }
 
+/* Details Results */
 .details__container {
     display: flex;
     align-items: center;

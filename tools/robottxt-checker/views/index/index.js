@@ -152,7 +152,7 @@ const displayResultLinkAnalysis = (response) => {
         </div>
 
         <div class="details__container">
-          <a href="`+ domainURL + `/en/robotstxt-checker=` + inputUrl+`" class="see__details">Want to see more details? See details</a>
+          <a href="`+ domainURL + `/en/robotstxt-checker=` + inputUrl+`" target="_blank" class="see__details">Want to see more details? See details</a>
           <img src="../../assets/icon/arrow-right.svg" alt="icon arrow" class="detail__icon">
         </div>
       </div>

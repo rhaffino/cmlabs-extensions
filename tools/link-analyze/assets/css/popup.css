@@ -1,0 +1,28 @@
+/* Global Color */
+:root {
+  --primaryblue: #18a0fb;
+  --black: #2d393d;
+  --darkgrey: #66757f;
+  --grey: #ccd6dd;
+  --lightgrey: #e1e8ed;
+  --white: #ffffff;
+  --primaryred: #fb1818;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{
+  /* width: .6rem; */
+  width: 0rem;
+  /* background-color: var(--lightgrey); */
+}
+
+::-webkit-scrollbar-thumb{
+  /* background-color: var(--grey); */
+}
+
+/* Popup Style */
+.popup {
+  width: 23.4375rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--white);
+}
