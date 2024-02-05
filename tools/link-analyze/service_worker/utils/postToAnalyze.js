@@ -1,5 +1,5 @@
 const postToAnalyze = async (baseUrl) => {
-  const url = "https://tools-v2.cmlabs.dev/api/link-analyzer/analyze";
+  const url = "https://tools-api-w3m734lsga-as.a.run.app/api/link-analyzer/analyze";
 
   try {
     const response = await fetch(url, {

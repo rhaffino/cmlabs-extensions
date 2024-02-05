@@ -255,6 +255,10 @@
 }
 
 /* Details Tab */
+.tab__container-nav{
+    width: 100%;
+}
+
 .detail__tabs{
     margin: 2rem 0 0.75rem 0;
 }
@@ -274,7 +278,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 1rem;
-    padding: 0.25rem 3.5px;
+    padding: 0.25rem 2.5px;
 }
 
 .nav-link:hover{

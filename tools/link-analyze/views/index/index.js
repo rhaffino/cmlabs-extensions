@@ -166,14 +166,16 @@ function createChart(
 }
 
 const displayResultLinkAnalysis = (response) => {
-  // console.log(response);
-  const totalInternalLinks = response.data.internal_links.links.length;
-  const totalExternalLinks = response.data.external_links.links.length;
+  const totalInternalLinks = response.data.internal_links.value;
+  const totalExternalLinks = response.data.external_links.value;
   const totalNofollowLinks = response.data.nofollow_links.value;
   const totalDofollowLinks = response.data.dofollow_links.value;
   const totalLinks = response.data.links.value;
   const internalLinks = response.data.internal_links.links;
   const externalLinks = response.data.external_links.links;
+  const allLinks = internalLinks.concat(externalLinks);
+  const linksNofollow = allLinks.filter(link => link.rels.includes("nofollow"));
+  const linksDofollow = allLinks.filter(link => !link.rels.includes("nofollow"));
 
   showLoading(false);
   resultElement.innerHTML = `
@@ -211,60 +213,79 @@ const displayResultLinkAnalysis = (response) => {
           </div>
         </div>
 
-        <ul class="nav nav-pills detail__tabs" id="pills-tab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="tab-internal-link" data-bs-toggle="pill" data-bs-target="#content-tab-internal-link" type="button" role="tab" aria-controls="content-tab-internal-link" aria-selected="true">
-              Internal Links(`+ totalInternalLinks +`)
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-external-link" data-bs-toggle="pill" data-bs-target="#content-tab-external-link" type="button" role="tab" aria-controls="content-tab-external-link" aria-selected="false">
-              External Links(`+ totalExternalLinks +`)
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-no-follow" data-bs-toggle="pill" data-bs-target="#content-tab-no-follow" type="button" role="tab" aria-controls="content-tab-no-follow" aria-selected="false">
-              No-Follow(`+ totalNofollowLinks +`)
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-do-follow" data-bs-toggle="pill" data-bs-target="#content-tab-do-follow" type="button" role="tab" aria-controls="content-tab-do-follow" aria-selected="false">
-              Do-Follow(`+ totalDofollowLinks +`)
-            </button>
-          </li>
-        </ul>
+        <div class="tab__container-nav">
+          <ul class="nav nav-pills detail__tabs" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-internal-link" data-bs-toggle="pill" data-bs-target="#content-tab-internal-link" type="button" role="tab" aria-controls="content-tab-internal-link" aria-selected="true">
+                Internal Links(`+ totalInternalLinks +`)
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-external-link" data-bs-toggle="pill" data-bs-target="#content-tab-external-link" type="button" role="tab" aria-controls="content-tab-external-link" aria-selected="false">
+                External Links(`+ totalExternalLinks +`)
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-no-follow" data-bs-toggle="pill" data-bs-target="#content-tab-no-follow" type="button" role="tab" aria-controls="content-tab-no-follow" aria-selected="false">
+                No-Follow(`+ totalNofollowLinks +`)
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-do-follow" data-bs-toggle="pill" data-bs-target="#content-tab-do-follow" type="button" role="tab" aria-controls="content-tab-do-follow" aria-selected="false">
+                Do-Follow(`+ totalDofollowLinks +`)
+              </button>
+            </li>
+          </ul>
+        </div>
 
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="content-tab-internal-link" role="tabpanel" aria-labelledby="tab-internal-link">
             <div class="list__links">
               ${internalLinks.map((link, index) => `
-                  <div class="list__link">
-                      <span>${index + 1} .</span>
-                      <span>${link.url}</span>
-                  </div>
-                  ${index % 5 === 4 ? '<div class="list__link"><span class="list__link-space">---</span></div>' : ''}
+                  ${index < 5 || (index >= 7 && index < 8) ? `
+                      <div class="list__link">
+                          <span>${index + 1} .</span>
+                          <span>${link.url}</span>
+                      </div>
+                      ${index % 5 === 4 ? '<div class="list__link"><span class="list__link-space">---</span></div>' : ''}
+                  ` : ''}
               `).join('')}
-              <div class="list__link">
-                <span>1 .</span>
-                <span>https://cmlabs.co/#content</span>
-              </div>
-              <div class="list__link">
-                <span class="list__link-space">---</span>
-              </div>
-              <div class="list__link">
-                <span>8 .</span>
-                <span>https://cmlabs.co/karir</span>
-              </div>
             </div>
           </div>
           <div class="tab-pane fade" id="content-tab-external-link" role="tabpanel" aria-labelledby="tab-external-link">
-            tab 2
+            <div class="list__links">
+              ${externalLinks.map((link, index) => `
+                  ${index < 5 || (index >= 7 && index < 8) ? `
+                      <div class="list__link">
+                          <span>${index + 1} .</span>
+                          <span>${link.url}</span>
+                      </div>
+                      ${index % 5 === 4 ? '<div class="list__link"><span class="list__link-space">---</span></div>' : ''}
+                  ` : ''}
+              `).join('')}
+            </div>
           </div>
           <div class="tab-pane fade" id="content-tab-no-follow" role="tabpanel" aria-labelledby="tab-no-follow">
-            tab 3
+            ${linksNofollow.map((link, index) => `
+                  ${index < 5 || (index >= 7 && index < 8) ? `
+                      <div class="list__link">
+                          <span>${index + 1} .</span>
+                          <span>${link.url}</span>
+                      </div>
+                      ${index % 5 === 4 ? '<div class="list__link"><span class="list__link-space">---</span></div>' : ''}
+                  ` : ''}
+              `).join('')}
           </div>
           <div class="tab-pane fade" id="content-tab-do-follow" role="tabpanel" aria-labelledby="tab-do-follow">
-            do follow
+            ${linksDofollow.map((link, index) => `
+                  ${index < 5 || (index >= 7 && index < 8) ? `
+                      <div class="list__link">
+                          <span>${index + 1} .</span>
+                          <span>${link.url}</span>
+                      </div>
+                      ${index % 5 === 4 ? '<div class="list__link"><span class="list__link-space">---</span></div>' : ''}
+                  ` : ''}
+              `).join('')}
           </div>
         </div>
 
@@ -281,28 +302,6 @@ const displayResultLinkAnalysis = (response) => {
     totalNofollowLinks,
     totalDofollowLinks
   );
-
-  // List Internal Link
-  // const internalList = document.createElement("ul");
-  // internalList.classList.add("internal-links");
-  // resultElement.appendChild(internalList);
-
-  // internalLinks.forEach((link) => {
-  //   const listItem = document.createElement("li");
-  //   listItem.textContent = `(${link.url})`;
-  //   internalList.appendChild(listItem);
-  // });
-
-  // List External Link
-  // const externalList = document.createElement("ul");
-  // externalList.classList.add("external-links");
-  // resultElement.appendChild(externalList);
-
-  // externalLinks.forEach((link) => {
-  //   const listItem = document.createElement("li");
-  //   listItem.textContent = `(${link.url})`;
-  //   externalList.appendChild(listItem);
-  // });
 
   logButton.classList.remove("d-none");
   logButton.classList.add("d-block");
