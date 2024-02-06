@@ -93,6 +93,18 @@ header {
     color:#84DB15;
 }
 
+.label-red {
+    color:#FF5656;
+}
+
+.label-orange {
+    color:#FBC918;
+}
+
+.label-green {
+    color:#84DB15;
+}
+
 .progress > span {
     width: 50%;
     height: 100%;
