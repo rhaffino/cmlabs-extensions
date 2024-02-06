@@ -1,74 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../assets/css/pagespeed.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../assets/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/pagespeed.css"/>
   </head>
   <body>
     <div class="popup">
-      <header>
-        <span>
-          <img src="/assets/images/icon-header.svg" alt="" />
-          Page Speed Test
-        </span>
-        <button class="btn btn-sm bg-white">Login</button>
-      </header>
-      <img src="/assets/images/timer-logo.svg" alt="" />
-      <div class="w-100 d-flex justify-content-center mt-3">
-        <p class="" style="width: 85%">
+      <div class="header__container">
+          <div class="logo__container">
+            <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" alt="logo cmlabs" class="logo__img">
+            <span>Page Speed Test</span>
+          </div>
+          <div class="login__container">
+            <a href="#" class="btn btn__login">Login</a>
+          </div>
+      </div>
+
+      <div id="header" class="hero__extension">
+        <img src="../../assets/icon/timer-logo.svg" alt="Icon Pagespeed Test" class="icon__extension">
+        <p>
           See your website performance on mobile and desktop gadget versions.
           Get the guidance to improve your web pages score for better SEO.
         </p>
       </div>
-      <div id="result"></div>
 
+      <div id="result"></div>
+      
       <div class="row">
         <div class="col-12">
-          <div
-            class="card p-3 flex flex-row align-items-center justify-content-between"
-            style="background-color: #18a0fb; color: white; margin-top: 25px"
-          >
-            <div class="">
-              <img
-                src="/assets/images/guard.svg"
-                alt=""
-                class=""
-                style="width: 32px"
-              />
+          <div class="card p-3 flex flex-row align-items-center justify-content-between form__container">
+            <div class="d-flex input__url">
+              <img src="../../assets/icon/guard.svg" alt="Icon Pagespeed Test" class="img__guard"/>
               <span id="url-container" class="text-white"></span>
             </div>
-            <button
-              class="btn w-25 px-2 py-1 text-white d-flex justify-content-center align-items-center gap-3"
-              style="background-color: #2d393d"
-              id="crawling-status"
-            >
+
+            <button class="btn w-25 px-2 py-1 text-white d-flex justify-content-center align-items-center gap-2 btn__form" id="crawling-status">
               <span> Crawling </span>
-              <div
-                class="container-loading d-none justify-content-end align-items-center"
-                id="loading"
-              >
-                <img class="loader" src="/assets/images/loader.svg" alt="" />
+              <div class="container-loading d-none justify-content-end align-items-center icon__loader" id="loading">
+                <img class="loader" src="../../assets/icon/loader.svg" alt="Loading Icon" />
               </div>
             </button>
-            <button
-              id="log-button"
-              class="btn bg-white w-25 px-2 py-1 d-none justify-content-center"
-              style="color: #18a0fb"
-            >
-              Re-Test
+            <button id="log-button" class="btn bg-white w-25 px-2 py-1 d-none justify-content-center btn__form">
+              Re-Test!
             </button>
           </div>
-          <div class="mt-4">
+
+          <div>
             <div class="row justify-content-between d-none" id="pagespeed-tab">
               <div class="col-2">
                 <div class="circleProgressBar" id="performancePB">
@@ -90,11 +69,8 @@
                       <div class="value-performance value-red">0</div>
                     </div>
                   </div>
-                  <h2
-                    class="font-weight-bold text-center mb-4 h6 text-black"
-                    id="label-performance"
-                  >
-                    Peformance
+                  <h2 class="font-weight-bold text-center mb-4 h6 text-black label__result" id="label-performance">
+                    Performance
                   </h2>
                 </div>
               </div>
@@ -118,10 +94,7 @@
                       <div class="value-accessibility value-red">0</div>
                     </div>
                   </div>
-                  <h2
-                    class="font-weight-bold text-center mb-4 h6 text-black"
-                    id="label-accessibility"
-                  >
+                  <h2 class="font-weight-bold text-center mb-4 h6 text-black label__result" id="label-accessibility">
                     Accesibility
                   </h2>
                 </div>
@@ -147,7 +120,7 @@
                     </div>
                   </div>
                   <h2
-                    class="font-weight-bold text-center mb-4 h6 text-black"
+                    class="font-weight-bold text-center mb-4 h6 text-black label__result"
                     id="label-best-practices"
                   >
                     Best Practices
@@ -168,7 +141,7 @@
                     </div>
                   </div>
                   <h2
-                    class="font-weight-bold text-center mb-4 h6 text-black"
+                    class="font-weight-bold text-center mb-4 h6 text-black label__result"
                     id="label-seo"
                   >
                     SEO
@@ -189,7 +162,7 @@
                     </div>
                   </div>
                   <h2
-                    class="font-weight-bold text-center mb-4 h6 text-black"
+                    class="font-weight-bold text-center mb-4 h6 text-black label__result"
                     id="label-pwa"
                   >
                     PWA
@@ -199,36 +172,18 @@
             </div>
           </div>
         </div>
-        <footer class="col-12 text-start mt-3 d-block" id="footer-loading">
+
+        <footer class="col-12 d-block" id="footer-loading">
           The crawling process will take some time, while waiting please read
           our latest blog <a href="#">here</a>
         </footer>
       </div>
+
+      <div class="details__container" id="preview-detail">
+        <a href="#" target="_blank" class="see__details">Want to see more details? See details</a>
+        <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
+      </div>
     </div>
-    <a
-      href=""
-      class="w-100 text-center d-block cta-footer d-none justify-content-center align-items-center gap-2"
-      target="_blank"
-      id="preview-detail"
-      >Want to see more details? See details
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-box-arrow-up-right"
-        viewBox="0 0 16 16"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"
-        />
-        <path
-          fill-rule="evenodd"
-          d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"
-        />
-      </svg>
-    </a>
     <script src="./index.js"></script>
   </body>
 </html>
