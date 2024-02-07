@@ -11,8 +11,8 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar{
-  width: .6rem;
-  background-color: var(--lightgrey);
+  width: .0rem;
+  /* background-color: var(--lightgrey); */
 }
 
 ::-webkit-scrollbar-thumb{
