@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/ssl-checker.css"/>
   </head>
-  <body>
+  <bodyS>
     <div class="popup">
       <div class="header__container">
         <div class="logo__container">
@@ -23,7 +23,7 @@
         <p>Check the validity of the SSL certificate on your website.</p>
       </div>
 
-      <div class="alert alert-warning alert-dismissible fade show alert__extension" role="alert">
+      <div class="alert alert-warning alert-dismissible fade show alert__extension border-0" role="alert">
         You have reached the usage limit of this tool. Please <strong>log in or register</strong> yourself.
         <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
       </div>
@@ -37,6 +37,7 @@
           <div id="loading" class="d-none text-white text-14 fw-bold py-2">Checking</div>
           <img src="../../assets/icon/loader.svg" alt="Icon Loader Extension" class="icon__loader">
         </div>
+        <button class="text-center w-100 btn btn-secondary" disabled>Limit</button>
         <div id="btn-check" class="full__col">
           <button href="#" class="btn btn__form">
             Check SSL Again!
@@ -52,5 +53,5 @@
     </div>
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="./index.js"></script>
-    </body>
+    </bodyS>
 </html>

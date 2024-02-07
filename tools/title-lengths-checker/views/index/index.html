@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../../assets/css/boxicons.min.css" />
     
   </head>
-  <body id="style-2">
+  <body id="style-2" class="popup">
     <div id="title-length-checker">
       <div class="position-relative d-flex justify-content-between align-items-center mb-3">
         <div class="row gap-1">
@@ -38,12 +38,14 @@
             </div>
           </div>
         </div>
-        <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <p class="text-warning mb-0">
+        <div class="alert-limit alert alert-warning alert-dismissible fade show border-0" role="alert">
+          <p class="alert-p mb-0">
             You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="">log in or register</a> yourself.
           </p>
-            <button type="button" class="btn-close mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div> -->
+            <!-- <button type="button" class="btn-close mt-2" data-bs-dismiss="alert" aria-label="Close"></button> -->
+            <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
+
+        </div>
         <div class="col-12 bg-primaryblue border-radius-5px row">
           <div class="d-flex gap-3 align-items-center mt-3">
             <img src="../../assets/images/guard-icon.png" alt="">
@@ -91,9 +93,9 @@
         </div>
       </div>
       <div id="result-container" class="d-none">
-        <div class="alert alert-warning alert-dismissible fade show custom-alert" role="alert">
-          <p class="text-warning mb-0 fw-light">
-            You have reached the usage limit of this tool. Please <a class="text-warning fw-normal" href="#">log in or register</a> yourself.
+        <div class="alert alert-warning alert-dismissible fade show custom-alert border-0" role="alert">
+          <p class="alert-p text-warning mb-0">
+            You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="#">log in or register</a> yourself.
           </p>
           <button type="button" class="btn-close btn-sm mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

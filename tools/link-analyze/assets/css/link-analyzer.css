@@ -20,6 +20,11 @@
   --primary-font: "Helvetica Now Display", sans-serif;
 }
 
+.text-14 {
+    font-size: 14px;
+    line-height: 16px;
+}
+
 /* Header */
 .header__container{
     display: flex;
