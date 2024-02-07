@@ -24,7 +24,7 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar{
-  width: .6rem;
+  width: .0rem;
   background-color: var(--lightgrey);
 }
 
@@ -139,6 +139,14 @@ input.input-meta-title:focus,
 textarea.input-meta-description:focus,
 input.input-url-meta-checker:focus {
   border-bottom: 1px solid white;
+}
+
+#url-here, #url-check {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 260px;
+  white-space: nowrap;
+
 }
 
 .progress-bar_wrap {
