@@ -4,7 +4,7 @@ const resultElement = document.getElementById("result");
 const crawlingElement = document.getElementById("crawling-status");
 const chartElement = document.getElementById("pagespeed-tab");
 const footerLoading = document.getElementById("footer-loading");
-
+const previewDetail = document.getElementById("preview-detail");
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
@@ -25,7 +25,6 @@ const launch = async () => {
   const isDataFetched = await checkFetchStatus();
 
   if (isDataFetched) {
-    
     crawlingElement.classList.add("d-flex");
     crawlingElement.classList.remove("d-none");
   } else {
@@ -72,6 +71,8 @@ function renderResult(data) {
 
   logButton.classList.remove("d-none");
   logButton.classList.add("d-block");
+  previewDetail.classList.remove("d-none");
+  previewDetail.classList.add("d-flex");
 
   const categories = [
     "performance",
@@ -87,7 +88,7 @@ function renderResult(data) {
   // const textNode = document.createTextNode("Want to see more details? See details");
   // node.appendChild(textNode);
   // urlDetail.appendChild(node);
-  urlDetail.textContent = "Want to see more details? See details";
+  // urlDetail.textContent = "Want to see more details? See details ";
   urlDetail.setAttribute(
     "href",
     "" + domainURL + "/en/pagespeed-test?url=" + data.id
@@ -116,22 +117,30 @@ function renderResult(data) {
 function strokeValue(score, number, category) {
   let card = document.querySelector("." + category);
   let value = document.querySelector(".value-" + category);
+  let label = document.querySelector("#label-" + category);
+  // let label = document.querySelector(`.label-${category}`);
   value.classList.remove("value-green");
   value.classList.remove("value-orange");
   value.classList.remove("value-red");
   card.classList.remove("progress-green");
   card.classList.remove("progress-red");
   card.classList.remove("progress-orange");
+  label.classList.remove("label-green");
+  label.classList.remove("label-red");
+  label.classList.remove("label-orange");
 
   if (score >= 90) {
     card.classList.add("progress-green");
     value.classList.add("value-green");
+    label.classList.add("label-green");
   } else if (score >= 50) {
     card.classList.add("progress-orange");
     value.classList.add("value-orange");
+    label.classList.add("label-orange");
   } else {
     card.classList.add("progress-red");
     value.classList.add("value-red");
+    label.classList.add("label-red");
   }
 
   card.setAttribute("data-percentage", score);
@@ -195,6 +204,8 @@ const showLoading = (status) => {
     chartElement.classList.add("d-none");
     logButton.classList.remove("d-flex");
     logButton.classList.add("d-none");
+    previewDetail.classList.remove("d-flex");
+    previewDetail.classList.add("d-none");
     crawlingElement.classList.add("d-flex");
     crawlingElement.classList.remove("d-none");
     footerLoading.classList.remove("d-none");
@@ -206,11 +217,12 @@ const showLoading = (status) => {
     chartElement.classList.add("d-flex");
     logButton.classList.remove("d-none");
     logButton.classList.add("d-flex");
+    previewDetail.classList.remove("d-none");
+    previewDetail.classList.add("d-flex");
     crawlingElement.classList.add("d-none");
     crawlingElement.classList.remove("d-block");
     footerLoading.classList.remove("d-block");
     footerLoading.classList.add("d-none");
-
   }
 };
 
