@@ -135,13 +135,13 @@ const displayResultLinkAnalysis = (response) => {
 
         <div class="group__result">
           <label for="url-website" class="result__label">Host</label>
-          <input type="text" id="url-website" placeholder="`+ robots.parser.host +`" value="`+ robots.parser.host +`" class="result__input error__result" readonly>
+          <input type="text" id="url-website" placeholder="${robots.parser.host ? robots.parser.host : '-'}" value="${robots.parser.host ? robots.parser.host : '-'}" class="result__input error__result" readonly>
           <img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">
         </div>
 
         <div class="group__result">
           <label for="url-website" class="result__label">Sitemap</label>
-          <input type="text" id="url-website" placeholder="`+ robots.parser.sitemaps +`" value="`+ robots.parser.sitemaps +`" class="result__input" readonly>
+          <input type="text" id="url-website" placeholder="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" value="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" class="result__input" readonly>
           <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
         </div>
 

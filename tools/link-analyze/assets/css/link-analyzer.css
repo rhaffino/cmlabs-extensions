@@ -186,8 +186,8 @@
 }
 
 #btn-check:hover {
-  background: var(--white);
-  color: var(--Primary-70);
+  background: var(--Primary-130);
+  color: var(--white);
 }
 
 .icon__loader {
