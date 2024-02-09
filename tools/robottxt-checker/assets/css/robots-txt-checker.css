@@ -299,7 +299,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: 1rem;
-    padding: 0.75rem 0.88rem;
+    padding: 0.75rem 2.5rem 0.75rem 0.88rem;
+    /* text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; */
 }
 
 .result__input:hover{
