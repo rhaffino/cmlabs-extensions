@@ -1,26 +1,39 @@
+var loading = document.getElementById("loading");
+const loadingContainer = document.getElementById("loading__container");
+const headerHero = document.getElementById("header");
+const btnCheck = document.getElementById("btn-check");
+const resultElement = document.getElementById("result");
+const logButton = document.getElementById("submit-btn");
+const readLatestBlog = document.getElementById("read__latest-blog");
+
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     var urlContainer = document.getElementById("url-container");
     urlContainer.textContent = currentUrl;
   });
-  
+
+  logButton.addEventListener("click", function () {
+    launch();
+  });
+
   checkLocalStorage();
 });
 
 const launch = () => {
   showLoading(true);
+  resultElement.innerHTML = "";
+
   setTimeout(() => {
-  
     tabChrome().then((currentUrl) => {
       console.log(currentUrl);
-  
+
       const message = {
         event: "OnStartLinkAnalysis",
         data: {
           url: currentUrl,
         },
       };
-  
+
       chrome.runtime.sendMessage(message);
     });
   }, 5000);
@@ -37,9 +50,9 @@ function tabChrome() {
   });
 }
 
-function renderResult(response){
+function renderResult(response) {
   showLoading(false);
-  
+
   const expDate = new Date(response.data.valid_to);
   const difDate = expDate.getTime() - new Date().getTime();
   let displayText;
@@ -48,32 +61,32 @@ function renderResult(response){
   const cta = false;
 
   if (difDate < 0) {
-      const ctaDanger = document.getElementById('cta-danger');
-      if (cta) {
-          ctaDanger.style.display = 'block';
-      } else {
-          ctaDanger.style.display = 'none';
-      }
-      displayText = `SSL Certificate expired on ${expDate.getDate()}th, ${parseMonth(
-          expDate.getMonth() + 1
-      )} ${expDate.getFullYear()} (${(
-          Math.abs(difDate) /
-          (1000 * 3600 * 24)
-      ).toFixed(0)} days ago).`;
-      icon = `<i class='bx bxs-x-circle bx-md' style="color:#D60404"></i>`;
-      textExpired = `Your TSL Certificate is expired`;
+    const ctaDanger = document.getElementById("cta-danger");
+    if (cta) {
+      ctaDanger.style.display = "block";
+    } else {
+      ctaDanger.style.display = "none";
+    }
+    displayText = `SSL Certificate expired on ${expDate.getDate()}th, ${parseMonth(
+      expDate.getMonth() + 1
+    )} ${expDate.getFullYear()} (${(
+      Math.abs(difDate) /
+      (1000 * 3600 * 24)
+    ).toFixed(0)} days ago).`;
+    icon = `<i class='bx bxs-x-circle bx-md' style="color:#D60404"></i>`;
+    textExpired = `Your TSL Certificate is expired`;
   } else {
-      displayText = `SSL Certificate expired on ${expDate.getDate()}th, ${parseMonth(
-          expDate.getMonth() + 1
-      )} ${expDate.getFullYear()} (${(
-          Math.abs(difDate) /
-          (1000 * 3600 * 24)
-      ).toFixed(0)} days from now).`;
-      icon = `<i class='bx bxs-check-circle bx-md' style="color:#67B405"></i>`;
-      textExpired = `TLS Certificate is installed well.`;
+    displayText = `SSL Certificate expired on ${expDate.getDate()}th, ${parseMonth(
+      expDate.getMonth() + 1
+    )} ${expDate.getFullYear()} (${(
+      Math.abs(difDate) /
+      (1000 * 3600 * 24)
+    ).toFixed(0)} days from now).`;
+    icon = `<i class='bx bxs-check-circle bx-md' style="color:#67B405"></i>`;
+    textExpired = `TLS Certificate is installed well.`;
   }
 
-  const display = document.createElement('div');
+  const display = document.createElement("div");
   display.innerHTML = `
                       <div class="accordion" id="accordion-tsl">
                         <div class="accordion-item">
@@ -82,7 +95,7 @@ function renderResult(response){
                               TSL Certificate
                             </button>
                           </h2>
-                          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#collapseOne">
                             <div class="accordion-body">
                               <p>Common Name = ${response.data.subject.CN}</p>
                               <p>Subject Alternative Names = ${response.data.subjectaltname}</p>
@@ -98,7 +111,7 @@ function renderResult(response){
                               TSL Certificate Expiration Date
                             </button>
                           </h2>
-                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#collapseTwo">
                             <div class="accordion-body">
                               <p>${displayText}</p>
                             </div>
@@ -110,7 +123,7 @@ function renderResult(response){
                               TSL Certificate Installation Status
                             </button>
                           </h2>
-                          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#collapseThree">
                             <div class="accordion-body">
                               <p>${textExpired}</p>
                             </div>
@@ -118,7 +131,7 @@ function renderResult(response){
                         </div>
                       </div>`;
 
-  const resultElement = document.getElementById('result');
+  const resultElement = document.getElementById("result");
   resultElement.appendChild(display);
 }
 
@@ -139,11 +152,6 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 const showLoading = (status) => {
-  var loading = document.getElementById("loading");
-  const loadingContainer = document.getElementById("loading__container");
-  const headerHero = document.getElementById("header");
-  const btnCheck = document.getElementById("btn-check");
-
   if (status) {
     loading.classList.remove("d-none");
     loading.classList.add("d-flex");
@@ -153,6 +161,8 @@ const showLoading = (status) => {
     headerHero.classList.add("d-flex");
     btnCheck.classList.remove("d-block");
     btnCheck.classList.add("d-none");
+    readLatestBlog.classList.remove("d-none");
+    readLatestBlog.classList.add("d-block");
   } else {
     loading.classList.remove("d-flex");
     loading.classList.add("d-none");
@@ -162,7 +172,8 @@ const showLoading = (status) => {
     headerHero.classList.add("d-none");
     btnCheck.classList.remove("d-none");
     btnCheck.classList.add("d-flex");
-
+    readLatestBlog.classList.remove("d-block");
+    readLatestBlog.classList.add("d-none");
   }
 };
 
@@ -170,7 +181,7 @@ const checkLocalStorage = () => {
   showLoading(true);
   chrome.storage.local.get(["response"], (result) => {
     showLoading(false);
-    
+
     if (result.response) {
       // renderResult(result.response);
       launch();

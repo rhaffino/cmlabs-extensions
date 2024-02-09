@@ -175,6 +175,7 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: 0.25rem;
+  border: 0px;
   background: var(--Gray-20);
   flex-shrink: 0;
   color: var(--Primary-70);

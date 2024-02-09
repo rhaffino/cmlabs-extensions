@@ -6,6 +6,7 @@ const headerHero = document.getElementById("header");
 const btnCheck = document.getElementById("btn-check");
 const resultElement = document.getElementById("result");
 const logButton = document.getElementById("submit-btn");
+const readLatestBlog = document.getElementById("read__latest-blog");
 var analyzeChart = undefined;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -23,6 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const launch = async () => {
+  showLoading(true);
+  resultElement.innerHTML = "";
+
   const isDataFetched = await checkFetchStatus();
 
   if (isDataFetched) {
@@ -97,6 +101,8 @@ const showLoading = (status) => {
     headerHero.classList.add("d-flex");
     btnCheck.classList.remove("d-block");
     btnCheck.classList.add("d-none");
+    readLatestBlog.classList.remove("d-none");
+    readLatestBlog.classList.add("d-block");
   } else {
     loadingElement.classList.remove("d-block");
     loadingElement.classList.add("d-none");
@@ -106,6 +112,8 @@ const showLoading = (status) => {
     headerHero.classList.add("d-none");
     btnCheck.classList.remove("d-none");
     btnCheck.classList.add("d-flex");
+    readLatestBlog.classList.remove("d-block");
+    readLatestBlog.classList.add("d-none");
   }
 };
 
@@ -116,15 +124,6 @@ function createChart(
   dofollow_link_value
 ) {
   var ctx = document.getElementById("analyzer-chart").getContext("2d");
-  if (analyzeChart != null) {
-    analyzeChart.data.datasets[0].data = [
-      internal_link_value,
-      external_link_value,
-      nofollow_link_value,
-      dofollow_link_value,
-    ];
-    analyzeChart.update();
-  } else {
     analyzeChart = new Chart(ctx, {
       type: "doughnut",
       data: {
@@ -177,7 +176,6 @@ function createChart(
         },
       },
     });
-  }
 }
 
 const displayResultLinkAnalysis = (response) => {
@@ -422,15 +420,15 @@ const displayResultLinkAnalysis = (response) => {
       </div>
   `;
 
+  logButton.classList.remove("d-none");
+  logButton.classList.add("d-block");
+
   createChart(
     totalInternalLinks,
     totalExternalLinks,
     totalNofollowLinks,
     totalDofollowLinks
   );
-
-  logButton.classList.remove("d-none");
-  logButton.classList.add("d-block");
 
   const message = {
     event: "onResetResponse",

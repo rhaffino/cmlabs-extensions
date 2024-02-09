@@ -1,23 +1,18 @@
 // Main
 const checkerElement = document.getElementById("title-length-checker");
-
 // Loading
 const loadingElement = document.getElementById("loading");
-
 // Result
 const resultElement = document.getElementById("result-container");
-
 // URL Value
 let urlValue = "";
-
 // Title and Desc
 const titleElement = document.getElementById("title");
 const descElement = document.getElementById("desc");
-
 // Akbar
 const urlElement = document.getElementById("url-here");
 const urlCheck = document.getElementById("url-check");
-
+const logButton = document.getElementById("submit-btn");
 
 // Constraints
 const constrain = {
@@ -34,15 +29,21 @@ const constrain = {
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     urlValue = currentUrl;
-
     // Akbar
     updateUrlElement();
   });
 
   launch();
+
+  logButton.addEventListener("click", function () {
+    launch();
+    showResult(false);
+  });
 });
 
 const launch = () => {
+  showLoading(true);
+
   setTimeout(() => {
     showLoading(true);
 
