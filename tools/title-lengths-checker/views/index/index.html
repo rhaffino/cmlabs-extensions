@@ -17,7 +17,7 @@
       <div class="position-relative d-flex justify-content-between align-items-center mb-3">
         <div class="row gap-1">
           <div class="col-4 pe-0">
-            <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" class="img-fluid" alt="">
+            <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" class="img-fluid" alt="logo cmlabs">
           </div>
           <div class="col-7 px-0">
             <div class="app-title mb-0">Title Lengths Checker</div>
@@ -31,21 +31,21 @@
         <div class="col-12">
           <div class="header">
             <div class="header-img mb-4 d-flex justify-content-center">
-              <img class="img-fluid" src="../../assets/images/icons-writing.png" alt="">
+              <img class="img-fluid" src="../../assets/images/icons-writing.png" alt="Logo tools">
             </div>
             <div class="text-14 text-center">
               <p>The length of meta-information must be ideal. So, it will display fully in SERP.</p>
             </div>
           </div>
         </div>
-        <div class="alert-limit alert alert-warning alert-dismissible fade show border-0" role="alert">
-          <p class="alert-p mb-0">
-            You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="">log in or register</a> yourself.
-          </p>
-            <!-- <button type="button" class="btn-close mt-2" data-bs-dismiss="alert" aria-label="Close"></button> -->
-            <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
 
+        <div class="alert-limit alert alert-warning alert-dismissible fade show border-0 d-none" role="alert">
+          <p class="alert-p mb-0">
+            You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="#">log in or register</a> yourself.
+          </p>
+          <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
         </div>
+
         <div class="col-12 bg-primaryblue border-radius-5px row">
           <div class="d-flex gap-3 align-items-center mt-3">
             <img src="../../assets/images/guard-icon.png" alt="">
@@ -60,6 +60,7 @@
         </div>
         <p class="mt-2 mb-0">The checking process will take some time, while waiting please read our latest blog <a href="">here</a></p>
       </div>
+
       <div class="mb-3" id="cta-warning" style="display: none">
         <div class="cta-yellow px-3 py-1 cta-border-bottom">
           <div class="row d-flex align-items-center">
@@ -92,20 +93,21 @@
           </div>
         </div>
       </div>
+      
       <div id="result-container" class="d-none">
-        <div class="alert alert-warning alert-dismissible fade show custom-alert border-0" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show custom-alert border-0 d-none" role="alert">
           <p class="alert-p text-warning mb-0">
             You have reached the usage limit of this tool. Please <a class="text-warning fw-bold" href="#">log in or register</a> yourself.
           </p>
-          <button type="button" class="btn-close btn-sm mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
+          <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
         </div>
 
         <div class="col-12 bg-primaryblue border-radius-5px row my-3 mx-auto">
           <div class="d-flex gap-3 align-items-center mt-3">
             <img src="../../assets/images/guard-icon.png" alt="">
-            <p class="mb-0 text-white text-wrap fw-light text-16" id="url-check">http://....</p>
+            <p class="mb-0 text-white text-wrap fw-light text-16 text-ellipsis" id="url-check">http://....</p>
           </div>
-            <a href="#" class="check-stat check-stat-btn col-11 rounded-3 mx-auto bg-white d-flex align-items-center gap-2 justify-content-center my-3 text-primaryblue fw-bold text-14 text-decoration-none">
+            <a href="#" class="check-stat check-stat-btn col-11 rounded-3 mx-auto bg-white d-flex align-items-center gap-2 justify-content-center my-3 text-primaryblue fw-bold text-14 text-decoration-none" id="submit-btn">
               Check Again!
             </a>
         </div>

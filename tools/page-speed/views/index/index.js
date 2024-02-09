@@ -1,9 +1,10 @@
 var domainURL = "https://tools.cmlabs.dev";
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
+const headerHero = document.getElementById("header");
 const crawlingElement = document.getElementById("crawling-status");
 const chartElement = document.getElementById("pagespeed-tab");
-const footerLoading = document.getElementById("footer-loading");
+const readLatestBlog = document.getElementById("read__latest-blog");
 const previewDetail = document.getElementById("preview-detail");
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -198,6 +199,8 @@ chrome.runtime.onMessage.addListener((message) => {
 const showLoading = (status) => {
   var loading = document.getElementById("loading");
   if (status) {
+    headerHero.classList.remove("d-none");
+    headerHero.classList.add("d-flex");
     loading.classList.remove("d-none");
     loading.classList.add("d-flex");
     chartElement.classList.remove("d-flex");
@@ -208,9 +211,11 @@ const showLoading = (status) => {
     previewDetail.classList.add("d-none");
     crawlingElement.classList.add("d-flex");
     crawlingElement.classList.remove("d-none");
-    footerLoading.classList.remove("d-none");
-    footerLoading.classList.add("d-block");
+    readLatestBlog.classList.remove("d-none");
+    readLatestBlog.classList.add("d-block");
   } else {
+    headerHero.classList.remove("d-block");
+    headerHero.classList.add("d-none");
     loading.classList.remove("d-flex");
     loading.classList.add("d-none");
     chartElement.classList.remove("d-none");
@@ -221,8 +226,8 @@ const showLoading = (status) => {
     previewDetail.classList.add("d-flex");
     crawlingElement.classList.add("d-none");
     crawlingElement.classList.remove("d-block");
-    footerLoading.classList.remove("d-block");
-    footerLoading.classList.add("d-none");
+    readLatestBlog.classList.remove("d-block");
+    readLatestBlog.classList.add("d-none");
   }
 };
 

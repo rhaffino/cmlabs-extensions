@@ -141,12 +141,13 @@ input.input-url-meta-checker:focus {
   border-bottom: 1px solid white;
 }
 
-#url-here, #url-check {
+#url-here, 
+#url-check,
+.text-ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 260px;
-  white-space: nowrap;
-
+  white-space: nowrap!important;
 }
 
 .progress-bar_wrap {
@@ -310,13 +311,10 @@ input.input-url-meta-checker:focus {
 
 .check-stat {
   padding-block: 10px;
-  transition: all .2s ease-in-out;
 }
 .check-stat-btn:hover {
   background: var(--primarydark) !important;
   color: var(--white) !important;
-  /* border-bottom: .2px var(--white) solid; */
-  transform: translateY(-2px);
 }
 
 .alert-text {
@@ -335,7 +333,6 @@ input.input-url-meta-checker:focus {
 .btn__alert-close:hover{
   cursor: pointer;
 }
-
 
 .alert-p {
   color: #FFBE40 !important;

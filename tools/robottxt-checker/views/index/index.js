@@ -4,6 +4,7 @@ const headerHero = document.getElementById("header");
 const btnCheck = document.getElementById("btn-check");
 const resultElement = document.getElementById("result");
 const logButton = document.getElementById("submit-btn");
+const readLatestBlog = document.getElementById("read__latest-blog");
 const domainURL = "https://tools.cmlabs.dev";
 let inputUrl = "";
 
@@ -22,25 +23,27 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const launch = async () => {
+  showLoading(true);
+  resultElement.innerHTML = "";
+
   const isDataFetched = await checkFetchStatus();
   setTimeout(() => {
+    if (isDataFetched) {
+      logButton.style.display = "none";
+    } else {
+      tabChrome().then((currentUrl) => {
+        console.log(currentUrl);
 
-  if (isDataFetched) {
-    logButton.style.display = "none";
-  } else {
-    tabChrome().then((currentUrl) => {
-      console.log(currentUrl);
+        const message = {
+          event: "OnStartLinkAnalysis",
+          data: {
+            url: currentUrl,
+          },
+        };
 
-      const message = {
-        event: "OnStartLinkAnalysis",
-        data: {
-          url: currentUrl,
-        },
-      };
-
-      chrome.runtime.sendMessage(message);
-    });
-  }
+        chrome.runtime.sendMessage(message);
+      });
+    }
  }, 5000);
 };
 
@@ -98,6 +101,8 @@ const showLoading = (status) => {
     headerHero.classList.add("d-flex");
     btnCheck.classList.remove("d-block");
     btnCheck.classList.add("d-none");
+    readLatestBlog.classList.remove("d-none");
+    readLatestBlog.classList.add("d-block");
   } else {
     loadingElement.classList.remove("d-block");
     loadingElement.classList.add("d-none");
@@ -107,6 +112,8 @@ const showLoading = (status) => {
     headerHero.classList.add("d-none");
     btnCheck.classList.remove("d-none");
     btnCheck.classList.add("d-flex");
+    readLatestBlog.classList.remove("d-block");
+    readLatestBlog.classList.add("d-none");
   }
 };
 
@@ -134,20 +141,20 @@ const displayResultLinkAnalysis = (response) => {
         </div>
 
         <div class="group__result">
-          <label for="url-website" class="result__label">Host</label>
-          <input type="text" id="url-website" placeholder="${robots.parser.host ? robots.parser.host : '-'}" value="${robots.parser.host ? robots.parser.host : '-'}" class="result__input error__result" readonly>
+          <label for="url-host" class="result__label">Host</label>
+          <input type="text" id="url-host" placeholder="${robots.parser.host ? robots.parser.host : '-'}" value="${robots.parser.host ? robots.parser.host : '-'}" class="result__input error__result" readonly>
           <img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">
         </div>
 
         <div class="group__result">
-          <label for="url-website" class="result__label">Sitemap</label>
-          <input type="text" id="url-website" placeholder="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" value="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" class="result__input" readonly>
+          <label for="url-sitemaps" class="result__label">Sitemap</label>
+          <input type="text" id="url-sitemaps" placeholder="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" value="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" class="result__input" readonly>
           <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
         </div>
 
         <div class="group__result">
-          <label for="url-website" class="result__label">Robots.txt</label>
-          <input type="text" id="url-website" placeholder="Available" value="Available" class="result__input" readonly>
+          <label for="available" class="result__label">Robots.txt</label>
+          <input type="text" id="available" placeholder="Available" value="Available" class="result__input" readonly>
           <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
         </div>
 
