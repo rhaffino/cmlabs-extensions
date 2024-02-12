@@ -7,6 +7,7 @@ const btnCheck = document.getElementById("btn-check");
 const resultElement = document.getElementById("result");
 const logButton = document.getElementById("submit-btn");
 const readLatestBlog = document.getElementById("read__latest-blog");
+const alertLimit = document.getElementById("alert-limit");
 var analyzeChart = undefined;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -29,22 +30,23 @@ const launch = async () => {
 
   const isDataFetched = await checkFetchStatus();
 
-  if (isDataFetched) {
-    logButton.style.display = "none";
-  } else {
-    tabChrome().then((currentUrl) => {
-      console.log(currentUrl);
+  setTimeout(() => {
+    if (isDataFetched) {
+      logButton.style.display = "none";
+    } else {
+      tabChrome().then((currentUrl) => {
+        console.log(currentUrl);
+        const message = {
+          event: "OnStartLinkAnalysis",
+          data: {
+            url: currentUrl,
+          },
+        };
 
-      const message = {
-        event: "OnStartLinkAnalysis",
-        data: {
-          url: currentUrl,
-        },
-      };
-
-      chrome.runtime.sendMessage(message);
-    });
-  }
+        chrome.runtime.sendMessage(message);
+      });
+    }
+  }, 5000);
 };
 
 const checkFetchStatus = () => {
@@ -70,9 +72,12 @@ chrome.runtime.onMessage.addListener((message) => {
         showLoading(false);
         resultElement.innerHTML = "";
 
-        const noValidUrlParagraph = document.createElement("p");
-        noValidUrlParagraph.textContent = info;
-        resultElement.appendChild(noValidUrlParagraph);
+        headerHero.classList.add("d-flex");
+        headerHero.classList.remove("d-none");
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
+        readLatestBlog.classList.add("d-block");
+        readLatestBlog.classList.remove("d-none");
       }
       break;
     default:
@@ -420,6 +425,8 @@ const displayResultLinkAnalysis = (response) => {
       </div>
   `;
 
+  alertLimit.classList.remove("d-block");
+  alertLimit.classList.add("d-none");
   logButton.classList.remove("d-none");
   logButton.classList.add("d-block");
 

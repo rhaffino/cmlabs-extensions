@@ -1,10 +1,11 @@
-var loading = document.getElementById("loading");
+const loading = document.getElementById("loading");
 const loadingContainer = document.getElementById("loading__container");
 const headerHero = document.getElementById("header");
 const btnCheck = document.getElementById("btn-check");
 const resultElement = document.getElementById("result");
 const logButton = document.getElementById("submit-btn");
 const readLatestBlog = document.getElementById("read__latest-blog");
+const alertLimit = document.getElementById("alert-limit");
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
@@ -19,23 +20,40 @@ document.addEventListener("DOMContentLoaded", function () {
   checkLocalStorage();
 });
 
-const launch = () => {
+const launch = async () => {
   showLoading(true);
   resultElement.innerHTML = "";
 
+  const isDataFetched = await checkFetchStatus();
   setTimeout(() => {
-    tabChrome().then((currentUrl) => {
-      console.log(currentUrl);
-      const message = {
-        event: "OnStartLinkAnalysis",
-        data: {
-          url: currentUrl,
-        },
-      };
+    if (isDataFetched) {
+      logButton.style.display = "none";
+    } else {
+      tabChrome().then((currentUrl) => {
+        console.log(currentUrl);
+        const message = {
+          event: "OnStartLinkAnalysis",
+          data: {
+            url: currentUrl,
+          },
+        };
 
-      chrome.runtime.sendMessage(message);
-    });
+        chrome.runtime.sendMessage(message);
+      });
+    }
   }, 5000);
+};
+
+const checkFetchStatus = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["isDataFetched"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result.isDataFetched);
+      }
+    });
+  });
 };
 
 function tabChrome() {
@@ -132,6 +150,14 @@ function renderResult(response) {
 
   const resultElement = document.getElementById("result");
   resultElement.appendChild(display);
+  alertLimit.classList.remove("d-block");
+  alertLimit.classList.add("d-none");
+
+  const message = {
+    event: "onResetResponse",
+    data: null,
+  };
+  chrome.runtime.sendMessage(message);
 }
 
 chrome.runtime.onMessage.addListener((message) => {
@@ -142,11 +168,19 @@ chrome.runtime.onMessage.addListener((message) => {
       if (status) {
         renderResult(response);
       } else {
-        console.log(info);
+        showLoading(false);
+        resultElement.innerHTML = "";
+
+        headerHero.classList.add("d-flex");
+        headerHero.classList.remove("d-none");
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
+        readLatestBlog.classList.add("d-block");
+        readLatestBlog.classList.remove("d-none");
       }
       break;
     default:
-      console.log("Unknown event");
+      console.log("Unknown event", event);
   }
 });
 
@@ -178,13 +212,15 @@ const showLoading = (status) => {
 
 const checkLocalStorage = () => {
   showLoading(true);
+  resultElement.innerHTML = "";
+
   chrome.storage.local.get(["response"], (result) => {
     showLoading(false);
 
     if (result.response) {
-      // renderResult(result.response);
-      launch();
+      renderResult(result.response);
     } else {
+      showLoading(true);
       launch();
     }
   });
