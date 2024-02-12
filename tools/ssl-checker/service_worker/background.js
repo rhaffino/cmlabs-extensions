@@ -118,10 +118,6 @@ const processAnalyze = async (url) => {
       if (data) {
         console.log("Success to post to analyze", JSON.stringify(data));
 
-        // chrome.storage.local.set({
-        //   response: data,
-        // });
-
         const message = {
           event: "OnFinishLinkAnalysis",
           status: true,
