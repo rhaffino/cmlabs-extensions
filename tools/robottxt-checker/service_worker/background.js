@@ -67,37 +67,37 @@ const processAnalyze = async (url) => {
       ? new Date(result.lastFetchTime)
       : null;
 
+    // Limit 5
     const currentTime = new Date();
 
-    // if (count >= 5) {
-    //   const timeDifference = currentTime - lastFetchTime;
-    //   const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
-    //   if (timeDifferenceInHours < 1) {
-    //     console.log("Reach Limit :3");
+    if (count >= 5) {
+      const timeDifference = currentTime - lastFetchTime;
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+      if (timeDifferenceInHours < 1) {
+        console.log("Reach Limit :3");
+        const message = {
+          event: "OnFinishLinkAnalysis",
+          status: false,
+          info: "You have reached the usage limit of this tool",
+          data: null,
+        };
+        chrome.runtime.sendMessage(message, () => {
+          if (chrome.runtime.lastError) {
+          }
+        });
+        return;
+      } else {
+        count = 0;
+        lastFetchTime = currentTime.toString();
 
-    //     const message = {
-    //       event: "OnFinishLinkAnalysis",
-    //       status: false,
-    //       info: "You have reached the usage limit of this tool",
-    //       data: null,
-    //     };
-    //     chrome.runtime.sendMessage(message, () => {
-    //       if (chrome.runtime.lastError) {
-    //       }
-    //     });
-    //     return;
-    //   } else {
-    //     count = 0;
-    //     lastFetchTime = currentTime.toString();
+        chrome.storage.local.set({
+          count: count,
+          lastFetchTime: lastFetchTime,
+        });
 
-    //     chrome.storage.local.set({
-    //       count: count,
-    //       lastFetchTime: lastFetchTime,
-    //     });
-
-    //     console.log("Limit reset :3");
-    //   }
-    // }
+        console.log("Limit reset :3");
+      }
+    }
 
     const baseUrl = validateAndExtractBaseUrl(url);
 
