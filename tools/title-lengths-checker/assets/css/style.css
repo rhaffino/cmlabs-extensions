@@ -291,13 +291,9 @@ input.input-url-meta-checker:focus {
 
 .app-title {
   font-size: 16px;
-  /* font-weight: 400; */
+  line-height: normal;
 }
 
-/* .header-text {
-  font-size: 14px;
-  line-height: 16px;
-} */
 .text-16 {
   font-size: 16px;
   line-height: 20px;
