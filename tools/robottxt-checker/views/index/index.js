@@ -70,11 +70,12 @@ chrome.runtime.onMessage.addListener((message) => {
         showLoading(false);
         resultElement.innerHTML = "";
         
-        // const noValidUrlParagraph = document.createElement("p");
-        // noValidUrlParagraph.textContent = info;
-        // resultElement.appendChild(noValidUrlParagraph);
+        headerHero.classList.add("d-flex");
+        headerHero.classList.remove("d-none");
         alertLimit.classList.add("d-block");
         alertLimit.classList.remove("d-none");
+        readLatestBlog.classList.add("d-block");
+        readLatestBlog.classList.remove("d-none");
       }
       break;
     default:
@@ -167,6 +168,9 @@ const displayResultLinkAnalysis = (response) => {
       </div>
     `;
 
+    
+    alertLimit.classList.remove("d-block");
+    alertLimit.classList.add("d-none");
     logButton.classList.remove("d-none");
     logButton.classList.add("d-block");
 
