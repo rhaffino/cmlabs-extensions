@@ -136,26 +136,26 @@ const displayResultLinkAnalysis = (response) => {
       <div class="result__container result__container-active">
         <div class="group__result">
           <label for="url-website" class="result__label">URL Website</label>
-          <input type="text" id="url-website" placeholder="`+ robots.url +`" value="`+ robots.url +`" class="result__input" readonly>          
-          <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
+          <input type="text" id="url-website" placeholder="${robots.url ? robots.url : '-'}" value="${robots.url ? robots.url : '-'}" class="result__input ${robots.url ? '' : 'error__result'}" readonly>          
+          ${robots.url ? '<img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">' : '<img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">'}
         </div>
 
         <div class="group__result">
           <label for="url-host" class="result__label">Host</label>
-          <input type="text" id="url-host" placeholder="${robots.parser.host ? robots.parser.host : '-'}" value="${robots.parser.host ? robots.parser.host : '-'}" class="result__input error__result" readonly>
-          <img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">
+          <input type="text" id="url-host" placeholder="${robots.parser.host ? robots.parser.host : '-'}" value="${robots.parser.host ? robots.parser.host : '-'}" class="result__input ${robots.parser.host ? '' : 'error__result'}" readonly>
+          ${robots.parser.host ? '<img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">' : '<img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">'}
         </div>
 
         <div class="group__result">
           <label for="url-sitemaps" class="result__label">Sitemap</label>
-          <input type="text" id="url-sitemaps" placeholder="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" value="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" class="result__input" readonly>
-          <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
+          <input type="text" id="url-sitemaps" placeholder="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" value="${robots.parser.sitemaps ? robots.parser.sitemaps : '-'}" class="result__input ${robots.parser.sitemaps ? '' : 'error__result'}" readonly>
+          ${robots.parser.sitemaps ? '<img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">' : '<img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">'}
         </div>
 
         <div class="group__result">
           <label for="available" class="result__label">Robots.txt</label>
-          <input type="text" id="available" placeholder="Available" value="Available" class="result__input" readonly>
-          <img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">
+          <input type="text" id="available" placeholder="${robots.url ? 'Available' : 'No Available'}" value="${robots.url ? 'Available' : 'No Available'}" class="result__input ${robots.url ? '' : 'error__result'}" readonly>
+          ${robots.url ? '<img src="../../assets/icon/success.svg" alt="icon result" class="result__icon">' : '<img src="../../assets/icon/danger.svg" alt="icon result" class="result__icon">'}
         </div>
 
         <div class="details__container">
