@@ -5,6 +5,7 @@ const btnCheck = document.getElementById("btn-check");
 const resultElement = document.getElementById("result");
 const logButton = document.getElementById("submit-btn");
 const readLatestBlog = document.getElementById("read__latest-blog");
+const alertLimit = document.getElementById("alert-limit");
 const domainURL = "https://tools.cmlabs.dev";
 let inputUrl = "";
 
@@ -33,7 +34,6 @@ const launch = async () => {
     } else {
       tabChrome().then((currentUrl) => {
         console.log(currentUrl);
-
         const message = {
           event: "OnStartLinkAnalysis",
           data: {
@@ -69,10 +69,12 @@ chrome.runtime.onMessage.addListener((message) => {
       } else {
         showLoading(false);
         resultElement.innerHTML = "";
-
-        const noValidUrlParagraph = document.createElement("p");
-        noValidUrlParagraph.textContent = info;
-        resultElement.appendChild(noValidUrlParagraph);
+        
+        // const noValidUrlParagraph = document.createElement("p");
+        // noValidUrlParagraph.textContent = info;
+        // resultElement.appendChild(noValidUrlParagraph);
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
       }
       break;
     default:

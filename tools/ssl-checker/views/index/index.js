@@ -26,7 +26,6 @@ const launch = () => {
   setTimeout(() => {
     tabChrome().then((currentUrl) => {
       console.log(currentUrl);
-
       const message = {
         event: "OnStartLinkAnalysis",
         data: {
