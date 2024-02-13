@@ -6,6 +6,7 @@
   --Dark-30: #92959c;
   --Gray-60: #f0f0f0;
   --Gray-80: #d0d0d0;
+  --Gray-100: #959595;
   --Dark-60: #3b3f4c;
   --Dark-70: #252a38;
   --Primary-70: #1f95f5;
@@ -144,6 +145,13 @@ body {
   color: var(--Primary-70);
 }
 
+#btn-limit{
+  background-color: var(--Gray-80);
+  color: var(--Gray-100);
+  opacity: 1;
+  cursor: default;
+}
+
 /* Loader Btn */
 .container-loading {
   height: 100%;
@@ -156,6 +164,39 @@ body {
   height: 1.25rem;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
+}
+
+/* Alert */
+.alert__extension{   
+    padding: 0.75rem 2rem 0.75rem 0.75rem;
+    flex-shrink: 0;
+    border-radius: 0.25rem;
+    background: rgba(255, 190, 64, 0.20);
+    color: var(--Secondary-70);
+    font-family: var(--primary-font);
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1rem;
+    text-align: start;
+}
+
+.alert__extension strong{
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.btn__alert-close{
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.75rem;
+}
+
+.btn__alert-close:hover{
+    cursor: pointer;
 }
 
 /* Footer */

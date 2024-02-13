@@ -6,6 +6,8 @@ const crawlingElement = document.getElementById("crawling-status");
 const chartElement = document.getElementById("pagespeed-tab");
 const readLatestBlog = document.getElementById("read__latest-blog");
 const previewDetail = document.getElementById("preview-detail");
+const alertLimit = document.getElementById("alert-limit");
+const btnLimit = document.getElementById("btn-limit");
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
@@ -22,26 +24,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const launch = async () => {
   showLoading(true);
+  resultElement.innerHTML = "";
 
   const isDataFetched = await checkFetchStatus();
+  setTimeout(() => {
+    if (isDataFetched) {
+      crawlingElement.classList.add("d-flex");
+      crawlingElement.classList.remove("d-none");
+    } else {
+      tabChrome().then((currentUrl) => {
+        console.log(currentUrl);
 
-  if (isDataFetched) {
-    crawlingElement.classList.add("d-flex");
-    crawlingElement.classList.remove("d-none");
-  } else {
-    tabChrome().then((currentUrl) => {
-      console.log(currentUrl);
+        const message = {
+          event: "OnStartLinkAnalysis",
+          data: {
+            url: currentUrl,
+          },
+        };
 
-      const message = {
-        event: "OnStartLinkAnalysis",
-        data: {
-          url: currentUrl,
-        },
-      };
-
-      chrome.runtime.sendMessage(message);
-    });
-  }
+        chrome.runtime.sendMessage(message);
+      });
+    }
+  }, 5000);
 };
 
 const checkFetchStatus = () => {
@@ -69,50 +73,56 @@ function tabChrome() {
 
 function renderResult(data) {
   showLoading(false);
+  resultElement.innerHTML = "";
 
-  logButton.classList.remove("d-none");
-  logButton.classList.add("d-block");
-  previewDetail.classList.remove("d-none");
-  previewDetail.classList.add("d-flex");
-
-  const categories = [
-    "performance",
-    "accessibility",
-    "best-practices",
-    "seo",
-    "pwa",
-  ];
-
-  // Show Current URL Check Pagespeed Detail
-  var urlDetail = document.getElementById("preview-detail");
-  // const node = document.createElement("span");
-  // const textNode = document.createTextNode("Want to see more details? See details");
-  // node.appendChild(textNode);
-  // urlDetail.appendChild(node);
-  // urlDetail.textContent = "Want to see more details? See details ";
-  urlDetail.setAttribute(
-    "href",
-    "" + domainURL + "/en/pagespeed-test?url=" + data.id
-  );
-
-  for (let j = 0; j < 5; j++) {
-    let score;
-    if (data.lighthouseResult.categories[categories[j]].score == null) {
-      score = 0;
-    } else {
-      score = (
-        data.lighthouseResult.categories[categories[j]].score * 100
-      ).toFixed(0);
+  if(data){
+    const categories = [
+      "performance",
+      "accessibility",
+      "best-practices",
+      "seo",
+      "pwa",
+    ];
+  
+    // Show Current URL Check Pagespeed Detail
+    var urlDetail = document.getElementById("preview-detail");
+    // const node = document.createElement("span");
+    // const textNode = document.createTextNode("Want to see more details? See details");
+    // node.appendChild(textNode);
+    // urlDetail.appendChild(node);
+    // urlDetail.textContent = "Want to see more details? See details ";
+    urlDetail.setAttribute(
+      "href",
+      "" + domainURL + "/en/pagespeed-test?url=" + data.id
+    );
+  
+    for (let j = 0; j < 5; j++) {
+      let score;
+      if (data.lighthouseResult.categories[categories[j]].score == null) {
+        score = 0;
+      } else {
+        score = (
+          data.lighthouseResult.categories[categories[j]].score * 100
+        ).toFixed(0);
+      }
+  
+      strokeValue(score, j + 1, categories[j]);
+  
+      const message = {
+        event: "onResetResponse",
+        data: null,
+      };
+      chrome.runtime.sendMessage(message);
     }
-
-    strokeValue(score, j + 1, categories[j]);
-
-    const message = {
-      event: "onResetResponse",
-      data: null,
-    };
-    chrome.runtime.sendMessage(message);
+    logButton.classList.remove("d-none");
+    logButton.classList.add("d-block");
+    alertLimit.classList.remove("d-block");
+    alertLimit.classList.add("d-none");
+    previewDetail.classList.remove("d-none");
+    previewDetail.classList.add("d-flex");
   }
+
+
 }
 
 function strokeValue(score, number, category) {
@@ -186,9 +196,21 @@ chrome.runtime.onMessage.addListener((message) => {
 
         resultElement.innerHTML = "";
 
-        const noValidUrlParagraph = document.createElement("p");
-        noValidUrlParagraph.textContent = info;
-        resultElement.appendChild(noValidUrlParagraph);
+        headerHero.classList.add("d-flex");
+        headerHero.classList.remove("d-none");
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
+        previewDetail.classList.add("d-none");
+        previewDetail.classList.remove("d-flex");
+        chartElement.classList.add("d-none");
+        chartElement.classList.remove("d-flex");
+        logButton.classList.add("d-none");
+        logButton.classList.remove("d-block");
+        btnLimit.classList.remove("d-none");
+        btnLimit.classList.add("d-block");
+        // const noValidUrlParagraph = document.createElement("p");
+        // noValidUrlParagraph.textContent = info;
+        // resultElement.appendChild(noValidUrlParagraph);
       }
       break;
     default:
@@ -241,6 +263,7 @@ const checkLocalStorage = () => {
     if (result.response) {
       renderResult(result.response);
     } else {
+      showLoading(true);
       launch();
     }
   });
