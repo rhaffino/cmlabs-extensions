@@ -13,6 +13,8 @@ const descElement = document.getElementById("desc");
 const urlElement = document.getElementById("url-here");
 const urlCheck = document.getElementById("url-check");
 const logButton = document.getElementById("submit-btn");
+// Alert
+const alertLimit = document.getElementById("alert-limit");
 
 // Constraints
 const constrain = {
@@ -36,28 +38,45 @@ document.addEventListener("DOMContentLoaded", function () {
   launch();
 
   logButton.addEventListener("click", function () {
-    launch();
     showResult(false);
+    launch();
   });
+
+  checkLocalStorage();
 });
 
-const launch = () => {
+const launch = async () => {
   showLoading(true);
-
+  
+  const isDataFetched = await checkFetchStatus();
   setTimeout(() => {
-    showLoading(true);
+    if (isDataFetched) {
+      logButton.style.display = "none";
+    } else {
+      tabChrome().then((currentUrl) => {
+        const message = {
+          event: "OnStartTitleLengthChecker",
+          data: {
+            url: currentUrl,
+          },
+        };
 
-    tabChrome().then((currentUrl) => {
-      const message = {
-        event: "OnStartTitleLengthChecker",
-        data: {
-          url: currentUrl,
-        },
-      };
+        chrome.runtime.sendMessage(message);
+      });
+    }
+  }, 5000);
+};
 
-      chrome.runtime.sendMessage(message);
+const checkFetchStatus = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(["isDataFetched"], (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result.isDataFetched);
+      }
     });
-  }, 5000); //5 detik
+  });
 };
 
 // Akbar
@@ -85,6 +104,9 @@ chrome.runtime.onMessage.addListener((message) => {
         }
         showLoading(false);
         showResult(false);
+        
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
       }
       break;
     default:
@@ -366,10 +388,28 @@ const displayResultTitleLengthChecker = (response) => {
     errorParagraph.className = "text-center text-lg mt-error";
     errorParagraph.textContent = "Error occured.";
     checkerElement.appendChild(errorParagraph);
+    
     showLoading(false);
     return;
   }
+
+  alertLimit.classList.remove("d-block");
+  alertLimit.classList.add("d-none");
   showLoading(false);
   showResult(true);
 };
 
+const checkLocalStorage = () => {
+  showLoading(true);
+
+  chrome.storage.local.get(["response"], (result) => {
+    showLoading(false);
+
+    if (result.response) {
+      displayResultTitleLengthChecker(result.response);
+    } else {
+      showLoading(true);
+      launch();
+    }
+  });
+};
