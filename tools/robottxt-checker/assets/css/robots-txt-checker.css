@@ -5,6 +5,7 @@
   --Gray-50: #F3F3F3;
   --Gray-60: #F0F0F0;
   --Gray-80: #D0D0D0;
+  --Gray-100: #959595;
   --Dark-60: #3B3F4C;
   --Dark-70: #252A38;
   --Primary-70: #1F95F5;
@@ -196,6 +197,14 @@
     background: var(--Primary-130);
     color: var(--white);
 }
+
+#btn-limit{
+  background-color: var(--Gray-80);
+  color: var(--Gray-100);
+  opacity: 1;
+  cursor: default;
+}
+
 
 .icon__loader{
   width: 20px;
