@@ -6,6 +6,7 @@ const resultElement = document.getElementById("result");
 const logButton = document.getElementById("submit-btn");
 const readLatestBlog = document.getElementById("read__latest-blog");
 const alertLimit = document.getElementById("alert-limit");
+const btnLimit = document.getElementById("btn-limit");
 const domainURL = "https://tools.cmlabs.dev";
 let inputUrl = "";
 
@@ -74,8 +75,12 @@ chrome.runtime.onMessage.addListener((message) => {
         headerHero.classList.remove("d-none");
         alertLimit.classList.add("d-block");
         alertLimit.classList.remove("d-none");
-        readLatestBlog.classList.add("d-block");
-        readLatestBlog.classList.remove("d-none");
+        btnLimit.classList.add("d-flex");
+        btnLimit.classList.remove("d-none");
+        logButton.classList.add("d-none");
+        logButton.classList.remove("d-block");
+        readLatestBlog.classList.remove("d-block");
+        readLatestBlog.classList.add("d-none");
       }
       break;
     default:

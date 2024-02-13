@@ -196,6 +196,13 @@
   color: var(--white);
 }
 
+#btn-limit{
+  background-color: var(--Gray-80);
+  color: var(--Gray-100);
+  opacity: 1;
+  cursor: default;
+}
+
 .icon__loader {
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
