@@ -102,11 +102,13 @@ const processAnalyze = async (url) => {
     const baseUrl = validateAndExtractBaseUrl(url);
   
     if (baseUrl) {
-      const data = await postToAnalyze(baseUrl);
+      console.log("Valid URL", baseUrl);
 
       chrome.storage.local.set({ isDataFetched: true }, () => {
         console.log("isDataFetched saved as true.");
       });
+      
+      const data = await postToAnalyze(baseUrl);
   
       if (data && data.statusCode && data.statusCode == 200) {
         const message = {

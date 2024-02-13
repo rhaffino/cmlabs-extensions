@@ -13,8 +13,11 @@ const descElement = document.getElementById("desc");
 const urlElement = document.getElementById("url-here");
 const urlCheck = document.getElementById("url-check");
 const logButton = document.getElementById("submit-btn");
+const checkButton = document.getElementById("check-btn");
 // Alert
 const alertLimit = document.getElementById("alert-limit");
+const latestBlog = document.getElementById("latest-blog");
+const limitBtn = document.getElementById("btn-limit");
 
 // Constraints
 const constrain = {
@@ -35,8 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updateUrlElement();
   });
 
-  launch();
-
   logButton.addEventListener("click", function () {
     showResult(false);
     launch();
@@ -47,11 +48,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const launch = async () => {
   showLoading(true);
+  // resultElement.innerHTML = "";
   
   const isDataFetched = await checkFetchStatus();
   setTimeout(() => {
     if (isDataFetched) {
-      logButton.style.display = "none";
+      tabChrome().then((currentUrl) => {
+        const message = {
+          event: "OnStartTitleLengthChecker",
+          data: {
+            url: currentUrl,
+          },
+        };
+
+        chrome.runtime.sendMessage(message);
+      });
     } else {
       tabChrome().then((currentUrl) => {
         const message = {
@@ -94,19 +105,25 @@ chrome.runtime.onMessage.addListener((message) => {
       if (status) {
         displayResultTitleLengthChecker(response);
       } else {
-        const checkError = document.getElementById("error-paragraph");
-        if (!checkError) {
-          const errorParagraph = document.createElement("p");
-          errorParagraph.id = "error-paragraph";
-          errorParagraph.className = "text-center text-lg mt-error";
-          errorParagraph.textContent = info;
-          checkerElement.appendChild(errorParagraph);
-        }
-        showLoading(false);
+        // const checkError = document.getElementById("error-paragraph");
+        // if (!checkError) {
+        //   const errorParagraph = document.createElement("p");
+        //   errorParagraph.id = "error-paragraph";
+        //   errorParagraph.className = "text-center text-lg mt-error";
+        //   errorParagraph.textContent = info;
+        //   checkerElement.appendChild(errorParagraph);
+        // }
+        showLoading(true);
         showResult(false);
         
         alertLimit.classList.add("d-block");
         alertLimit.classList.remove("d-none");
+        checkButton.classList.add("d-none");
+        checkButton.classList.remove("d-block");
+        latestBlog.classList.add("d-none");
+        latestBlog.classList.remove("d-block");
+        limitBtn.classList.add("d-flex");
+        limitBtn.classList.remove("d-none");
       }
       break;
     default:
@@ -158,10 +175,10 @@ const titleChecker = function (title) {
     badChar = l - constrain.minTitleChar;
   }
 
-  titlesizer.setAttribute(
-    "style",
-    "font-family: arial, sans-serif !important;font-size: 18px!important;position:absolute!important;white-space:nowrap!important;visibility:hidden!important"
-  );
+  // titlesizer.setAttribute(
+  //   "style",
+  //   "font-family: arial, sans-serif !important;font-size: 18px!important;position:absolute!important;white-space:nowrap!important;visibility:hidden!important"
+  // );
   titlesizer.innerHTML = title;
   var pixel = Math.floor(titlesizer.offsetWidth);
   if (pixel >= constrain.minTitlePixel && pixel <= constrain.maxTitlePixel) {
@@ -200,10 +217,10 @@ const descChecker = function (desc) {
     badChar = l - constrain.minDescChar;
   }
 
-  descsizer.setAttribute(
-    "style",
-    "font-family: arial, sans-serif !important;font-size:13px !important;position:absolute !important;visibility:hidden !important;white-space:nowrap !important;"
-  );
+  // descsizer.setAttribute(
+  //   "style",
+  //   "font-family: arial, sans-serif !important;font-size:13px !important;position:absolute !important;visibility:hidden !important;white-space:nowrap !important;"
+  // );
   descsizer.innerHTML = desc;
   var pixel = Math.floor(descsizer.offsetWidth);
   if (pixel >= constrain.minDescPixel && pixel <= constrain.maxDescPixel) {
@@ -239,15 +256,15 @@ const fillTitleBar = function (param, cta = false) {
   }
 
   // cta
-  if (cta) {
-    if (param.rate >= 3) {
-      document.getElementById("cta-warning").style.display = "none";
-    } else {
-      document.getElementById("cta-warning").style.display = "block";
-    }
-  } else {
-    document.getElementById("cta-warning").style.display = "none";
-  }
+  // if (cta) {
+  //   if (param.rate >= 3) {
+  //     document.getElementById("cta-warning").style.display = "none";
+  //   } else {
+  //     document.getElementById("cta-warning").style.display = "block";
+  //   }
+  // } else {
+  //   document.getElementById("cta-warning").style.display = "none";
+  // }
 
   document.getElementById("title-char").textContent = param.char;
   document.getElementById("title-pixel").textContent = param.pixel;
@@ -282,7 +299,7 @@ const fillTitleBar = function (param, cta = false) {
       document.getElementById("title-bad-pixel").classList.add("d-none");
     }
   } else {
-    document.getElementById("cta-warning").style.display = "none";
+    // document.getElementById("cta-warning").style.display = "none";
     document.getElementById("title-bad-char").classList.remove("d-flex");
     document.getElementById("title-bad-char").classList.add("d-none");
     document.getElementById("title-bad-pixel").classList.remove("d-flex");
@@ -301,15 +318,15 @@ const fillDescBar = function (param, cta = false) {
   }
 
   // cta
-  if (cta) {
-    if (param.rate >= 3) {
-      document.getElementById("cta-warning").style.display = "none";
-    } else {
-      document.getElementById("cta-warning").style.display = "block";
-    }
-  } else {
-    document.getElementById("cta-warning").style.display = "none";
-  }
+  // if (cta) {
+  //   if (param.rate >= 3) {
+  //     document.getElementById("cta-warning").style.display = "none";
+  //   } else {
+  //     document.getElementById("cta-warning").style.display = "block";
+  //   }
+  // } else {
+  //   document.getElementById("cta-warning").style.display = "none";
+  // }
 
   document.getElementById("desc-char").textContent = param.char;
   document.getElementById("desc-pixel").textContent = param.pixel;
@@ -344,7 +361,7 @@ const fillDescBar = function (param, cta = false) {
       document.getElementById("desc-bad-pixel").classList.add("d-none");
     }
   } else {
-    document.getElementById("cta-warning").style.display = "none";
+    // document.getElementById("cta-warning").style.display = "none";
     document.getElementById("desc-bad-char").classList.remove("d-flex");
     document.getElementById("desc-bad-char").classList.add("d-none");
     document.getElementById("desc-bad-pixel").classList.remove("d-flex");
