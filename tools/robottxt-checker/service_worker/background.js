@@ -4,10 +4,10 @@ import validateAndExtractBaseUrl from "./utils/validateUrl.js";
 let tempCount;
 let tempLastFetchTime;
 
+// Run to get Local Storage
 chrome.runtime.onInstalled.addListener((details) => {
-  // ambil data sebelumnya
+  // Get Data Before
   chrome.storage.local.get(["count", "lastFetchTime"], (result) => {
-    console.log("GET LAST DATA");
     if (result.count) {
       tempCount = result.count;
     }
@@ -15,11 +15,8 @@ chrome.runtime.onInstalled.addListener((details) => {
       tempLastFetchTime = new Date(result.lastFetchTime);
     }
 
-    // clear storage setelah data sebelumnya diambil
+    // clear storage after the previous data is retrieved
     chrome.storage.local.clear(() => {
-      console.log("Fresh like new!");
-
-      // jika ga ada, set init
       if (!tempCount) {
         tempCount = 0;
       }
@@ -41,12 +38,12 @@ chrome.runtime.onInstalled.addListener((details) => {
   });
 });
 
+// Event Analyze
 chrome.runtime.onMessage.addListener((message) => {
   const { event, data } = message;
 
   switch (event) {
     case "OnStartLinkAnalysis":
-      console.log("OnStartLinkAnalysis");
       chrome.storage.local.set({
         response: null,
       });
@@ -56,10 +53,10 @@ chrome.runtime.onMessage.addListener((message) => {
       resetLocal();
       break;
     default:
-      console.log("Unknown event", event);
   }
 });
 
+// Process & Limit 5 times
 const processAnalyze = async (url) => {
   chrome.storage.local.get(["count", "lastFetchTime"]).then(async (result) => {
     let count = result.count || 0;
@@ -74,7 +71,6 @@ const processAnalyze = async (url) => {
       const timeDifference = currentTime - lastFetchTime;
       const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
       if (timeDifferenceInHours < 1) {
-        console.log("Reach Limit :3");
         const message = {
           event: "OnFinishLinkAnalysis",
           status: false,
@@ -94,16 +90,12 @@ const processAnalyze = async (url) => {
           count: count,
           lastFetchTime: lastFetchTime,
         });
-
-        console.log("Limit reset :3");
       }
     }
 
     const baseUrl = validateAndExtractBaseUrl(url);
 
     if (baseUrl) {
-      console.log("Valid URL", baseUrl);
-
       chrome.storage.local.set({ isDataFetched: true }, () => {
         console.log("isDataFetched saved as true.");
       });
@@ -111,8 +103,6 @@ const processAnalyze = async (url) => {
       const data = await postToAnalyze(baseUrl);
 
       if (data) {
-        console.log("Success to post to analyze", JSON.stringify(data));
-
         const message = {
           event: "OnFinishLinkAnalysis",
           status: true,
@@ -133,8 +123,6 @@ const processAnalyze = async (url) => {
           }
         });
       } else {
-        console.log("Failed to post to analyze");
-
         const message = {
           event: "OnFinishLinkAnalysis",
           status: false,
@@ -144,8 +132,6 @@ const processAnalyze = async (url) => {
         chrome.runtime.sendMessage(message);
       }
     } else {
-      console.log("Invalid URL");
-
       const message = {
         event: "OnFinishLinkAnalysis",
         status: false,
@@ -157,6 +143,7 @@ const processAnalyze = async (url) => {
   });
 };
 
+// Reset Local Storage
 const resetLocal = () => {
   chrome.storage.local.set({ response: null }, () => {
     console.log("response set to null.");

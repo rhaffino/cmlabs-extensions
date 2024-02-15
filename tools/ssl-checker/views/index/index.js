@@ -1,13 +1,26 @@
 const loading = document.getElementById("loading");
 const loadingContainer = document.getElementById("loading__container");
 const headerHero = document.getElementById("header");
-const btnCheck = document.getElementById("btn-check");
-const resultElement = document.getElementById("result");
-const logButton = document.getElementById("submit-btn");
-const readLatestBlog = document.getElementById("read__latest-blog");
 const alertLimit = document.getElementById("alert-limit");
+const btnCheck = document.getElementById("btn-check");
+const logButton = document.getElementById("submit-btn");
 const btnLimit = document.getElementById("btn-limit");
+const resultElement = document.getElementById("result");
+const readLatestBlog = document.getElementById("read__latest-blog");
 
+// Function check Chrome tab URL
+function tabChrome() {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var currentTab = tabs[0];
+      var currentUrl = currentTab.url;
+
+      resolve(currentUrl);
+    });
+  });
+}
+
+// Load DOM Extension
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     var urlContainer = document.getElementById("url-container");
@@ -21,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   checkLocalStorage();
 });
 
+// Run Extension
 const launch = async () => {
   showLoading(true);
   resultElement.innerHTML = "";
@@ -31,7 +45,6 @@ const launch = async () => {
       logButton.style.display = "none";
     } else {
       tabChrome().then((currentUrl) => {
-        console.log(currentUrl);
         const message = {
           event: "OnStartLinkAnalysis",
           data: {
@@ -45,6 +58,24 @@ const launch = async () => {
   }, 5000);
 };
 
+// Local Storage
+const checkLocalStorage = () => {
+  showLoading(true);
+  resultElement.innerHTML = "";
+
+  chrome.storage.local.get(["response"], (result) => {
+    showLoading(false);
+
+    if (result.response) {
+      renderResult(result.response);
+    } else {
+      showLoading(true);
+      launch();
+    }
+  });
+};
+
+// Check Status Extension Service Worker
 const checkFetchStatus = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["isDataFetched"], (result) => {
@@ -57,17 +88,76 @@ const checkFetchStatus = () => {
   });
 };
 
-function tabChrome() {
-  return new Promise((resolve, reject) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      var currentTab = tabs[0];
-      var currentUrl = currentTab.url;
+// Show / Hide Section
+const showLoading = (status) => {
+  if (status) {
+    loading.classList.remove("d-none");
+    loading.classList.add("d-flex");
+    loadingContainer.classList.remove("d-none");
+    loadingContainer.classList.add("d-flex");
+    headerHero.classList.remove("d-none");
+    headerHero.classList.add("d-flex");
+    btnCheck.classList.remove("d-block");
+    btnCheck.classList.add("d-none");
+    readLatestBlog.classList.remove("d-none");
+    readLatestBlog.classList.add("d-block");
+  } else {
+    loading.classList.remove("d-flex");
+    loading.classList.add("d-none");
+    loadingContainer.classList.remove("d-flex");
+    loadingContainer.classList.add("d-none");
+    headerHero.classList.remove("d-block");
+    headerHero.classList.add("d-none");
+    btnCheck.classList.remove("d-none");
+    btnCheck.classList.add("d-flex");
+    readLatestBlog.classList.remove("d-block");
+    readLatestBlog.classList.add("d-none");
+  }
+};
 
-      resolve(currentUrl);
-    });
-  });
+// Function parse Mothh
+function parseMonth(month) {
+  switch (month) {
+    case 1:
+      return "January";
+      break;
+    case 2:
+      return "February";
+      break;
+    case 3:
+      return "March";
+      break;
+    case 4:
+      return "April";
+      break;
+    case 5:
+      return "May";
+      break;
+    case 6:
+      return "June";
+      break;
+    case 7:
+      return "July";
+      break;
+    case 8:
+      return "August";
+      break;
+    case 9:
+      return "September";
+      break;
+    case 10:
+      return "October";
+      break;
+    case 11:
+      return "November";
+      break;
+    case 12:
+      return "December";
+      break;
+  }
 }
 
+// Display Result SSL Checker
 function renderResult(response) {
   showLoading(false);
 
@@ -161,6 +251,7 @@ function renderResult(response) {
   chrome.runtime.sendMessage(message);
 }
 
+// After Run Service Worker
 chrome.runtime.onMessage.addListener((message) => {
   const { event, response, status, info } = message;
 
@@ -185,89 +276,5 @@ chrome.runtime.onMessage.addListener((message) => {
       }
       break;
     default:
-      console.log("Unknown event", event);
   }
 });
-
-const showLoading = (status) => {
-  if (status) {
-    loading.classList.remove("d-none");
-    loading.classList.add("d-flex");
-    loadingContainer.classList.remove("d-none");
-    loadingContainer.classList.add("d-flex");
-    headerHero.classList.remove("d-none");
-    headerHero.classList.add("d-flex");
-    btnCheck.classList.remove("d-block");
-    btnCheck.classList.add("d-none");
-    readLatestBlog.classList.remove("d-none");
-    readLatestBlog.classList.add("d-block");
-  } else {
-    loading.classList.remove("d-flex");
-    loading.classList.add("d-none");
-    loadingContainer.classList.remove("d-flex");
-    loadingContainer.classList.add("d-none");
-    headerHero.classList.remove("d-block");
-    headerHero.classList.add("d-none");
-    btnCheck.classList.remove("d-none");
-    btnCheck.classList.add("d-flex");
-    readLatestBlog.classList.remove("d-block");
-    readLatestBlog.classList.add("d-none");
-  }
-};
-
-const checkLocalStorage = () => {
-  showLoading(true);
-  resultElement.innerHTML = "";
-
-  chrome.storage.local.get(["response"], (result) => {
-    showLoading(false);
-
-    if (result.response) {
-      renderResult(result.response);
-    } else {
-      showLoading(true);
-      launch();
-    }
-  });
-};
-
-function parseMonth(month) {
-  switch (month) {
-    case 1:
-      return "January";
-      break;
-    case 2:
-      return "February";
-      break;
-    case 3:
-      return "March";
-      break;
-    case 4:
-      return "April";
-      break;
-    case 5:
-      return "May";
-      break;
-    case 6:
-      return "June";
-      break;
-    case 7:
-      return "July";
-      break;
-    case 8:
-      return "August";
-      break;
-    case 9:
-      return "September";
-      break;
-    case 10:
-      return "October";
-      break;
-    case 11:
-      return "November";
-      break;
-    case 12:
-      return "December";
-      break;
-  }
-}

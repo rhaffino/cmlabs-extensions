@@ -1,4 +1,4 @@
-/* Global Color */
+/* Global Variable */
 :root {
   --primaryblue: #18a0fb;
   --black: #2d393d;
@@ -7,6 +7,20 @@
   --lightgrey: #e1e8ed;
   --white: #ffffff;
   --primaryred: #fb1818;
+  --Gray-20: #F9F9F9;
+  --Dark-30: #92959C;
+  --Gray-50: #F3F3F3;
+  --Gray-60: #F0F0F0;
+  --Gray-80: #D0D0D0;
+  --Gray-100: #959595;
+  --Dark-60: #3B3F4C;
+  --Dark-70: #252A38;
+  --Primary-70: #1F95F5;
+  --Primary-130: #092D49;
+  --Secondary-70: #FFBE40;
+  --Success-50: #73B38A;
+  --Danger-50: #F98181;
+  --primary-font: "Helvetica Now Display", sans-serif;
 }
 
 /* Scrollbar */
@@ -19,4 +33,34 @@
   width: 23.4375rem;
   padding: 1.25rem 1.5rem;
   background-color: var(--white);
+}
+
+/* Global */
+.text-14 {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.text-16 {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

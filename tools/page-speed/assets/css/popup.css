@@ -1,16 +1,37 @@
+/* Global Variable */
 :root {
-  --Gray-20: #F9F9F9;
-    --Dark-30: #92959C;
-    --Gray-60: #F0F0F0;
-    --Gray-80: #D0D0D0;
-    --Dark-60: #3B3F4C;
-    --Dark-70: #252A38;
-    --Primary-70: #1F95F5;
-    --Primary-130: #092D49;
-    --Secondary-70: #FFBE40;
-    --primary-font: "Helvetica Now Display", sans-serif;
+  --primaryblue: #18a0fb;
+  --black: #2d393d;
+  --darkgrey: #66757f;
+  --grey: #ccd6dd;
+  --lightgrey: #e1e8ed;
+  --white: #ffffff;
+  --primaryred: #fb1818;
+  --Gray-20: #f9f9f9;
+  --Dark-30: #92959c;
+  --Gray-60: #f0f0f0;
+  --Gray-80: #d0d0d0;
+  --Gray-100: #959595;
+  --Dark-60: #3b3f4c;
+  --Dark-70: #252a38;
+  --Primary-70: #1f95f5;
+  --Primary-130: #092d49;
+  --Secondary-70: #ffbe40;
+  --Danger-10: #FDD0D0;
+  --Danger-50: #F98181;
+  --Warning-10: #FFECC6;
+  --Warning-50: #FFCB66;
+  --Success-10: #CBE3D3;
+  --Success-50: #73B38A;
+  --primary-font: "Helvetica Now Display", sans-serif;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar{
+  width: .0rem;
+}
+
+/* Popup Style */
 .popup {
   width: 600px;
   padding: 1.5rem;
@@ -24,6 +45,11 @@
 .popup p {
   font-family: var(--primary-font);
   font-size: 0.875rem;
+}
+
+/* General */
+body {
+  font-family: var(--primary-font);
 }
 
 /* Safari */
