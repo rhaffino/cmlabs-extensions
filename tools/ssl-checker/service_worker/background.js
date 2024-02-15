@@ -31,7 +31,7 @@ chrome.runtime.onInstalled.addListener((details) => {
         {
           isDataFetched: false,
           count: tempCount,
-          lastFetchTime: tempLastFetchTime.toString(),
+          lastFetchTime: tempLastFetchTime?.toString(),
         },
         () => {
           console.log("isDataFetched and fetch count data init");
@@ -88,7 +88,7 @@ const processAnalyze = async (url) => {
         return;
       } else {
         count = 0;
-        lastFetchTime = currentTime.toString();
+        lastFetchTime = currentTime?.toString();
 
         chrome.storage.local.set({
           count: count,
