@@ -1,4 +1,4 @@
-const domainURL = "https://tools.cmlabs.dev";
+const domainURL = "https://tools.cmlabs.co";
 let inputUrl = "";
 const loadingElement = document.getElementById("loading");
 const loadingContainer = document.getElementById("loading__container");
@@ -423,7 +423,7 @@ const displayResultLinkAnalysis = (response) => {
           <a href="` +
     domainURL +
     "/en/link-analyzer?url=" +
-    inputUrl +
+    inputUrl.replace(/\/$/, '') + "?auto=true"+
     `" target="_blank" class="see__details">Want to see more details? See details</a>
           <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
         </div>

@@ -7,7 +7,7 @@ const logButton = document.getElementById("submit-btn");
 const readLatestBlog = document.getElementById("read__latest-blog");
 const alertLimit = document.getElementById("alert-limit");
 const btnLimit = document.getElementById("btn-limit");
-const domainURL = "https://tools.cmlabs.dev";
+const domainURL = "https://tools.cmlabs.co";
 let inputUrl = "";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -167,7 +167,7 @@ const displayResultLinkAnalysis = (response) => {
         </div>
 
         <div class="details__container">
-          <a href="`+ domainURL + `/en/robotstxt-checker=` + inputUrl+`" target="_blank" class="see__details">Want to see more details? See details</a>
+          <a href="`+ domainURL + `/en/robotstxt-checker?url=` + inputUrl.replace(/\/$/, '') + "?auto=true" +`" target="_blank" class="see__details">Want to see more details? See details</a>
           <img src="../../assets/icon/arrow-right.svg" alt="icon arrow" class="detail__icon">
         </div>
       </div>
