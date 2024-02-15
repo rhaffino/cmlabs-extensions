@@ -1,4 +1,4 @@
-var domainURL = "https://tools.cmlabs.dev";
+var domainURL = "https://tools.cmlabs.co";
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const headerHero = document.getElementById("header");
@@ -85,7 +85,7 @@ function renderResult(data) {
     ];
   
     // Show Current URL Check Pagespeed Detail
-    var urlDetail = document.getElementById("preview-detail");
+    var urlDetail = document.getElementById("link-preview-detail");
     // const node = document.createElement("span");
     // const textNode = document.createTextNode("Want to see more details? See details");
     // node.appendChild(textNode);
@@ -93,7 +93,7 @@ function renderResult(data) {
     // urlDetail.textContent = "Want to see more details? See details ";
     urlDetail.setAttribute(
       "href",
-      "" + domainURL + "/en/pagespeed-test?url=" + data.id
+      "" + domainURL + "/en/pagespeed-test?url=" + data.id.replace(/\/$/, '') + "?auto=true"
     );
   
     for (let j = 0; j < 5; j++) {
