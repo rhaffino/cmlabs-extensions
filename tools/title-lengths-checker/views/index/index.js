@@ -1,23 +1,18 @@
-// Main
-const checkerElement = document.getElementById("title-length-checker");
-// Loading
-const loadingElement = document.getElementById("loading");
-// Result
-const resultElement = document.getElementById("result-container");
-// URL Value
 let urlValue = "";
-// Title and Desc
-const titleElement = document.getElementById("title");
-const descElement = document.getElementById("desc");
-// Akbar
+const checkerElement = document.getElementById("title-length-checker");
+const loadingElement = document.getElementById("loading");
+const resultElement = document.getElementById("result-container");
 const urlElement = document.getElementById("url-here");
 const urlCheck = document.getElementById("url-check");
 const logButton = document.getElementById("submit-btn");
 const checkButton = document.getElementById("check-btn");
-// Alert
+const limitBtn = document.getElementById("btn-limit");
 const alertLimit = document.getElementById("alert-limit");
 const latestBlog = document.getElementById("latest-blog");
-const limitBtn = document.getElementById("btn-limit");
+
+// Title and Desc
+const titleElement = document.getElementById("title");
+const descElement = document.getElementById("desc");
 
 // Constraints
 const constrain = {
@@ -31,10 +26,22 @@ const constrain = {
   maxDescPixel: 920,
 };
 
+// Function check Chrome tab URL
+function tabChrome() {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var currentTab = tabs[0];
+      var currentUrl = currentTab.url;
+
+      resolve(currentUrl);
+    });
+  });
+}
+
+// Load DOM Extension
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     urlValue = currentUrl;
-    // Akbar
     updateUrlElement();
   });
 
@@ -46,9 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
   checkLocalStorage();
 });
 
+// Run Extension
 const launch = async () => {
   showLoading(true);
-  // resultElement.innerHTML = "";
   
   const isDataFetched = await checkFetchStatus();
   setTimeout(() => {
@@ -78,6 +85,7 @@ const launch = async () => {
   }, 5000);
 };
 
+// Check Status Extension Service Worker
 const checkFetchStatus = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["isDataFetched"], (result) => {
@@ -90,57 +98,23 @@ const checkFetchStatus = () => {
   });
 };
 
-// Akbar
-const updateUrlElement = () => {
-  urlElement.textContent = urlValue;
-  urlCheck.textContent = urlValue;
+// Local Storage
+const checkLocalStorage = () => {
+  showLoading(true);
+
+  chrome.storage.local.get(["response"], (result) => {
+    showLoading(false);
+
+    if (result.response) {
+      displayResultTitleLengthChecker(result.response);
+    } else {
+      showLoading(true);
+      launch();
+    }
+  });
 };
 
-
-chrome.runtime.onMessage.addListener((message) => {
-  const { event, response, status, info } = message;
-
-  switch (event) {
-    case "OnFinishTitleLengthChecker":
-      if (status) {
-        displayResultTitleLengthChecker(response);
-      } else {
-        // const checkError = document.getElementById("error-paragraph");
-        // if (!checkError) {
-        //   const errorParagraph = document.createElement("p");
-        //   errorParagraph.id = "error-paragraph";
-        //   errorParagraph.className = "text-center text-lg mt-error";
-        //   errorParagraph.textContent = info;
-        //   checkerElement.appendChild(errorParagraph);
-        // }
-        showLoading(true);
-        showResult(false);
-        
-        alertLimit.classList.add("d-block");
-        alertLimit.classList.remove("d-none");
-        checkButton.classList.add("d-none");
-        checkButton.classList.remove("d-block");
-        latestBlog.classList.add("d-none");
-        latestBlog.classList.remove("d-block");
-        limitBtn.classList.add("d-flex");
-        limitBtn.classList.remove("d-none");
-      }
-      break;
-    default:
-  }
-});
-
-function tabChrome() {
-  return new Promise((resolve, reject) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      var currentTab = tabs[0];
-      var currentUrl = currentTab.url;
-
-      resolve(currentUrl);
-    });
-  });
-}
-
+// Show / Hide Section hero
 const showLoading = (status) => {
   if (status) {
     loadingElement.classList.remove("d-none");
@@ -151,6 +125,7 @@ const showLoading = (status) => {
   }
 };
 
+// Show / Hide Section Result
 const showResult = (status) => {
   if (status) {
     resultElement.classList.remove("d-none");
@@ -161,12 +136,20 @@ const showResult = (status) => {
   }
 };
 
+// Update URL text
+const updateUrlElement = () => {
+  urlElement.textContent = urlValue;
+  urlCheck.textContent = urlValue;
+};
+
+// Check Meta Title Value 
 const titleChecker = function (title) {
   var titlesizer = document.getElementById("titlesizer");
   var rate = 0;
   var badChar = 0;
   var badPixel = 0;
   var l = title.length;
+
   if (l >= constrain.minTitleChar && l <= constrain.maxTitleChar) {
     rate++;
   } else if (l > constrain.minTitleChar) {
@@ -175,11 +158,8 @@ const titleChecker = function (title) {
     badChar = l - constrain.minTitleChar;
   }
 
-  // titlesizer.setAttribute(
-  //   "style",
-  //   "font-family: arial, sans-serif !important;font-size: 18px!important;position:absolute!important;white-space:nowrap!important;visibility:hidden!important"
-  // );
   titlesizer.innerHTML = title;
+
   var pixel = Math.floor(titlesizer.offsetWidth);
   if (pixel >= constrain.minTitlePixel && pixel <= constrain.maxTitlePixel) {
     rate += 2;
@@ -203,12 +183,14 @@ const titleChecker = function (title) {
   };
 };
 
+// Check Meta Description Value 
 const descChecker = function (desc) {
   var descsizer = document.getElementById("descsizer");
   var rate = 0;
   var badChar = 0;
   var badPixel = 0;
   var l = desc.length;
+
   if (l >= constrain.minDescChar && l <= constrain.maxDescChar) {
     rate++;
   } else if (l > constrain.maxDescChar) {
@@ -217,12 +199,9 @@ const descChecker = function (desc) {
     badChar = l - constrain.minDescChar;
   }
 
-  // descsizer.setAttribute(
-  //   "style",
-  //   "font-family: arial, sans-serif !important;font-size:13px !important;position:absolute !important;visibility:hidden !important;white-space:nowrap !important;"
-  // );
   descsizer.innerHTML = desc;
   var pixel = Math.floor(descsizer.offsetWidth);
+
   if (pixel >= constrain.minDescPixel && pixel <= constrain.maxDescPixel) {
     rate += 2;
   } else if (pixel > constrain.maxDescPixel) {
@@ -245,30 +224,22 @@ const descChecker = function (desc) {
   };
 };
 
+// Meta Title Result 
 const fillTitleBar = function (param, cta = false) {
   for (let i = 1; i < param.rate + 1; i++) {
     document.getElementById("titlebar" + i).classList.remove("blank");
     document.getElementById("titlebar" + i).classList.add("active");
   }
+
   for (let i = param.rate + 1; i < 4; i++) {
     document.getElementById("titlebar" + i).classList.remove("active");
     document.getElementById("titlebar" + i).classList.add("blank");
   }
 
-  // cta
-  // if (cta) {
-  //   if (param.rate >= 3) {
-  //     document.getElementById("cta-warning").style.display = "none";
-  //   } else {
-  //     document.getElementById("cta-warning").style.display = "block";
-  //   }
-  // } else {
-  //   document.getElementById("cta-warning").style.display = "none";
-  // }
-
   document.getElementById("title-char").textContent = param.char;
   document.getElementById("title-pixel").textContent = param.pixel;
   document.getElementById("title-word").textContent = param.word;
+
   if (param.char > 0) {
     if (param.badChar !== 0) {
       if (param.badChar < 0) {
@@ -299,7 +270,6 @@ const fillTitleBar = function (param, cta = false) {
       document.getElementById("title-bad-pixel").classList.add("d-none");
     }
   } else {
-    // document.getElementById("cta-warning").style.display = "none";
     document.getElementById("title-bad-char").classList.remove("d-flex");
     document.getElementById("title-bad-char").classList.add("d-none");
     document.getElementById("title-bad-pixel").classList.remove("d-flex");
@@ -307,30 +277,22 @@ const fillTitleBar = function (param, cta = false) {
   }
 };
 
+// Meta Description Result
 const fillDescBar = function (param, cta = false) {
   for (let i = 1; i < param.rate + 1; i++) {
     document.getElementById("descbar" + i).classList.remove("blank");
     document.getElementById("descbar" + i).classList.add("active");
   }
+
   for (let i = param.rate + 1; i < 4; i++) {
     document.getElementById("descbar" + i).classList.remove("active");
     document.getElementById("descbar" + i).classList.add("blank");
   }
 
-  // cta
-  // if (cta) {
-  //   if (param.rate >= 3) {
-  //     document.getElementById("cta-warning").style.display = "none";
-  //   } else {
-  //     document.getElementById("cta-warning").style.display = "block";
-  //   }
-  // } else {
-  //   document.getElementById("cta-warning").style.display = "none";
-  // }
-
   document.getElementById("desc-char").textContent = param.char;
   document.getElementById("desc-pixel").textContent = param.pixel;
   document.getElementById("desc-word").textContent = param.word;
+
   if (param.char > 0) {
     if (param.badChar !== 0) {
       if (param.badChar < 0) {
@@ -346,6 +308,7 @@ const fillDescBar = function (param, cta = false) {
       document.getElementById("desc-bad-char").classList.remove("d-flex");
       document.getElementById("desc-bad-char").classList.add("d-none");
     }
+    
     if (param.badPixel !== 0) {
       if (param.badPixel < 0) {
         document.getElementById("desc-bad-pixel-point").textContent =
@@ -361,7 +324,6 @@ const fillDescBar = function (param, cta = false) {
       document.getElementById("desc-bad-pixel").classList.add("d-none");
     }
   } else {
-    // document.getElementById("cta-warning").style.display = "none";
     document.getElementById("desc-bad-char").classList.remove("d-flex");
     document.getElementById("desc-bad-char").classList.add("d-none");
     document.getElementById("desc-bad-pixel").classList.remove("d-flex");
@@ -369,6 +331,7 @@ const fillDescBar = function (param, cta = false) {
   }
 };
 
+// Display Result Title Length Checker
 const displayResultTitleLengthChecker = (response) => {
   if (
     titleElement &&
@@ -416,17 +379,28 @@ const displayResultTitleLengthChecker = (response) => {
   showResult(true);
 };
 
-const checkLocalStorage = () => {
-  showLoading(true);
+// After Run Service Worker
+chrome.runtime.onMessage.addListener((message) => {
+  const { event, response, status, info } = message;
 
-  chrome.storage.local.get(["response"], (result) => {
-    showLoading(false);
-
-    if (result.response) {
-      displayResultTitleLengthChecker(result.response);
-    } else {
-      showLoading(true);
-      launch();
-    }
-  });
-};
+  switch (event) {
+    case "OnFinishTitleLengthChecker":
+      if (status) {
+        displayResultTitleLengthChecker(response);
+      } else {
+        showLoading(true);
+        showResult(false);
+        
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
+        checkButton.classList.add("d-none");
+        checkButton.classList.remove("d-block");
+        latestBlog.classList.add("d-none");
+        latestBlog.classList.remove("d-block");
+        limitBtn.classList.add("d-flex");
+        limitBtn.classList.remove("d-none");
+      }
+      break;
+    default:
+  }
+});

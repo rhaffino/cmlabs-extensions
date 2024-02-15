@@ -1,3 +1,4 @@
+/* Global Variable */
 :root {
   --primaryblue: #18a0fb;
   --hover-primaryblue: #42b2fd;
@@ -13,25 +14,9 @@
   --Gray-100: #959595;
 }
 
-/* Global Color */
-:root {
-  --primaryblue: #18a0fb;
-  --black: #2d393d;
-  --darkgrey: #66757f;
-  --grey: #ccd6dd;
-  --lightgrey: #e1e8ed;
-  --white: #ffffff;
-  --primaryred: #fb1818;
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar{
   width: .0rem;
-  background-color: var(--lightgrey);
-}
-
-::-webkit-scrollbar-thumb{
-  background-color: var(--grey);
 }
 
 /* Popup Style */
@@ -41,6 +26,7 @@
   background-color: var(--white);
 }
 
+/* General */
 body {
   width: 410px;
   font-family: var(--font-primary) !important;
@@ -62,6 +48,7 @@ body {
   background: var(--primarydark) !important;
 }
 
+/* Result */
 .metachecker-background-text-size {
   background: var(--black) !important;
   width: 65.16px;
@@ -180,7 +167,6 @@ input.input-url-meta-checker:focus {
 .progress-bar_item-2.active,
 .progress-bar_item-3.active {
   background: var(--primaryblue) !important;
-  /* background: #b1f25d; */
 }
 
 .progress-bar_item-1.blank,
@@ -216,7 +202,6 @@ input.input-url-meta-checker:focus {
   right: 0;
   width: 100%;
   height: 100%;
-  /* opacity: 0.5; */
   z-index: 1;
 }
 

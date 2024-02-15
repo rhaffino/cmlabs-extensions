@@ -1,29 +1,5 @@
+/* Import Fonts */
 @import url(https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap);
-
-/* Global Color */
-:root {
-  --Gray-20: #f9f9f9;
-  --Dark-30: #92959c;
-  --Gray-60: #f0f0f0;
-  --Gray-80: #d0d0d0;
-  --Gray-100: #959595;
-  --Dark-60: #3b3f4c;
-  --Dark-70: #252a38;
-  --Primary-70: #1f95f5;
-  --Primary-130: #092d49;
-  --Secondary-70: #ffbe40;
-  --Danger-10: #FDD0D0;
-  --Danger-50: #F98181;
-  --Warning-10: #FFECC6;
-  --Warning-50: #FFCB66;
-  --Success-10: #CBE3D3;
-  --Success-50: #73B38A;
-  --primary-font: "Helvetica Now Display", sans-serif;
-}
-
-body {
-  font-family: var(--primary-font);
-}
 
 /* Header */
 .header__container {
