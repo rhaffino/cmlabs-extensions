@@ -1,3 +1,4 @@
+const domainURL = "https://tools.cmlabs.co";
 let urlValue = "";
 const checkerElement = document.getElementById("title-length-checker");
 const loadingElement = document.getElementById("loading");
@@ -9,6 +10,7 @@ const checkButton = document.getElementById("check-btn");
 const limitBtn = document.getElementById("btn-limit");
 const alertLimit = document.getElementById("alert-limit");
 const latestBlog = document.getElementById("latest-blog");
+const seeDetails = document.getElementById("link-see-details");
 
 // Title and Desc
 const titleElement = document.getElementById("title");
@@ -373,6 +375,7 @@ const displayResultTitleLengthChecker = (response) => {
     return;
   }
 
+  seeDetails.setAttribute('href', domainURL + '/en/page-title-meta-description-checker?url=' + urlValue.replace(/\/$/, '') + '?auto=true');
   alertLimit.classList.remove("d-block");
   alertLimit.classList.add("d-none");
   showLoading(false);

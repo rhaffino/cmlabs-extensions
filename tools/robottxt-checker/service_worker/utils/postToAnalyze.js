@@ -1,6 +1,5 @@
 const postToAnalyze = async (baseUrl) => {
-  const url =
-    "https://tools-api-w3m734lsga-as.a.run.app/api/robot-checker/check";
+  const url = "https://tools-api-w3m734lsga-as.a.run.app/api/robot-checker/check";
 
   try {
     const response = await fetch(url, {
@@ -24,3 +23,4 @@ const postToAnalyze = async (baseUrl) => {
 };
 
 export default postToAnalyze;
+
