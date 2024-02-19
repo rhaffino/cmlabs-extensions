@@ -375,7 +375,7 @@ const displayResultTitleLengthChecker = (response) => {
     return;
   }
 
-  seeDetails.setAttribute('href', domainURL + '/en/page-title-meta-description-checker?url=' + urlValue.replace(/\/$/, '') + '?auto=true');
+  seeDetails.setAttribute('href', domainURL + '/en/page-title-meta-description-checker?url=' + urlValue.replace(/\/$/, '') + '&auto=true');
   alertLimit.classList.remove("d-block");
   alertLimit.classList.add("d-none");
   showLoading(false);
