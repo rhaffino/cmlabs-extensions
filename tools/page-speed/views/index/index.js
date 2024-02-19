@@ -206,7 +206,7 @@ function renderResult(data) {
     var urlDetail = document.getElementById("link-preview-detail");
     urlDetail.setAttribute(
       "href",
-      "" + domainURL + "/en/pagespeed-test?url=" + data.id.replace(/\/$/, '') + "?auto=true"
+      "" + domainURL + "/en/pagespeed-test?url=" + data.id.replace(/\/$/, '') + "&auto=true"
     );
   
     for (let j = 0; j < 5; j++) {

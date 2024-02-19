@@ -245,7 +245,7 @@ function renderResult(response) {
                           <a href="` +
                           domainURL +
                           "/en/ssl-checker?url=" +
-                          inputUrl.replace(/\/$/, '') + "?auto=true"+
+                          inputUrl.replace(/\/$/, '') + "&auto=true"+
                           `" target="_blank" class="see__details">Want to see more details? See details</a>
                                 <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
                         </div>
