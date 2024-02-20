@@ -10,6 +10,15 @@ const btnLimit = document.getElementById("btn-limit");
 const resultElement = document.getElementById("result");
 const readLatestBlog = document.getElementById("read__latest-blog");
 
+// Add Box Shadow Navbar
+const shadowHeader = () => {
+    const navbar = document.getElementById('navbar')
+    // When the scroll is greater than 50 viewport height, add the shadow-navbar class
+    this.scrollY >= 50 ? navbar.classList.add('shadow-navbar')
+                        : navbar.classList.remove('shadow-navbar')
+}
+window.addEventListener('scroll', shadowHeader)
+
 // Function check Chrome tab URL
 function tabChrome() {
   return new Promise((resolve, reject) => {

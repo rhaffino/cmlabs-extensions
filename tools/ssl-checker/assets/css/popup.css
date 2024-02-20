@@ -22,13 +22,27 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar{
-  width: .0rem;
+  width: .6rem;
+  background-color: var(--Gray-80);
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: var(--Gray-100);
+}
+
+/* General */
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+  font-family: var(--primary-font);
 }
 
 /* Popup Style */
 .popup {
   width: 23.4375rem;
-  padding: 1.25rem 1.5rem;
+  padding: 0rem 1.5rem 1.25rem 1.5rem;
   background-color: var(--white);
 }
 
