@@ -1,10 +1,19 @@
 /* Header */
-.header__container{
-    display: flex;
-    width: 100%;
-    min-height: 3.25rem;
-    justify-content: space-between;    
-    align-items: flex-start;
+.header__container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  display: flex;
+  min-height: 3.25rem;
+  justify-content: space-between;
+  align-items: flex-start;  
+  width: 23.4375rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--white);
+}
+
+.shadow-navbar {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 .logo__container{

@@ -1,10 +1,19 @@
 /* Header */
 .header__container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
   display: flex;
-  width: 100%;
   min-height: 3.25rem;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-start;  
+  width: 23.4375rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--white);
+}
+
+.shadow-navbar {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 .logo__container {
@@ -20,7 +29,6 @@
 
 .logo__container span {
   color: var(--Dark-70);
-  font-family: var(--primary-font);
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
@@ -39,11 +47,14 @@
   border-radius: 0.25rem;
   background: var(--Gray-20);
   color: var(--Dark-60);
-  font-family: var(--primary-font);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
+}
+
+.btn__login:hover{
+  background: var(--Gray-20);
 }
 
 /* Hero Extension */
@@ -65,7 +76,6 @@
   width: 18.4375rem;
   color: var(--Primary-130);
   text-align: center;
-  font-family: var(--primary-font);
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
@@ -81,7 +91,6 @@
   border-radius: 0.25rem;
   background: rgba(255, 190, 64, 0.2);
   color: var(--Secondary-70);
-  font-family: var(--primary-font);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
@@ -128,7 +137,6 @@
 
 #url-input {
   color: var(--white);
-  font-family: var(--primary-font);
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
@@ -153,7 +161,6 @@
   flex-shrink: 0;
   color: var(--Primary-70);
   text-align: center;
-  font-family: var(--primary-font);
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 700;
@@ -183,7 +190,6 @@
 
 .info__text {
   color: var(--Dark-70);
-  font-family: var(--primary-font);
   font-size: 0.8125rem;
   font-style: normal;
   font-weight: 400;
@@ -208,7 +214,6 @@
 
 .chart__info {
   color: var(--Dark-70);
-  font-family: var(--primary-font);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
@@ -275,7 +280,6 @@
   border-radius: 0px !important;
   color: var(--Gray-100);
   text-align: center;
-  font-family: var(--primary-font);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
@@ -309,7 +313,6 @@
 
 .list__link span {
   color: var(--Dark-70);
-  font-family: var(--primary-font);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
@@ -347,7 +350,6 @@
   border-bottom: 0.125rem solid var(--Primary-70);
   color: var(--Dark-70);
   text-align: center;
-  font-family: var(--primary-font);
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
@@ -377,7 +379,6 @@
 
 .description__no-result {
   color: var(--Gray-100);
-  font-family: var(--primary-font);
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;

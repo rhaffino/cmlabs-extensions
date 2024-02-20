@@ -18,22 +18,21 @@
 
 /* Scrollbar */
 ::-webkit-scrollbar{
-  width: .0rem;
+  width: .6rem;
+  background-color: var(--Gray-80);
 }
 
-/* Popup Style */
-.popup {
-  width: 23.4375rem;
-  padding: 1.25rem 1.5rem;
-  background-color: var(--white);
+::-webkit-scrollbar-thumb{
+  background-color: var(--Gray-100);
 }
 
 /* General */
+html{
+  scroll-behavior: smooth;
+}
+
 body {
-  width: 410px;
   font-family: var(--font-primary) !important;
-  margin: 0 auto;
-  padding: 20px;
   font-size: 13px !important;
   font-weight: 400;
 }
@@ -48,6 +47,28 @@ body {
 
 .bg-primarydark {
   background: var(--primarydark) !important;
+}
+
+/* Popup Style */
+.popup {
+  width: 23.4375rem;
+  padding: 0rem 1.5rem 1.25rem 1.5rem;
+  background-color: var(--white);
+}
+
+/* Header */
+.header__container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  min-height: 3.25rem;
+  width: 23.4375rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--white);
+}
+
+.shadow-navbar {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 /* Result */
