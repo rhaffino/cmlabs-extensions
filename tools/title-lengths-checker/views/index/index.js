@@ -168,10 +168,11 @@ const titleChecker = function (title) {
   } else {
     badChar = l - constrain.minTitleChar;
   }
-
+  
+  titlesizer.setAttribute("style","font-family: arial, sans-serif !important;font-size: 18px!important;position:absolute!important;white-space:nowrap!important;visibility:hidden!important"); 
   titlesizer.innerHTML = title;
-
   var pixel = Math.floor(titlesizer.offsetWidth);
+
   if (pixel >= constrain.minTitlePixel && pixel <= constrain.maxTitlePixel) {
     rate += 2;
   } else if (pixel > constrain.maxTitlePixel) {
@@ -210,6 +211,7 @@ const descChecker = function (desc) {
     badChar = l - constrain.minDescChar;
   }
 
+  descsizer.setAttribute("style", "font-family: arial, sans-serif !important;font-size:13px !important;position:absolute !important;visibility:hidden !important;white-space:nowrap !important;");  
   descsizer.innerHTML = desc;
   var pixel = Math.floor(descsizer.offsetWidth);
 
