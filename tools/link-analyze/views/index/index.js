@@ -13,12 +13,13 @@ var analyzeChart = undefined;
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
-    const navbar = document.getElementById('navbar')
-    // When the scroll is greater than 50 viewport height, add the shadow-navbar class
-    this.scrollY >= 50 ? navbar.classList.add('shadow-navbar')
-                        : navbar.classList.remove('shadow-navbar')
-}
-window.addEventListener('scroll', shadowHeader)
+  const navbar = document.getElementById("navbar");
+  // When the scroll is greater than 50 viewport height, add the shadow-navbar class
+  this.scrollY >= 50
+    ? navbar.classList.add("shadow-navbar")
+    : navbar.classList.remove("shadow-navbar");
+};
+window.addEventListener("scroll", shadowHeader);
 
 // Function check Chrome tab URL
 function tabChrome() {
@@ -137,58 +138,58 @@ function createChart(
   dofollow_link_value
 ) {
   var ctx = document.getElementById("analyzer-chart").getContext("2d");
-    analyzeChart = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: ["Internal Links", "External Links", "No-Follow", "Do-Follow"],
-        datasets: [
+  analyzeChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Internal Links", "External Links", "No-Follow", "Do-Follow"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [
+            internal_link_value,
+            external_link_value,
+            nofollow_link_value,
+            dofollow_link_value,
+          ],
+          backgroundColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
+          borderColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+        align: "start",
+        padding: 20,
+      },
+      scales: {
+        xAxes: [
           {
-            label: "# of Votes",
-            data: [
-              internal_link_value,
-              external_link_value,
-              nofollow_link_value,
-              dofollow_link_value,
-            ],
-            backgroundColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
-            borderColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
-            borderWidth: 1,
+            display: false,
+          },
+        ],
+        yAxes: [
+          {
+            display: false,
           },
         ],
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false,
-          align: "start",
-          padding: 20,
-        },
-        scales: {
-          xAxes: [
-            {
-              display: false,
-            },
-          ],
-          yAxes: [
-            {
-              display: false,
-            },
-          ],
-        },
-        tooltips: {
-          backgroundColor: "#fff",
-          cornerRadius: 0,
-          displayColors: false,
-          titleFontFamily: "'Roboto', sans-serif",
-          titleFontColor: "#2A2F33",
-          bodyAlign: "center",
-          bodyFontFamily: "'Roboto', sans-serif",
-          bodyFontColor: "#2A2F33",
-          bodyFontStyle: "normal",
-        },
+      tooltips: {
+        backgroundColor: "#fff",
+        cornerRadius: 0,
+        displayColors: false,
+        titleFontFamily: "'Roboto', sans-serif",
+        titleFontColor: "#2A2F33",
+        bodyAlign: "center",
+        bodyFontFamily: "'Roboto', sans-serif",
+        bodyFontColor: "#2A2F33",
+        bodyFontStyle: "normal",
       },
-    });
+    },
+  });
 }
 
 // Display Result Link Analyzer
@@ -427,7 +428,8 @@ const displayResultLinkAnalysis = (response) => {
           <a href="` +
     domainURL +
     "/en/link-analyzer?url=" +
-    inputUrl.replace(/\/$/, '') + "&auto=true"+
+    inputUrl.replace(/\/$/, "") +
+    "&auto=true" +
     `" target="_blank" class="see__details">Want to see more details? See details</a>
           <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
         </div>
