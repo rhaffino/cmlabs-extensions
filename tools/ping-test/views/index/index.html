@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ping Checker - cmlabs Chrome Extension</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="popup" style="width: 300px;">
+      <div class="form__container">
+
+        <div class="form-group">
+          <span id="url-input"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="url-type">Type</label>
+          <select class="form-control" id="url-type">
+            <option value="url">URL</option>
+            <option value="ip">IP</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary d-none" id="submit-btn">Analyze Again!</button>
+
+        <div id="result"></div>
+
+        <div id="loading" class="d-none">
+          <div class="spinner-border text-primary" role="status">
+          </div>
+        </div>
+
+      </div>
+
+      <script src="./index.js"></script>
+    </body>
+</html>
