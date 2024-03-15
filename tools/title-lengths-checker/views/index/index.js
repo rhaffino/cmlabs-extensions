@@ -211,7 +211,7 @@ const descChecker = function (desc) {
     badChar = l - constrain.minDescChar;
   }
 
-  descsizer.setAttribute("style", "font-family: arial, sans-serif !important;font-size:13px !important;position:absolute !important;visibility:hidden !important;white-space:nowrap !important;");  
+  descsizer.setAttribute("style", "font-family: arial, sans-serif !important;font-size:13px !important;position:absolute !important;visibility:hidden !important;white-space:nowrap !important;");    
   descsizer.innerHTML = desc;
   var pixel = Math.floor(descsizer.offsetWidth);
 
