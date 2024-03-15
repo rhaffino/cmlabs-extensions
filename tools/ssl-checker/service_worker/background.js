@@ -1,12 +1,44 @@
 import postSSLChecker from "./utils/postSSLChecker.js";
 import validateAndExtractBaseUrl from "./utils/validateUrl.js";
 
+let tempCount;
+let tempLastFetchTime;
+
+// Run to get Local Storage
 chrome.runtime.onInstalled.addListener((details) => {
-  chrome.storage.local.clear(() => {
-    console.log("Fresh like new!");
+   // Get Data Before
+  chrome.storage.local.get(["count", "lastFetchTime"], (result) => {
+    if (result.count) {
+      tempCount = result.count;
+    }
+    if (result.lastFetchTime) {
+      tempLastFetchTime = new Date(result.lastFetchTime);
+    }
+
+     // clear storage after the previous data is retrieved
+    chrome.storage.local.clear(() => {
+      if (!tempCount) {
+        tempCount = 0;
+      }
+      if (!tempLastFetchTime) {
+        tempLastFetchTime = null;
+      }
+
+      chrome.storage.local.set(
+        {
+          isDataFetched: false,
+          count: tempCount,
+          lastFetchTime: tempLastFetchTime?.toString(),
+        },
+        () => {
+          console.log("isDataFetched and fetch count data init");
+        }
+      );
+    });
   });
 });
 
+// Event Analyze
 chrome.runtime.onMessage.addListener((message) => {
   const { event, data } = message;
 
@@ -16,56 +48,112 @@ chrome.runtime.onMessage.addListener((message) => {
         response: null,
       });
       processAnalyze(data.url);
-      console.log("OnStartLinkAnalysis");
+      break;
+    case "onResetResponse":
+      resetLocal();
       break;
     default:
-      console.log("Unknown event");
   }
 });
 
+// Process & Limit 5 times
 const processAnalyze = async (url) => {
-  const baseUrl = validateAndExtractBaseUrl(url);
-  let baseUrls = baseUrl.replace(/^(http(s)?|ftp):\/\//, "");
-  baseUrls = baseUrls.substr(baseUrls.length - 1) === "/" ? baseUrls.slice(0, -1) : baseUrls;
+  chrome.storage.local.get(["count", "lastFetchTime"]).then(async (result) => {
+    let count = result.count || 0;
+    let lastFetchTime = result.lastFetchTime
+      ? new Date(result.lastFetchTime)
+      : null;
 
-  if (baseUrl) {
-    console.log("Valid URL", baseUrl);
+    // Limit 5
+    const currentTime = new Date();
 
-    const data = await postSSLChecker(baseUrls);
+    if (count >= 5) {
+      const timeDifference = currentTime - lastFetchTime;
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+      if (timeDifferenceInHours < 1) {
+        const message = {
+          event: "OnFinishLinkAnalysis",
+          status: false,
+          info: "You have reached the usage limit of this tool",
+          data: null,
+        };
+        chrome.runtime.sendMessage(message, () => {
+          if (chrome.runtime.lastError) {
+          }
+        });
+        return;
+      } else {
+        count = 0;
+        lastFetchTime = currentTime?.toString();
 
-    if (data) {
-      console.log("Success to post to analyze", JSON.stringify(data));
+        chrome.storage.local.set({
+          count: count,
+          lastFetchTime: lastFetchTime,
+        });
+      }
+    }
 
-      chrome.storage.local.set({
-        response: data,
+    const baseUrl = validateAndExtractBaseUrl(url);
+    let baseUrls = baseUrl.replace(/^(http(s)?|ftp):\/\//, "");
+    baseUrls =
+      baseUrls.substr(baseUrls.length - 1) === "/"
+        ? baseUrls.slice(0, -1)
+        : baseUrls;
+
+    if (baseUrl) {
+      chrome.storage.local.set({ isDataFetched: true }, () => {
+        console.log("isDataFetched saved as true.");
       });
 
-      const message = {
-        event: "OnFinishLinkAnalysis",
-        status: true,
-        response: data,
-      };
-      chrome.runtime.sendMessage(message);
-    } else {
-      console.log("Failed to post to analyze");
+      const data = await postSSLChecker(baseUrls);
 
+      if (data) {
+        const message = {
+          event: "OnFinishLinkAnalysis",
+          status: true,
+          response: data,
+        };
+
+        count++;
+        lastFetchTime = currentTime.toString();
+
+        chrome.storage.local.set({
+          count: count,
+          lastFetchTime: lastFetchTime,
+        });
+
+        chrome.runtime.sendMessage(message, () => {
+          if (chrome.runtime.lastError) {
+            chrome.storage.local.set({ response: data });
+          }
+        });
+      } else {
+        const message = {
+          event: "OnFinishLinkAnalysis",
+          status: false,
+          info: "Gosh, its failed, please try again!",
+          data: null,
+        };
+        chrome.runtime.sendMessage(message);
+      }
+    } else {
       const message = {
         event: "OnFinishLinkAnalysis",
         status: false,
-        info: "Gosh, its failed, please try again!",
+        info: "Oops, sorry not valid url mate!",
         data: null,
       };
       chrome.runtime.sendMessage(message);
     }
-  } else {
-    console.log("Invalid URL");
+  });
+};
 
-    const message = {
-      event: "OnFinishLinkAnalysis",
-      status: false,
-      info: "Oops, sorry not valid url mate!",
-      data: null,
-    };
-    chrome.runtime.sendMessage(message);
-  }
+// Reset Local Storage
+const resetLocal = () => {
+  chrome.storage.local.set({ response: null }, () => {
+    console.log("response set to null.");
+    chrome.storage.local.set({ isDataFetched: false }, () => {
+      console.log("isDataFetched saved as false.");
+    });
+  });
 };

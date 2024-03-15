@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Robots.txt Checker</title>
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+    <title>Robots.txt Checker - cmlabs Chrome Extension</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/robots-txt-checker.css"/>
   </head>
   <body>
-    <div class="popup">
-      <div class="header__container">
-        <div class="logo__container">
-          <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" alt="logo cmlabs" class="logo__img">
-          <span>Robots.txt Checker</span>
-        </div>
-        <div class="login__container">
-          <a href="#" class="btn btn__login">Login</a>
-        </div>
+    <div class="header__container" id="navbar">
+      <div class="logo__container">
+        <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" alt="logo cmlabs" class="logo__img">
+        <span>Robots.txt Checker</span>
       </div>
+      <div class="login__container">
+        <a href="#" class="btn btn__login">Login</a>
+      </div>
+    </div>
 
+    <div class="popup">
       <div id="header" class="hero__extension">
         <img src="../../assets/icon/writing.svg" alt="Icon Robots.txt Checker" class="icon__extension">
         <p>Set the index status of the link on your website. Help Google optimize the indexing process and improve the performance of your website.</p>
       </div>
 
-      <div class="alert alert-warning alert-dismissible fade show alert__extension" role="alert">
+      <div id="alert-limit" class="alert alert-warning alert-dismissible fade show alert__extension border-0 d-none" role="alert">
         You have reached the usage limit of this tool, to use this tool for further activities, please <strong>log in / register</strong> yourself. Kindly try again in one hour.
         <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
       </div>
@@ -32,7 +32,7 @@
       <div class="form__container">
         <div class="label__url position-relative">
           <img src="../../assets/icon/shape.svg" alt="Icon SSL Checker" class="icon__form">
-          <span id="url-input" class="fw-light text-14 text-wrap"></span>
+          <span id="url-input" class=" text-14"></span>
         </div>
         <div id="loading__container" class="loading-container d-flex w-100 justify-content-center align-items-center rounded-1 gap-2">
           <div id="loading" class="d-none text-white text-14 fw-bold py-2">Checking</div>
@@ -42,13 +42,15 @@
           <button href="#" class="btn btn__form" id="submit-btn">
             Check URL Again!
           </button>
+          <button id="btn-limit" class="btn btn__form d-none">
+              Limit
+          </button>
         </div>
       </div>
       
-      <p class="info__text">The checking process will take some time, while waiting please read our latest blog <a href="#">here</a></p>
+      <p class="info__text" id="read__latest-blog">The checking process will take some time, while waiting please read our latest blog <a href="https://cmlabs.co/blog" target="_blank">here</a></p>
       
       <div id="result"></div>
-      <a href="" target="_blank" id="preview-detail"></a>
     </div>
 
     <script src="../../assets/js/bootstrap.min.js"></script>

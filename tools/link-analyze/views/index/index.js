@@ -1,13 +1,39 @@
-const domainURL = "https://tools.cmlabs.dev";
+const domainURL = "https://tools.cmlabs.co";
 let inputUrl = "";
 const loadingElement = document.getElementById("loading");
 const loadingContainer = document.getElementById("loading__container");
 const headerHero = document.getElementById("header");
+const alertLimit = document.getElementById("alert-limit");
 const btnCheck = document.getElementById("btn-check");
-const resultElement = document.getElementById("result");
+const btnLimit = document.getElementById("btn-limit");
 const logButton = document.getElementById("submit-btn");
+const resultElement = document.getElementById("result");
+const readLatestBlog = document.getElementById("read__latest-blog");
 var analyzeChart = undefined;
 
+// Add Box Shadow Navbar
+const shadowHeader = () => {
+  const navbar = document.getElementById("navbar");
+  // When the scroll is greater than 50 viewport height, add the shadow-navbar class
+  this.scrollY >= 50
+    ? navbar.classList.add("shadow-navbar")
+    : navbar.classList.remove("shadow-navbar");
+};
+window.addEventListener("scroll", shadowHeader);
+
+// Function check Chrome tab URL
+function tabChrome() {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var currentTab = tabs[0];
+      var currentUrl = currentTab.url;
+
+      resolve(currentUrl);
+    });
+  });
+}
+
+// Load DOM Extension
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
     var urlContainer = document.getElementById("url-input");
@@ -22,28 +48,32 @@ document.addEventListener("DOMContentLoaded", function () {
   checkLocalStorage();
 });
 
+// Run Extension
 const launch = async () => {
+  showLoading(true);
+  resultElement.innerHTML = "";
+
   const isDataFetched = await checkFetchStatus();
 
-  if (isDataFetched) {
-    logButton.classList.remove("d-block");
-    logButton.classList.add("d-none");
-  } else {
-    tabChrome().then((currentUrl) => {
-      console.log(currentUrl);
+  setTimeout(() => {
+    if (isDataFetched) {
+      logButton.style.display = "none";
+    } else {
+      tabChrome().then((currentUrl) => {
+        const message = {
+          event: "OnStartLinkAnalysis",
+          data: {
+            url: currentUrl,
+          },
+        };
 
-      const message = {
-        event: "OnStartLinkAnalysis",
-        data: {
-          url: currentUrl,
-        },
-      };
-
-      chrome.runtime.sendMessage(message);
-    });
-  }
+        chrome.runtime.sendMessage(message);
+      });
+    }
+  }, 5000);
 };
 
+// Check Status Extension Service Worker
 const checkFetchStatus = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["isDataFetched"], (result) => {
@@ -56,38 +86,24 @@ const checkFetchStatus = () => {
   });
 };
 
-chrome.runtime.onMessage.addListener((message) => {
-  const { event, response, status, info } = message;
+// Local Storage
+const checkLocalStorage = () => {
+  showLoading(true);
+  resultElement.innerHTML = "";
 
-  switch (event) {
-    case "OnFinishLinkAnalysis":
-      if (status) {
-        displayResultLinkAnalysis(response);
-      } else {
-        showLoading(false);
-        resultElement.innerHTML = "";
+  chrome.storage.local.get(["response"], (result) => {
+    showLoading(false);
 
-        const noValidUrlParagraph = document.createElement("p");
-        noValidUrlParagraph.textContent = info;
-        resultElement.appendChild(noValidUrlParagraph);
-      }
-      break;
-    default:
-      console.log("Unknown event", event);
-  }
-});
-
-function tabChrome() {
-  return new Promise((resolve, reject) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      var currentTab = tabs[0];
-      var currentUrl = currentTab.url;
-
-      resolve(currentUrl);
-    });
+    if (result.response) {
+      displayResultLinkAnalysis(result.response);
+    } else {
+      showLoading(true);
+      launch();
+    }
   });
-}
+};
 
+// Show / Hide Section
 const showLoading = (status) => {
   if (status) {
     loadingElement.classList.remove("d-none");
@@ -98,6 +114,8 @@ const showLoading = (status) => {
     headerHero.classList.add("d-flex");
     btnCheck.classList.remove("d-block");
     btnCheck.classList.add("d-none");
+    readLatestBlog.classList.remove("d-none");
+    readLatestBlog.classList.add("d-block");
   } else {
     loadingElement.classList.remove("d-block");
     loadingElement.classList.add("d-none");
@@ -107,9 +125,12 @@ const showLoading = (status) => {
     headerHero.classList.add("d-none");
     btnCheck.classList.remove("d-none");
     btnCheck.classList.add("d-flex");
+    readLatestBlog.classList.remove("d-block");
+    readLatestBlog.classList.add("d-none");
   }
 };
 
+// Function Create Chart
 function createChart(
   internal_link_value,
   external_link_value,
@@ -117,70 +138,61 @@ function createChart(
   dofollow_link_value
 ) {
   var ctx = document.getElementById("analyzer-chart").getContext("2d");
-  if (analyzeChart != null) {
-    analyzeChart.data.datasets[0].data = [
-      internal_link_value,
-      external_link_value,
-      nofollow_link_value,
-      dofollow_link_value,
-    ];
-    analyzeChart.update();
-  } else {
-    analyzeChart = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels: ["Internal Links", "External Links", "No-Follow", "Do-Follow"],
-        datasets: [
+  analyzeChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Internal Links", "External Links", "No-Follow", "Do-Follow"],
+      datasets: [
+        {
+          label: "# of Votes",
+          data: [
+            internal_link_value,
+            external_link_value,
+            nofollow_link_value,
+            dofollow_link_value,
+          ],
+          backgroundColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
+          borderColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+        align: "start",
+        padding: 20,
+      },
+      scales: {
+        xAxes: [
           {
-            label: "# of Votes",
-            data: [
-              internal_link_value,
-              external_link_value,
-              nofollow_link_value,
-              dofollow_link_value,
-            ],
-            backgroundColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
-            borderColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
-            borderWidth: 1,
+            display: false,
+          },
+        ],
+        yAxes: [
+          {
+            display: false,
           },
         ],
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false,
-          align: "start",
-          padding: 20,
-        },
-        scales: {
-          xAxes: [
-            {
-              display: false,
-            },
-          ],
-          yAxes: [
-            {
-              display: false,
-            },
-          ],
-        },
-        tooltips: {
-          backgroundColor: "#fff",
-          cornerRadius: 0,
-          displayColors: false,
-          titleFontFamily: "'Roboto', sans-serif",
-          titleFontColor: "#2A2F33",
-          bodyAlign: "center",
-          bodyFontFamily: "'Roboto', sans-serif",
-          bodyFontColor: "#2A2F33",
-          bodyFontStyle: "normal",
-        },
+      tooltips: {
+        backgroundColor: "#fff",
+        cornerRadius: 0,
+        displayColors: false,
+        titleFontFamily: "'Roboto', sans-serif",
+        titleFontColor: "#2A2F33",
+        bodyAlign: "center",
+        bodyFontFamily: "'Roboto', sans-serif",
+        bodyFontColor: "#2A2F33",
+        bodyFontStyle: "normal",
       },
-    });
-  }
+    },
+  });
 }
 
+// Display Result Link Analyzer
 const displayResultLinkAnalysis = (response) => {
   const totalInternalLinks = response.data.internal_links.value;
   const totalExternalLinks = response.data.external_links.value;
@@ -248,30 +260,22 @@ const displayResultLinkAnalysis = (response) => {
           <ul class="nav nav-pills detail__tabs" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="tab-internal-link" data-bs-toggle="pill" data-bs-target="#content-tab-internal-link" type="button" role="tab" aria-controls="content-tab-internal-link" aria-selected="true">
-                Internal Links(` +
-    totalInternalLinks +
-    `)
+                Internal Links
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="tab-external-link" data-bs-toggle="pill" data-bs-target="#content-tab-external-link" type="button" role="tab" aria-controls="content-tab-external-link" aria-selected="false">
-                External Links(` +
-    totalExternalLinks +
-    `)
+                External Links
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="tab-no-follow" data-bs-toggle="pill" data-bs-target="#content-tab-no-follow" type="button" role="tab" aria-controls="content-tab-no-follow" aria-selected="false">
-                No-Follow(` +
-    totalNofollowLinks +
-    `)
+                No-Follow
               </button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="tab-do-follow" data-bs-toggle="pill" data-bs-target="#content-tab-do-follow" type="button" role="tab" aria-controls="content-tab-do-follow" aria-selected="false">
-                Do-Follow(` +
-    totalDofollowLinks +
-    `)
+                Do-Follow
               </button>
             </li>
           </ul>
@@ -280,9 +284,19 @@ const displayResultLinkAnalysis = (response) => {
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="content-tab-internal-link" role="tabpanel" aria-labelledby="tab-internal-link">
             <div class="list__links">
-              ${internalLinks
-                .map(
-                  (link, index) => `
+              ${
+                internalLinks.length === 0
+                  ? `
+                <div class="without__result">
+                    <img src="../../assets/icon/time.svg" class="img__no-result">
+                    <p class="description__no-result">
+                      After our analysis, there is no link here!
+                    </p>
+                </div>
+              `
+                  : internalLinks
+                      .map(
+                        (link, index) => `
                   ${
                     index < 5 || (index >= 7 && index < 8)
                       ? `
@@ -292,46 +306,68 @@ const displayResultLinkAnalysis = (response) => {
                       </div>
                       ${
                         index % 5 === 4
-                          ? '<div class="list__link"><span class="list__link-space">---</span></div>'
+                          ? '<div class="list__link list__link-space"><span>---</span></div>'
                           : ""
                       }
                   `
                       : ""
                   }
               `
-                )
-                .join("")}
+                      )
+                      .join("")
+              }
             </div>
           </div>
           <div class="tab-pane fade" id="content-tab-external-link" role="tabpanel" aria-labelledby="tab-external-link">
             <div class="list__links">
-              ${externalLinks
-                .map(
-                  (link, index) => `
+               ${
+                 externalLinks.length === 0
+                   ? `
+                <div class="without__result">
+                    <img src="../../assets/icon/time.svg" class="img__no-result">
+                    <p class="description__no-result">
+                      After our analysis, there is no link here!
+                    </p>
+                </div>
+              `
+                   : externalLinks
+                       .map(
+                         (link, index) => `
                   ${
                     index < 5 || (index >= 7 && index < 8)
                       ? `
                       <div class="list__link">
                           <span>${index + 1} .</span>
-                          <span>${link.url}</span>
+                          <span class="list__link-url">${link.url}</span>
                       </div>
                       ${
                         index % 5 === 4
-                          ? '<div class="list__link"><span class="list__link-space">---</span></div>'
+                          ? '<div class="list__link list__link-space"><span>---</span></div>'
                           : ""
                       }
                   `
                       : ""
                   }
               `
-                )
-                .join("")}
+                       )
+                       .join("")
+               }
             </div>
           </div>
           <div class="tab-pane fade" id="content-tab-no-follow" role="tabpanel" aria-labelledby="tab-no-follow">
-            ${linksNofollow
-              .map(
-                (link, index) => `
+            ${
+              linksNofollow.length === 0
+                ? `
+                <div class="without__result">
+                    <img src="../../assets/icon/time.svg" class="img__no-result">
+                    <p class="description__no-result">
+                      After our analysis, there is no link here!
+                    </p>
+                </div>
+              `
+                : linksNofollow
+                    .map(
+                      (link, index) => `
                   ${
                     index < 5 || (index >= 7 && index < 8)
                       ? `
@@ -341,20 +377,31 @@ const displayResultLinkAnalysis = (response) => {
                       </div>
                       ${
                         index % 5 === 4
-                          ? '<div class="list__link"><span class="list__link-space">---</span></div>'
+                          ? '<div class="list__link list__link-space"><span>---</span></div>'
                           : ""
                       }
                   `
                       : ""
                   }
               `
-              )
-              .join("")}
+                    )
+                    .join("")
+            }
           </div>
           <div class="tab-pane fade" id="content-tab-do-follow" role="tabpanel" aria-labelledby="tab-do-follow">
-            ${linksDofollow
-              .map(
-                (link, index) => `
+            ${
+              linksDofollow.length === 0
+                ? `
+                <div class="without__result">
+                    <img src="../../assets/icon/time.svg" class="img__no-result">
+                    <p class="description__no-result">
+                      After our analysis, there is no link here!
+                    </p>
+                </div>
+              `
+                : linksDofollow
+                    .map(
+                      (link, index) => `
                   ${
                     index < 5 || (index >= 7 && index < 8)
                       ? `
@@ -364,15 +411,16 @@ const displayResultLinkAnalysis = (response) => {
                       </div>
                       ${
                         index % 5 === 4
-                          ? '<div class="list__link"><span class="list__link-space">---</span></div>'
+                          ? '<div class="list__link list__link-space"><span>---</span></div>'
                           : ""
                       }
                   `
                       : ""
                   }
               `
-              )
-              .join("")}
+                    )
+                    .join("")
+            }
           </div>
         </div>
 
@@ -380,12 +428,18 @@ const displayResultLinkAnalysis = (response) => {
           <a href="` +
     domainURL +
     "/en/link-analyzer?url=" +
-    inputUrl +
+    inputUrl.replace(/\/$/, "") +
+    "&auto=true" +
     `" target="_blank" class="see__details">Want to see more details? See details</a>
           <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
         </div>
       </div>
   `;
+
+  alertLimit.classList.remove("d-block");
+  alertLimit.classList.add("d-none");
+  logButton.classList.remove("d-none");
+  logButton.classList.add("d-block");
 
   createChart(
     totalInternalLinks,
@@ -394,9 +448,6 @@ const displayResultLinkAnalysis = (response) => {
     totalDofollowLinks
   );
 
-  logButton.classList.remove("d-none");
-  logButton.classList.add("d-block");
-
   const message = {
     event: "onResetResponse",
     data: null,
@@ -404,18 +455,30 @@ const displayResultLinkAnalysis = (response) => {
   chrome.runtime.sendMessage(message);
 };
 
-const checkLocalStorage = () => {
-  showLoading(true);
-  resultElement.innerHTML = "";
+// After Run Service Worker
+chrome.runtime.onMessage.addListener((message) => {
+  const { event, response, status, info } = message;
 
-  chrome.storage.local.get(["response"], (result) => {
-    showLoading(false);
+  switch (event) {
+    case "OnFinishLinkAnalysis":
+      if (status) {
+        displayResultLinkAnalysis(response);
+      } else {
+        showLoading(false);
+        resultElement.innerHTML = "";
 
-    if (result.response) {
-      displayResultLinkAnalysis(result.response);
-    } else {
-      showLoading(true);
-      launch();
-    }
-  });
-};
+        headerHero.classList.add("d-flex");
+        headerHero.classList.remove("d-none");
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
+        btnLimit.classList.add("d-flex");
+        btnLimit.classList.remove("d-none");
+        logButton.classList.add("d-none");
+        logButton.classList.remove("d-block");
+        readLatestBlog.classList.remove("d-block");
+        readLatestBlog.classList.add("d-none");
+      }
+      break;
+    default:
+  }
+});
