@@ -7,8 +7,6 @@ chrome.runtime.onInstalled.addListener((details) => {
     chrome.storage.local.set(
       {
         isDataFetched: false,
-        isLogin: false,
-        username: "cmlabs",
       },
       () => {
         console.log("isDataFetched init");
@@ -21,9 +19,6 @@ chrome.runtime.onMessage.addListener((message) => {
   const { event, data } = message;
 
   switch (event) {
-    case "OnLogin":
-      handleLogin(data);
-      break;
     case "OnStartLinkAnalysis":
       console.log("OnStartLinkAnalysis");
       chrome.storage.local.set({
@@ -95,27 +90,5 @@ const resetLocal = () => {
     chrome.storage.local.set({ isDataFetched: false }, () => {
       console.log("isDataFetched saved as false.");
     });
-  });
-};
-
-const handleLogin = (data) => {
-  const { password } = data;
-
-  chrome.storage.local.get("username", (result) => {
-    if (result.username === password) {
-      chrome.storage.local.set({ isLogin: true }, () => {
-        const message = {
-          event: "OnLoginResult",
-          status: true,
-        };
-        chrome.runtime.sendMessage(message);
-      });
-    } else {
-      const message = {
-        event: "OnLoginResult",
-        status: false,
-      };
-      chrome.runtime.sendMessage(message);
-    }
   });
 };

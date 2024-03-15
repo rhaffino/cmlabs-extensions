@@ -9,23 +9,17 @@ const logButton = document.getElementById("submit-btn");
 var analyzeChart = undefined;
 
 document.addEventListener("DOMContentLoaded", function () {
-  chrome.storage.local.get("isLogin", function (data) {
-    if (!data.isLogin) {
-      window.location.href = "../login/index.html";
-    } else {
-      tabChrome().then((currentUrl) => {
-        var urlContainer = document.getElementById("url-input");
-        urlContainer.textContent = currentUrl;
-        inputUrl = currentUrl;
-      });
-
-      logButton.addEventListener("click", function () {
-        launch();
-      });
-
-      checkLocalStorage();
-    }
+  tabChrome().then((currentUrl) => {
+    var urlContainer = document.getElementById("url-input");
+    urlContainer.textContent = currentUrl;
+    inputUrl = currentUrl;
   });
+
+  logButton.addEventListener("click", function () {
+    launch();
+  });
+
+  checkLocalStorage();
 });
 
 const launch = async () => {
