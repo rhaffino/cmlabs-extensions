@@ -30,5 +30,15 @@ Writing titles and meta descriptions in SEO practices is an important thing that
 Quickly see if your website has a robots.txt file, so you know if your website is indexed on Google correctly.
 ## SSL Checker Tool 
 Is used to check whether the SSL (Secure Socket Layer) certificate on your web server is installed correctly and is valid.
+## Technology Lookup 
+The Technology lookup is a tool that effective for revealing the technology applied by a site. Identify the widget and applications to find the best prospects for the web.
+## Ping Test 
+Online Ping Tool is a network utility to test the existence of a website's IP address or domain and analyzes the network quality and responsiveness of a target device server on a network.
+## Header Checker
+The HTTP Header Checker is a tool designed to inspect and analyze the headers of Hypertext Transfer Protocol (HTTP) requests as well as responses exchanged between client and server.
+## Redirect Checker
+Redirect Checker is a link analysis tool that linked to a URL with a status code preview. Manage your redirects, get the list and make the best SEO prospect for your website.
+## Hreflang Checker
+The Hreflang Checker is a tool for the process of automatically implementing the site's hreflang tag. Help Google target the correct content on your site to expand the market.
 # Security
 If you discover any security related issues, please email dev@cmlabs.co instead of using the issue tracker.
