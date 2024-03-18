@@ -1,5 +1,23 @@
+const domainURL = "https://tools.cmlabs.co";
+let inputUrl = "";
+const loadingElement = document.getElementById("loading");
+const loadingContainer = document.getElementById("loading__container");
+const headerHero = document.getElementById("header");
+const alertLimit = document.getElementById("alert-limit");
+const btnCheck = document.getElementById("btn-check");
 const logButton = document.getElementById("submit-btn");
+const btnLimit = document.getElementById("btn-limit");
 const resultElement = document.getElementById("result");
+const readLatestBlog = document.getElementById("read__latest-blog");
+
+// Add Box Shadow Navbar
+const shadowHeader = () => {
+    const navbar = document.getElementById('navbar')
+    // When the scroll is greater than 50 viewport height, add the shadow-navbar class
+    this.scrollY >= 50 ? navbar.classList.add('shadow-navbar')
+                        : navbar.classList.remove('shadow-navbar')
+}
+window.addEventListener('scroll', shadowHeader)
 
 function tabChrome() {
   return new Promise((resolve, reject) => {
@@ -31,28 +49,23 @@ const launch = async () => {
   resultElement.innerHTML = "";
 
   const isDataFetched = await checkFetchStatus();
-
   setTimeout(() => {
     if (isDataFetched) {
-      logButton.classList.remove("d-block");
-      logButton.classList.add("d-none");
+      logButton.style.display = "none";
     } else {
       tabChrome().then((currentUrl) => {
-        const urlType = document.getElementById("url-type").value;
-
         const message = {
           event: "OnStartLinkAnalysis",
           data: {
             url: currentUrl,
-            type: urlType,
+            type: "url",
           },
         };
 
-        console.log(JSON.stringify(message));
         chrome.runtime.sendMessage(message);
       });
     }
-  }, 5000);
+ }, 5000);
 };
 
 const checkFetchStatus = () => {
@@ -84,51 +97,138 @@ const checkLocalStorage = () => {
 };
 
 const showLoading = (status) => {
-  const loadingElement = document.getElementById("loading");
-
   if (status) {
     loadingElement.classList.remove("d-none");
     loadingElement.classList.add("d-block");
+    loadingContainer.classList.remove("d-none");
+    loadingContainer.classList.add("d-block");
+    headerHero.classList.remove("d-none");
+    headerHero.classList.add("d-flex");
+    btnCheck.classList.remove("d-block");
+    btnCheck.classList.add("d-none");
+    readLatestBlog.classList.remove("d-none");
+    readLatestBlog.classList.add("d-block");
   } else {
     loadingElement.classList.remove("d-block");
     loadingElement.classList.add("d-none");
+    loadingContainer.classList.remove("d-block");
+    loadingContainer.classList.add("d-none");
+    headerHero.classList.remove("d-block");
+    headerHero.classList.add("d-none");
+    btnCheck.classList.remove("d-none");
+    btnCheck.classList.add("d-flex");
+    readLatestBlog.classList.remove("d-block");
+    readLatestBlog.classList.add("d-none");
   }
 };
 
 const displayResultLinkAnalysis = (response) => {
-  const data = response.data;
-
   showLoading(false);
+  resultElement.innerHTML = "";
 
-  const resultDiv = document.createElement("div");
-  resultDiv.style.backgroundColor = "#f8f9fa";
-  resultDiv.style.padding = "10px";
-  resultDiv.style.marginBottom = "10px";
+  if(response){
+    const data = response.data;
+    const outputParts = data.output.split("\n---");
+    const timeOutput = outputParts[0].trim();
+    const pingStatisticOutput = outputParts[1].split("\n")[1].trim();
+    const ping = /\d+\sdata\sbytes/;
+    const transmitted = /\d+\spackets\s\w+/;
+    const received = /\d+\spackets\s\w+/g;
+    resultElement.innerHTML = `
+      <div class="result__container">
+        <div class="d-flex mb-12">
+          <h2 class="result__title">Result</h2>
+          <span class="status__result online__status">${data.alive ? "Online" : "Offline"}</span>
+        </div>
+        
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">Domain</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${data.inputHost}</span>
+          </div>
+        </div>
 
-  // Memisahkan output "\n---"
-  const outputParts = data.output.split("\n---");
-  const timeOutput = outputParts[0].trim();
-  const pingStatisticOutput = outputParts[1].split("\n")[1].trim();
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">IP Address</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${data.numeric_host.replace(")", "")}</span>
+          </div>
+        </div>
 
-  resultDiv.innerHTML = `
-    <p><strong>Result:</strong> ${data.alive ? "Online" : "Offline"}</p>
-    <p><strong>Response Time:</strong> ${data.time} ms</p>
-    <p><strong>Domain:</strong> ${data.host}</p>
-    <p><strong>IP Address:</strong> ${data.numeric_host}</p>
-    <p><strong>Time:</strong> ${timeOutput}</p>
-    <p><strong>Ping Statistic:</strong> ${pingStatisticOutput}</p>
-  `;
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">Time</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${data.time} ms</span>
+          </div>
+        </div>
 
-  resultElement.appendChild(resultDiv);
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">Host</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${data.host}</span>
+          </div>
+        </div>
 
-  logButton.classList.remove("d-none");
-  logButton.classList.add("d-block");
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">Ping</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${data.output.match(ping)[0]}</span>
+          </div>
+        </div>
 
-  const message = {
-    event: "onResetResponse",
-    data: null,
-  };
-  chrome.runtime.sendMessage(message);
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">Transmitted</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${pingStatisticOutput.match(transmitted)[0].replace(" transmitted", "")}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">Received</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${pingStatisticOutput.match(received)[1].replace(" received", "")}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <span class="title__result">Packet Loss</span>
+          </div>
+          <div class="col-8">
+            <span class="desc__result">${Math.round(data.packetLoss)} %</span>
+          </div>
+        </div>
+        
+        <div class="details__container">
+          <a href="#" target="_blank" class="see__details">Want to see more details? See details</a>
+          <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
+        </div>
+      </div>
+    `;
+
+    logButton.classList.remove("d-none");
+    logButton.classList.add("d-block");
+  
+    const message = {
+      event: "onResetResponse",
+      data: null,
+    };
+    chrome.runtime.sendMessage(message);
+  }
 };
 
 chrome.runtime.onMessage.addListener((message) => {
@@ -141,6 +241,17 @@ chrome.runtime.onMessage.addListener((message) => {
       } else {
         showLoading(false);
         resultElement.innerHTML = "";
+
+        headerHero.classList.add("d-flex");
+        headerHero.classList.remove("d-none");
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
+        btnLimit.classList.add("d-flex");
+        btnLimit.classList.remove("d-none");
+        logButton.classList.add("d-none");
+        logButton.classList.remove("d-block");
+        readLatestBlog.classList.remove("d-block");
+        readLatestBlog.classList.add("d-none");
       }
       break;
     default:
