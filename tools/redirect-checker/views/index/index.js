@@ -1,5 +1,10 @@
-const logButton = document.getElementById("submit-btn");
+const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
+const navbar = document.getElementById("navbar");
+const header = document.getElementById("header");
+const btnCrawlingStatus = document.getElementById("crawling-status");
+const readLatestBlog = document.getElementById("read__latest-blog");
+const previewDetail = document.getElementById("preview-detail");
 
 function tabChrome() {
   return new Promise((resolve, reject) => {
@@ -14,7 +19,7 @@ function tabChrome() {
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
-    var urlContainer = document.getElementById("url-input");
+    var urlContainer = document.getElementById("url-container");
     urlContainer.textContent = currentUrl;
     inputUrl = currentUrl;
   });
@@ -28,23 +33,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const launch = async () => {
   showLoading(true);
+
   resultElement.innerHTML = "";
+
+  logButton.classList.remove("d-block");
+  logButton.classList.add("d-none");
+  header.classList.remove("d-none");
+  header.classList.add("d-flex");
+  btnCrawlingStatus.classList.remove("d-none");
+  btnCrawlingStatus.classList.add("d-block");
+  readLatestBlog.classList.remove("d-none");
+  readLatestBlog.classList.add("d-block");
+  previewDetail.classList.remove("d-block");
+  previewDetail.classList.add("d-none");
 
   const isDataFetched = await checkFetchStatus();
 
   setTimeout(() => {
     if (isDataFetched) {
-      logButton.classList.remove("d-block");
-      logButton.classList.add("d-none");
     } else {
       tabChrome().then((currentUrl) => {
-        const user_agent = document.getElementById("agent-type").value;
+        // const user_agent = document.getElementById("agent-type").value;
 
         const message = {
           event: "OnStartLinkAnalysis",
           data: {
             url: currentUrl,
-            user_agent: user_agent,
+            user_agent: "",
           },
         };
 
@@ -100,36 +115,94 @@ const displayResultLinkAnalysis = (response) => {
 
   showLoading(false);
 
-  const resultDiv = document.createElement("div");
+  header.classList.remove("d-flex");
+  header.classList.add("d-none");
+  btnCrawlingStatus.classList.remove("d-block");
+  btnCrawlingStatus.classList.add("d-none");
+  readLatestBlog.classList.remove("d-block");
+  readLatestBlog.classList.add("d-none");
+  previewDetail.classList.remove("d-none");
+  previewDetail.classList.add("d-block");
 
-  data.redirects.forEach((redirect) => {
-    const p = document.createElement("p");
-    const url = document.createTextNode(`URL: ${redirect.url}`);
-    const status = document.createElement("span");
-    status.textContent = `${redirect.status}`;
-    const date = document.createTextNode(`Date: ${redirect.date}`);
+  const table = document.createElement("table");
+  table.className = "table mt-3";
+  table.style.borderCollapse = "collapse";
 
-    let statusClass = "";
-    if (redirect.status >= 200 && redirect.status < 300) {
-      statusClass = "badge bg-primary";
-    } else if (redirect.status >= 400 && redirect.status < 500) {
-      statusClass = "badge bg-danger";
-    }
+  const thead = document.createElement("thead");
+  thead.style.backgroundColor = "#F9F9F9";
+  const tr = document.createElement("tr");
 
-    status.className = statusClass;
-    status.style.color = "white";
+  const headers = ["URL", "Date", "Status"];
+  const alignments = ["left", "left", "right"];
 
-    p.appendChild(url);
-    p.appendChild(document.createElement("br"));
-    p.appendChild(document.createTextNode("Status: "));
-    p.appendChild(status);
-    p.appendChild(document.createElement("br"));
-    p.appendChild(date);
-
-    resultDiv.appendChild(p);
+  headers.forEach((headerText, index) => {
+    const th = document.createElement("th");
+    th.textContent = headerText;
+    th.style.color = "#252A38";
+    th.style.textAlign = alignments[index];
+    th.style.borderBottom = "1px solid #F9F9F9";
+    tr.appendChild(th);
   });
 
-  resultElement.appendChild(resultDiv);
+  thead.appendChild(tr);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+
+  data.redirects.forEach((redirect) => {
+    const tr = document.createElement("tr");
+
+    const tdUrl = document.createElement("td");
+    const a = document.createElement("a");
+
+    a.href = redirect.url;
+    a.textContent = redirect.url;
+    a.style.color = "#1F95F5";
+
+    tdUrl.style.textAlign = "left";
+    tdUrl.style.borderBottom = "1px solid #F5F5F5";
+    tdUrl.appendChild(a);
+    tr.appendChild(tdUrl);
+
+    const tdDate = document.createElement("td");
+    tdDate.textContent = redirect.date;
+    tdDate.style.textAlign = "left";
+    tdDate.style.borderBottom = "1px solid #F5F5F5";
+    tr.appendChild(tdDate);
+
+    const tdStatus = document.createElement("td");
+    tdStatus.style.borderBottom = "1px solid #F5F5F5";
+    tdStatus.style.textAlign = "right";
+    const span = document.createElement("span");
+    span.textContent = redirect.status;
+
+    if (redirect.status >= 200 && redirect.status < 300) {
+      span.className = "badge";
+      span.style.backgroundColor = "rgba(80, 160, 109, 0.2)";
+      span.style.color = "#50A06D";
+    } else if (redirect.status >= 300 && redirect.status < 400) {
+      span.className = "badge";
+      span.style.backgroundColor = "rgba(255, 190, 64, 0.2)";
+      span.style.color = "#FFBE40";
+    } else if (redirect.status >= 400 && redirect.status <= 500) {
+      span.className = "badge";
+      span.style.backgroundColor = "rgba(247, 97, 98, 0.2)";
+      span.style.color = "#F76162";
+    } else {
+      span.className = "badge";
+      span.style.backgroundColor = "rgba(247, 247, 247, 0.2)";
+      span.style.color = "#A8AAAF";
+      span.textContent = "n/a";
+    }
+
+    tdStatus.appendChild(span);
+    tr.appendChild(tdStatus);
+
+    tbody.appendChild(tr);
+  });
+
+  table.appendChild(tbody);
+  resultElement.appendChild(table);
 
   logButton.classList.remove("d-none");
   logButton.classList.add("d-block");
