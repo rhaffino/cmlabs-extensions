@@ -95,7 +95,7 @@ const checkLocalStorage = () => {
     showLoading(false);
 
     if (result.response) {
-      displayResultLinkAnalysis(result.response);
+      displayResultHttpHeader(result.response);
     } else {
       showLoading(true);
       launch();
@@ -192,33 +192,51 @@ const showLoading = (status) => {
 // }
 
 // Display Result Link Analyzer
-const displayResultLinkAnalysis = (response) => {
+const displayResultHttpHeader = (response) => {
   showLoading(false);
   const headers = response.data;
 
   let resultHTML = `
-    <div class="result__container">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-12 chart__info">
-            <p class='fs-6'>HTTP Header Response</p>
-            <div class="list__result-link">
+  <div class="result__container">
+    <div class="">
+      <div class="row align-items-center">
+        <div class="col-12 chart__info">
+          <h6>Result</h6>
+          <div class="list__result-link">
   `;
 
+  let index = 0;
   for (const [key, value] of Object.entries(headers)) {
+    if (key === "setCookie") {
+      continue;
+    }
+
+    const bgColorClass = index % 2 === 0 ? "bg-light" : "bg-white";
     resultHTML += `
-      <div class="result__link">
-        <p><span class='fw-bold'>${key}:</span> <span class='text-break fw-normal'>${value}</span></p>
+      <div class="result__link ${bgColorClass} p-2">
+          <div class="fw-bold">${key}</div>
+          <div class="text-break fw-normal">${value}</div>
       </div>
     `;
+    index++;
   }
 
-  resultHTML += `
-            </div>
+  resultHTML +=
+    `
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="details__container">
+          <a href="` +
+    domainURL +
+    "/en/http-header-checker?url=" +
+    inputUrl.replace(/\/$/, "") +
+    "&auto=true" +
+    `" target="_blank" class="see__details">Want to see more details? See details</a>
+          <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
+        </div>
   `;
 
   resultElement.innerHTML = resultHTML;
@@ -241,7 +259,7 @@ chrome.runtime.onMessage.addListener((message) => {
   switch (event) {
     case "OnFinishLinkAnalysis":
       if (status) {
-        displayResultLinkAnalysis(response);
+        displayResultHttpHeader(response);
       } else {
         showLoading(false);
         resultElement.innerHTML = "";
