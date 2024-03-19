@@ -130,68 +130,7 @@ const showLoading = (status) => {
   }
 };
 
-// function createChart(
-//   internal_link_value,
-//   external_link_value,
-//   nofollow_link_value,
-//   dofollow_link_value
-// ) {
-//   var ctx = document.getElementById("analyzer-chart").getContext("2d");
-//   analyzeChart = new Chart(ctx, {
-//     type: "doughnut",
-//     data: {
-//       labels: ["Internal Links", "External Links", "No-Follow", "Do-Follow"],
-//       datasets: [
-//         {
-//           label: "# of Votes",
-//           data: [
-//             internal_link_value,
-//             external_link_value,
-//             nofollow_link_value,
-//             dofollow_link_value,
-//           ],
-//           backgroundColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
-//           borderColor: ["#4CAAF7", "#FFCB66", "#B47AF1", "#F98181"],
-//           borderWidth: 1,
-//         },
-//       ],
-//     },
-//     options: {
-//       responsive: true,
-//       maintainAspectRatio: false,
-//       legend: {
-//         display: false,
-//         align: "start",
-//         padding: 20,
-//       },
-//       scales: {
-//         xAxes: [
-//           {
-//             display: false,
-//           },
-//         ],
-//         yAxes: [
-//           {
-//             display: false,
-//           },
-//         ],
-//       },
-//       tooltips: {
-//         backgroundColor: "#fff",
-//         cornerRadius: 0,
-//         displayColors: false,
-//         titleFontFamily: "'Roboto', sans-serif",
-//         titleFontColor: "#2A2F33",
-//         bodyAlign: "center",
-//         bodyFontFamily: "'Roboto', sans-serif",
-//         bodyFontColor: "#2A2F33",
-//         bodyFontStyle: "normal",
-//       },
-//     },
-//   });
-// }
-
-// Display Result Link Analyzer
+// Display Result HTTP Header
 const displayResultHttpHeader = (response) => {
   showLoading(false);
   const headers = response.data;
@@ -213,7 +152,7 @@ const displayResultHttpHeader = (response) => {
 
     const bgColorClass = index % 2 === 0 ? "bg-light" : "bg-white";
     resultHTML += `
-      <div class="result__link ${bgColorClass} p-2">
+      <div class="result__link ${bgColorClass} px-2 py-1">
           <div class="fw-bold">${key}</div>
           <div class="text-break fw-normal">${value}</div>
       </div>
