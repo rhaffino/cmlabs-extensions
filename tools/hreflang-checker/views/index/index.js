@@ -1,5 +1,11 @@
-const logButton = document.getElementById("submit-btn");
+const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
+const navbar = document.getElementById("navbar");
+const header = document.getElementById("header");
+const btnCrawlingStatus = document.getElementById("crawling-status");
+const readLatestBlog = document.getElementById("read__latest-blog");
+const previewDetail = document.getElementById("preview-detail");
+const popupContainer = document.getElementById("popup_container");
 
 function tabChrome() {
   return new Promise((resolve, reject) => {
@@ -14,7 +20,7 @@ function tabChrome() {
 
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
-    var urlContainer = document.getElementById("url-input");
+    var urlContainer = document.getElementById("url-container");
     urlContainer.textContent = currentUrl;
     inputUrl = currentUrl;
   });
@@ -30,12 +36,23 @@ const launch = async () => {
   showLoading(true);
   resultElement.innerHTML = "";
 
+  popupContainer.style.width = "500px";
+
+  logButton.classList.remove("d-block");
+  logButton.classList.add("d-none");
+  header.classList.remove("d-none");
+  header.classList.add("d-flex");
+  btnCrawlingStatus.classList.remove("d-none");
+  btnCrawlingStatus.classList.add("d-block");
+  readLatestBlog.classList.remove("d-none");
+  readLatestBlog.classList.add("d-block");
+  previewDetail.classList.remove("d-block");
+  previewDetail.classList.add("d-none");
+
   const isDataFetched = await checkFetchStatus();
 
   setTimeout(() => {
     if (isDataFetched) {
-      logButton.classList.remove("d-block");
-      logButton.classList.add("d-none");
     } else {
       tabChrome().then((currentUrl) => {
         const message = {
@@ -97,43 +114,93 @@ const displayResultLinkAnalysis = (response) => {
 
   showLoading(false);
 
+  header.classList.remove("d-flex");
+  header.classList.add("d-none");
+  btnCrawlingStatus.classList.remove("d-block");
+  btnCrawlingStatus.classList.add("d-none");
+  readLatestBlog.classList.remove("d-block");
+  readLatestBlog.classList.add("d-none");
+  previewDetail.classList.remove("d-none");
+  previewDetail.classList.add("d-block");
+
   const resultDiv = document.createElement("div");
+
+  navbar.style.width = "auto";
 
   if (data.length === 0) {
     const p = document.createElement("p");
+    p.className = "mt-3";
     p.textContent = "There is no hreflang found";
     resultDiv.appendChild(p);
   } else {
+    popupContainer.style.width = "auto";
+
     const table = document.createElement("table");
-    table.className = "table";
+    table.className = "table mt-3";
+
     const thead = document.createElement("thead");
+    thead.style.backgroundColor = "#F9F9F9";
+
     const tr = document.createElement("tr");
+
     ["No", "URL", "Hreflang", "Language", "Region"].forEach((headerText) => {
       const th = document.createElement("th");
       th.textContent = headerText;
+      th.style.borderBottom = "1px solid #F9F9F9";
+      th.style.textAlign = "left";
       tr.appendChild(th);
     });
+
     thead.appendChild(tr);
     table.appendChild(thead);
 
     const tbody = document.createElement("tbody");
+
     data.forEach((item, index) => {
       const tr = document.createElement("tr");
       const tdNo = document.createElement("td");
-      tdNo.textContent = index + 1;
+      const span = document.createElement("span");
+
+      span.className = "badge";
+      span.style.backgroundColor = "#F7F7F7";
+      span.style.color = "#A8AAAF";
+      span.textContent = index + 1;
+
+      tdNo.appendChild(span);
+
       const tdUrl = document.createElement("td");
-      tdUrl.textContent = item.url;
+      tdUrl.style.whiteSpace = "nowrap";
+      tdUrl.style.textAlign = "left";
+      const a = document.createElement("a");
+
+      a.href = item.url;
+      a.textContent = item.url;
+      a.style.color = "#1F95F5";
+
+      tdUrl.appendChild(a);
+
       const tdHreflang = document.createElement("td");
       tdHreflang.textContent = item.hreflang;
+      tdHreflang.style.textAlign = "left";
+
       const tdLanguage = document.createElement("td");
       tdLanguage.textContent = item.language.name;
+      tdLanguage.style.textAlign = "left";
+
       const tdRegion = document.createElement("td");
-      tdRegion.textContent = item.location ? item.location.name : "-";
-      [tdNo, tdUrl, tdHreflang, tdLanguage, tdRegion].forEach((td) =>
-        tr.appendChild(td)
-      );
+      tdRegion.style.whiteSpace = "nowrap";
+      tdRegion.style.textAlign = "left";
+      tdRegion.textContent = item.location ? item.location.name : "undefined";
+
+      [tdNo, tdUrl, tdHreflang, tdLanguage, tdRegion].forEach((td) => {
+        td.style.borderBottom = "1px solid #F5F5F5";
+        td.style.color = "#666A74";
+        tr.appendChild(td);
+      });
+
       tbody.appendChild(tr);
     });
+
     table.appendChild(tbody);
 
     resultDiv.appendChild(table);
