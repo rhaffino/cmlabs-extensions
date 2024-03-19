@@ -12,12 +12,13 @@ const readLatestBlog = document.getElementById("read__latest-blog");
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
-    const navbar = document.getElementById('navbar')
-    // When the scroll is greater than 50 viewport height, add the shadow-navbar class
-    this.scrollY >= 50 ? navbar.classList.add('shadow-navbar')
-                        : navbar.classList.remove('shadow-navbar')
-}
-window.addEventListener('scroll', shadowHeader)
+  const navbar = document.getElementById("navbar");
+  // When the scroll is greater than 50 viewport height, add the shadow-navbar class
+  this.scrollY >= 50
+    ? navbar.classList.add("shadow-navbar")
+    : navbar.classList.remove("shadow-navbar");
+};
+window.addEventListener("scroll", shadowHeader);
 
 function tabChrome() {
   return new Promise((resolve, reject) => {
@@ -65,7 +66,7 @@ const launch = async () => {
         chrome.runtime.sendMessage(message);
       });
     }
- }, 5000);
+  }, 5000);
 };
 
 const checkFetchStatus = () => {
@@ -126,7 +127,7 @@ const displayResultLinkAnalysis = (response) => {
   showLoading(false);
   resultElement.innerHTML = "";
 
-  if(response){
+  if (response) {
     const data = response.data;
     const outputParts = data.output.split("\n---");
     const timeOutput = outputParts[0].trim();
@@ -138,7 +139,9 @@ const displayResultLinkAnalysis = (response) => {
       <div class="result__container">
         <div class="d-flex mb-12">
           <h2 class="result__title">Result</h2>
-          <span class="status__result online__status">${data.alive ? "Online" : "Offline"}</span>
+          <span class="status__result online__status">${
+            data.alive ? "Online" : "Offline"
+          }</span>
         </div>
         
         <div class="row">
@@ -155,7 +158,10 @@ const displayResultLinkAnalysis = (response) => {
             <span class="title__result">IP Address</span>
           </div>
           <div class="col-8">
-            <span class="desc__result">${data.numeric_host.replace(")", "")}</span>
+            <span class="desc__result">${data.numeric_host.replace(
+              ")",
+              ""
+            )}</span>
           </div>
         </div>
 
@@ -191,7 +197,9 @@ const displayResultLinkAnalysis = (response) => {
             <span class="title__result">Transmitted</span>
           </div>
           <div class="col-8">
-            <span class="desc__result">${pingStatisticOutput.match(transmitted)[0].replace(" transmitted", "")}</span>
+            <span class="desc__result">${pingStatisticOutput
+              .match(transmitted)[0]
+              .replace(" transmitted", "")}</span>
           </div>
         </div>
 
@@ -200,7 +208,9 @@ const displayResultLinkAnalysis = (response) => {
             <span class="title__result">Received</span>
           </div>
           <div class="col-8">
-            <span class="desc__result">${pingStatisticOutput.match(received)[1].replace(" received", "")}</span>
+            <span class="desc__result">${pingStatisticOutput
+              .match(received)[1]
+              .replace(" received", "")}</span>
           </div>
         </div>
 
@@ -222,7 +232,7 @@ const displayResultLinkAnalysis = (response) => {
 
     logButton.classList.remove("d-none");
     logButton.classList.add("d-block");
-  
+
     const message = {
       event: "onResetResponse",
       data: null,
