@@ -5,6 +5,8 @@ const header = document.getElementById("header");
 const btnCrawlingStatus = document.getElementById("crawling-status");
 const readLatestBlog = document.getElementById("read__latest-blog");
 const previewDetail = document.getElementById("preview-detail");
+const btnLimit = document.getElementById("btn-limit");
+const alertLimit = document.getElementById("alert-limit");
 
 function tabChrome() {
   return new Promise((resolve, reject) => {
@@ -204,6 +206,8 @@ const displayResultLinkAnalysis = (response) => {
   table.appendChild(tbody);
   resultElement.appendChild(table);
 
+  alertLimit.classList.remove("d-block");
+  alertLimit.classList.add("d-none");
   logButton.classList.remove("d-none");
   logButton.classList.add("d-block");
 
@@ -224,6 +228,15 @@ chrome.runtime.onMessage.addListener((message) => {
       } else {
         showLoading(false);
         resultElement.innerHTML = "";
+
+        alertLimit.classList.add("d-block");
+        alertLimit.classList.remove("d-none");
+        btnLimit.classList.add("d-flex");
+        btnLimit.classList.remove("d-none");
+        logButton.classList.add("d-none");
+        logButton.classList.remove("d-block");
+        btnCrawlingStatus.classList.remove("d-block");
+        btnCrawlingStatus.classList.add("d-none");
       }
       break;
     default:
