@@ -227,10 +227,11 @@
     line-height: 16px;
     display: flex;
     align-items: center;
+    gap: .25rem;
 }
 .online__status{
-    background-color: var(--Success-50);
-    color: var(--white);
+    background-color: rgba(80, 160, 109, 0.2);
+    color: #50A06D;
 }
 .offline__status{
     background-color: rgba(247, 97, 98, 0.2);
@@ -239,8 +240,7 @@
 .result__container .row{
     margin: 0;
 }
-.result__container .col-4,
-.result__container .col-8{
+.result__container .col-6{
     padding: 6px 12px;
 }
 .title__result{
@@ -248,6 +248,12 @@
     font-weight: 500;
     line-height: 16px;
     color: var(--Dark-70);
+}
+.title__result-small{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #A8AAAF;
 }
 .desc__result{
     font-size: 14px;

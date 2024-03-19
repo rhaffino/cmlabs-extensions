@@ -129,87 +129,152 @@ const displayResultLinkAnalysis = (response) => {
   if(response){
     const data = response.data;
     const outputParts = data.output.split("\n---");
-    const timeOutput = outputParts[0].trim();
     const pingStatisticOutput = outputParts[1].split("\n")[1].trim();
-    const ping = /\d+\sdata\sbytes/;
+    const resultPing = pingStatisticOutput !== null ? pingStatisticOutput : "-";
+
+    const resultMatchTime = data.time;
+    let dataTime;
+    if (resultMatchTime !== null && resultMatchTime !== 'unknown') {
+        dataTime = resultMatchTime +' ms';
+    } else {
+        dataTime = "-";
+    }
+    const resultTime = dataTime;
+
+    const packet = /\d+\sdata\sbytes/;
+    
+    const seq = /seq=(\d+)/;
+    const resultMatchSeq = data.output.match(seq);
+    let dataSeq;
+    if (resultMatchSeq !== null) {
+        dataSeq = resultMatchSeq[0].replace("seq=", "");
+    } else {
+        dataSeq = "-";
+    }
+    const resultSeq = dataSeq;
+    
+    const ttl = /ttl=(\d+)/;
+    const resultMatchTTL = data.output.match(ttl);
+    let dataTTL;
+    if (resultMatchTTL !== null) {
+        dataTTL = resultMatchTTL[0].replace("ttl=", "");
+    } else {
+        dataTTL = "-";
+    }
+    const resultTTL = dataTTL;
+    
     const transmitted = /\d+\spackets\s\w+/;
+    const dataTransmitted = resultPing.match(transmitted)[0].replace(" transmitted", "");
+    const resultTransmitted = dataTransmitted !== null ? dataTransmitted : "-";
+    
     const received = /\d+\spackets\s\w+/g;
+    const dataReceived = resultPing.match(received)[1].replace(" received", "");
+    const resultReceived = dataReceived !== null ? dataReceived : "-";
+    
+    const approximate = /min\/avg\/max\s=\s(\d+\.\d+\/\d+\.\d+\/\d+\.\d+)/;
+    const resultMatchApproximate = data.output.match(approximate);
+    let dataApproximate;
+    if (resultMatchApproximate !== null) {
+        dataApproximate = resultMatchApproximate[0].replace("min/avg/max =", "");
+    } else {
+        dataApproximate = "-";
+    }
+    const resultApproximate = dataApproximate;
+
     resultElement.innerHTML = `
       <div class="result__container">
         <div class="d-flex mb-12">
           <h2 class="result__title">Result</h2>
-          <span class="status__result online__status">${data.alive ? "Online" : "Offline"}</span>
+          <span class="status__result ${data.alive ? "online__status":"offline__status"}">${data.alive ? "Online <img src='../../assets/icon/icon-online.svg' alt='Icon Online' class='icon__status'>" : "Offline <img src='../../assets/icon/icon-offline.svg' alt='Icon Offline' class='icon__status'>"}</span>
         </div>
         
         <div class="row">
-          <div class="col-4">
+          <div class="col-6">
             <span class="title__result">Domain</span>
           </div>
-          <div class="col-8">
+          <div class="col-6">
             <span class="desc__result">${data.inputHost}</span>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-4">
+          <div class="col-6">
             <span class="title__result">IP Address</span>
           </div>
-          <div class="col-8">
+          <div class="col-6">
             <span class="desc__result">${data.numeric_host.replace(")", "")}</span>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-4">
+          <div class="col-6">
             <span class="title__result">Time</span>
           </div>
-          <div class="col-8">
-            <span class="desc__result">${data.time} ms</span>
+          <div class="col-6">
+            <span class="desc__result">${resultTime}</span>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-4">
-            <span class="title__result">Host</span>
+          <div class="col-6">
+            <span class="title__result">Number of bytes in packet</span>
           </div>
-          <div class="col-8">
-            <span class="desc__result">${data.host}</span>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-4">
-            <span class="title__result">Ping</span>
-          </div>
-          <div class="col-8">
-            <span class="desc__result">${data.output.match(ping)[0]}</span>
+          <div class="col-6">
+            <span class="desc__result">${data.output.match(packet)[0]}</span>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-4">
+          <div class="col-6">
+            <span class="title__result">ICMP Seq</span>
+          </div>
+          <div class="col-6">
+            <span class="desc__result">${resultSeq}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <span class="title__result">TTL</span>
+          </div>
+          <div class="col-6">
+            <span class="desc__result">${resultTTL}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
             <span class="title__result">Transmitted</span>
           </div>
-          <div class="col-8">
-            <span class="desc__result">${pingStatisticOutput.match(transmitted)[0].replace(" transmitted", "")}</span>
+          <div class="col-6">
+            <span class="desc__result">${resultTransmitted}</span>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-4">
+          <div class="col-6">
             <span class="title__result">Received</span>
           </div>
-          <div class="col-8">
-            <span class="desc__result">${pingStatisticOutput.match(received)[1].replace(" received", "")}</span>
+          <div class="col-6">
+            <span class="desc__result">${resultReceived}</span>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-4">
+          <div class="col-6">
             <span class="title__result">Packet Loss</span>
           </div>
-          <div class="col-8">
+          <div class="col-6">
             <span class="desc__result">${Math.round(data.packetLoss)} %</span>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-6">
+            <p class="title__result">Approximate round trip times (in ms)<br><span class="title__result-small">min/avg/max</span></p>
+          </div>
+          <div class="col-6">
+            <span class="desc__result">${resultApproximate}</span>
           </div>
         </div>
         
