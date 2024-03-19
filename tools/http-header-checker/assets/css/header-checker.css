@@ -130,7 +130,7 @@
 }
 
 .label__url {
-  display: inline-block;
+  display: inline-flex;
   align-items: center;
   gap: 0.75rem;
 }
@@ -143,7 +143,8 @@
   line-height: 1.25rem;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: auto;
+  display: inline-flex;
+  width: 255px;
   white-space: nowrap;
   text-align: left;
 }
@@ -237,6 +238,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
+
+  font-size: 14px;
+  line-height: 16px;
 }
 
 .result__link p {
@@ -257,98 +261,6 @@
   height: 1rem;
   flex-shrink: 0;
   border-radius: 0.25rem;
-}
-
-.internal__link {
-  background: var(--Primary-50);
-}
-
-.external__link {
-  background: var(--Secondary-50);
-}
-
-.no__follow {
-  background: var(--Variant-50);
-}
-
-.do__follow {
-  background: var(--Danger-50);
-}
-
-/* Details Tab */
-.tab__container-nav {
-  width: 100%;
-}
-
-.detail__tabs {
-  margin: 2rem 0 0.75rem 0;
-  justify-content: space-between;
-}
-
-.tab-content {
-  margin-bottom: 2rem;
-}
-
-.nav-link {
-  border-bottom: 2px solid var(--Gray-70);
-  background: var(--white);
-  border-radius: 0px !important;
-  color: var(--Gray-100);
-  text-align: center;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
-  padding: 0.25rem 2.5px;
-  width: 81.5px;
-}
-
-.nav-link:hover {
-  color: var(--Dark-70);
-}
-
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-  background: transparent;
-  color: var(--Dark-70);
-  border-color: var(--Dark-70);
-}
-
-.list__links {
-  display: flex;
-  flex-direction: column;
-}
-
-.list__link {
-  border-bottom: 1px solid var(--Gray-50);
-  padding: 0.25rem 0;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.list__link span {
-  color: var(--Dark-70);
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
-}
-
-.list__link span.list__link-url {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 300px;
-  white-space: nowrap;
-  display: block;
-}
-
-.list__link-space {
-  justify-content: center;
-}
-
-.list__link-space span {
-  text-align: center;
-  display: block;
 }
 
 /* Details Results */

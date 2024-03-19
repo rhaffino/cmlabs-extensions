@@ -37,7 +37,6 @@ const launch = async () => {
   resultElement.innerHTML = "";
 
   popupContainer.style.width = "500px";
-
   logButton.classList.remove("d-block");
   logButton.classList.add("d-none");
   header.classList.remove("d-none");
@@ -136,18 +135,15 @@ const displayResultLinkAnalysis = (response) => {
     popupContainer.style.width = "auto";
 
     const table = document.createElement("table");
-    table.className = "table mt-3";
+    table.className = "table table__result mt-3";
 
     const thead = document.createElement("thead");
-    thead.style.backgroundColor = "#F9F9F9";
 
     const tr = document.createElement("tr");
 
     ["No", "URL", "Hreflang", "Language", "Region"].forEach((headerText) => {
       const th = document.createElement("th");
       th.textContent = headerText;
-      th.style.borderBottom = "1px solid #F9F9F9";
-      th.style.textAlign = "left";
       tr.appendChild(th);
     });
 
@@ -161,40 +157,31 @@ const displayResultLinkAnalysis = (response) => {
       const tdNo = document.createElement("td");
       const span = document.createElement("span");
 
-      span.className = "badge";
-      span.style.backgroundColor = "#F7F7F7";
-      span.style.color = "#A8AAAF";
+      span.className = "badge__number";
       span.textContent = index + 1;
 
       tdNo.appendChild(span);
 
       const tdUrl = document.createElement("td");
       tdUrl.style.whiteSpace = "nowrap";
-      tdUrl.style.textAlign = "left";
       const a = document.createElement("a");
 
       a.href = item.url;
       a.textContent = item.url;
-      a.style.color = "#1F95F5";
 
       tdUrl.appendChild(a);
 
       const tdHreflang = document.createElement("td");
       tdHreflang.textContent = item.hreflang;
-      tdHreflang.style.textAlign = "left";
 
       const tdLanguage = document.createElement("td");
       tdLanguage.textContent = item.language.name;
-      tdLanguage.style.textAlign = "left";
 
       const tdRegion = document.createElement("td");
       tdRegion.style.whiteSpace = "nowrap";
-      tdRegion.style.textAlign = "left";
-      tdRegion.textContent = item.location ? item.location.name : "undefined";
+      tdRegion.innerHTML = item.location ? item.location.name : "<span class='text-center d-block'>-</span>";
 
       [tdNo, tdUrl, tdHreflang, tdLanguage, tdRegion].forEach((td) => {
-        td.style.borderBottom = "1px solid #F5F5F5";
-        td.style.color = "#666A74";
         tr.appendChild(td);
       });
 

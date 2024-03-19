@@ -125,7 +125,7 @@ const displayResultLinkAnalysis = (response) => {
   previewDetail.classList.add("d-block");
 
   const table = document.createElement("table");
-  table.className = "table mt-3";
+  table.className = "table table__result mt-3";
   table.style.borderCollapse = "collapse";
 
   const thead = document.createElement("thead");
@@ -138,9 +138,7 @@ const displayResultLinkAnalysis = (response) => {
   headers.forEach((headerText, index) => {
     const th = document.createElement("th");
     th.textContent = headerText;
-    th.style.color = "#252A38";
     th.style.textAlign = alignments[index];
-    th.style.borderBottom = "1px solid #F9F9F9";
     tr.appendChild(th);
   });
 
@@ -157,41 +155,29 @@ const displayResultLinkAnalysis = (response) => {
 
     a.href = redirect.url;
     a.textContent = redirect.url;
-    a.style.color = "#1F95F5";
 
     tdUrl.style.textAlign = "left";
-    tdUrl.style.borderBottom = "1px solid #F5F5F5";
     tdUrl.appendChild(a);
     tr.appendChild(tdUrl);
 
     const tdDate = document.createElement("td");
     tdDate.textContent = redirect.date;
     tdDate.style.textAlign = "left";
-    tdDate.style.borderBottom = "1px solid #F5F5F5";
     tr.appendChild(tdDate);
 
     const tdStatus = document.createElement("td");
-    tdStatus.style.borderBottom = "1px solid #F5F5F5";
     tdStatus.style.textAlign = "right";
     const span = document.createElement("span");
     span.textContent = redirect.status;
 
     if (redirect.status >= 200 && redirect.status < 300) {
-      span.className = "badge";
-      span.style.backgroundColor = "rgba(80, 160, 109, 0.2)";
-      span.style.color = "#50A06D";
+      span.className = "badge badge__status badge__success";
     } else if (redirect.status >= 300 && redirect.status < 400) {
-      span.className = "badge";
-      span.style.backgroundColor = "rgba(255, 190, 64, 0.2)";
-      span.style.color = "#FFBE40";
+      span.className = "badge badge__status badge__warning";
     } else if (redirect.status >= 400 && redirect.status <= 500) {
-      span.className = "badge";
-      span.style.backgroundColor = "rgba(247, 97, 98, 0.2)";
-      span.style.color = "#F76162";
+      span.className = "badge badge__status badge__danger";
     } else {
-      span.className = "badge";
-      span.style.backgroundColor = "rgba(247, 247, 247, 0.2)";
-      span.style.color = "#A8AAAF";
+      span.className = "badge badge__status badge__none";
       span.textContent = "n/a";
     }
 
