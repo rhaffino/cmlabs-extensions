@@ -12,12 +12,13 @@ const readLatestBlog = document.getElementById("read__latest-blog");
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
-    const navbar = document.getElementById('navbar')
-    // When the scroll is greater than 50 viewport height, add the shadow-navbar class
-    this.scrollY >= 50 ? navbar.classList.add('shadow-navbar')
-                        : navbar.classList.remove('shadow-navbar')
-}
-window.addEventListener('scroll', shadowHeader)
+  const navbar = document.getElementById("navbar");
+  // When the scroll is greater than 50 viewport height, add the shadow-navbar class
+  this.scrollY >= 50
+    ? navbar.classList.add("shadow-navbar")
+    : navbar.classList.remove("shadow-navbar");
+};
+window.addEventListener("scroll", shadowHeader);
 
 function tabChrome() {
   return new Promise((resolve, reject) => {
@@ -65,7 +66,7 @@ const launch = async () => {
         chrome.runtime.sendMessage(message);
       });
     }
- }, 5000);
+  }, 5000);
 };
 
 const checkFetchStatus = () => {
@@ -126,7 +127,7 @@ const displayResultLinkAnalysis = (response) => {
   showLoading(false);
   resultElement.innerHTML = "";
 
-  if(response){
+  if (response) {
     const data = response.data;
     const outputParts = data.output.split("\n---");
     const pingStatisticOutput = outputParts[1].split("\n")[1].trim();
@@ -134,50 +135,52 @@ const displayResultLinkAnalysis = (response) => {
 
     const resultMatchTime = data.time;
     let dataTime;
-    if (resultMatchTime !== null && resultMatchTime !== 'unknown') {
-        dataTime = resultMatchTime +' ms';
+    if (resultMatchTime !== null && resultMatchTime !== "unknown") {
+      dataTime = resultMatchTime + " ms";
     } else {
-        dataTime = "-";
+      dataTime = "-";
     }
     const resultTime = dataTime;
 
     const packet = /\d+\sdata\sbytes/;
-    
+
     const seq = /seq=(\d+)/;
     const resultMatchSeq = data.output.match(seq);
     let dataSeq;
     if (resultMatchSeq !== null) {
-        dataSeq = resultMatchSeq[0].replace("seq=", "");
+      dataSeq = resultMatchSeq[0].replace("seq=", "");
     } else {
-        dataSeq = "-";
+      dataSeq = "-";
     }
     const resultSeq = dataSeq;
-    
+
     const ttl = /ttl=(\d+)/;
     const resultMatchTTL = data.output.match(ttl);
     let dataTTL;
     if (resultMatchTTL !== null) {
-        dataTTL = resultMatchTTL[0].replace("ttl=", "");
+      dataTTL = resultMatchTTL[0].replace("ttl=", "");
     } else {
-        dataTTL = "-";
+      dataTTL = "-";
     }
     const resultTTL = dataTTL;
-    
+
     const transmitted = /\d+\spackets\s\w+/;
-    const dataTransmitted = resultPing.match(transmitted)[0].replace(" transmitted", "");
+    const dataTransmitted = resultPing
+      .match(transmitted)[0]
+      .replace(" transmitted", "");
     const resultTransmitted = dataTransmitted !== null ? dataTransmitted : "-";
-    
+
     const received = /\d+\spackets\s\w+/g;
     const dataReceived = resultPing.match(received)[1].replace(" received", "");
     const resultReceived = dataReceived !== null ? dataReceived : "-";
-    
+
     const approximate = /min\/avg\/max\s=\s(\d+\.\d+\/\d+\.\d+\/\d+\.\d+)/;
     const resultMatchApproximate = data.output.match(approximate);
     let dataApproximate;
     if (resultMatchApproximate !== null) {
-        dataApproximate = resultMatchApproximate[0].replace("min/avg/max =", "");
+      dataApproximate = resultMatchApproximate[0].replace("min/avg/max =", "");
     } else {
-        dataApproximate = "-";
+      dataApproximate = "-";
     }
     const resultApproximate = dataApproximate;
 
@@ -185,7 +188,13 @@ const displayResultLinkAnalysis = (response) => {
       <div class="result__container">
         <div class="d-flex mb-12">
           <h2 class="result__title">Result</h2>
-          <span class="status__result ${data.alive ? "online__status":"offline__status"}">${data.alive ? "Online <img src='../../assets/icon/icon-online.svg' alt='Icon Online' class='icon__status'>" : "Offline <img src='../../assets/icon/icon-offline.svg' alt='Icon Offline' class='icon__status'>"}</span>
+          <span class="status__result ${
+            data.alive ? "online__status" : "offline__status"
+          }">${
+      data.alive
+        ? "Online <img src='../../assets/icon/icon-online.svg' alt='Icon Online' class='icon__status'>"
+        : "Offline <img src='../../assets/icon/icon-offline.svg' alt='Icon Offline' class='icon__status'>"
+    }</span>
         </div>
         
         <div class="row">
@@ -202,7 +211,10 @@ const displayResultLinkAnalysis = (response) => {
             <span class="title__result">IP Address</span>
           </div>
           <div class="col-6">
-            <span class="desc__result">${data.numeric_host.replace(")", "")}</span>
+            <span class="desc__result">${data.numeric_host.replace(
+              ")",
+              ""
+            )}</span>
           </div>
         </div>
 
@@ -287,7 +299,7 @@ const displayResultLinkAnalysis = (response) => {
 
     logButton.classList.remove("d-none");
     logButton.classList.add("d-block");
-  
+
     const message = {
       event: "onResetResponse",
       data: null,
