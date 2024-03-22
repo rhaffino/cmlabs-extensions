@@ -259,6 +259,13 @@ footer {
 .table__result th{
   color: var(--Dark-70);
 }
+
+.table__result tr:hover {
+  background-color: #eee;
+  transition: all;
+  transition-duration: 200ms;
+}
+
 .table__result td{
   text-align: left;
   color: #666A74;
