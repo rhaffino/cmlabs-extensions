@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     launch();
   });
 
+
   checkLocalStorage();
 });
 
@@ -171,6 +172,11 @@ const displayResultLinkAnalysis = (response) => {
       a.href = item.url;
       a.textContent = item.url;
 
+      tr.setAttribute("data-bs-toggle", "tooltip");
+      tr.setAttribute("data-bs-title", item.url);
+      a.setAttribute("class", "d-inline-block text-truncate");
+      a.setAttribute("style", "max-width: 160px;")
+      
       tdUrl.appendChild(a);
 
       const tdHreflang = document.createElement("td");
@@ -191,7 +197,6 @@ const displayResultLinkAnalysis = (response) => {
     });
 
     table.appendChild(tbody);
-
     resultDiv.appendChild(table);
   }
 
@@ -202,6 +207,9 @@ const displayResultLinkAnalysis = (response) => {
   logButton.classList.remove("d-none");
   logButton.classList.add("d-block");
 
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  console.log('tooltipList: ', tooltipList)
   const message = {
     event: "onResetResponse",
     data: null,
