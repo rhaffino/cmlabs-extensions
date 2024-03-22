@@ -25,6 +25,13 @@
   --Secondary-50: #ffcb66;
   --Variant-50: #b47af1;
   --primary-font: "Helvetica Now Display", sans-serif;
+  --secondary: #ff5252;
+  --background: #eee;
+  --highlight: #ffda79;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 /* Scrollbar */
@@ -48,9 +55,12 @@ body{
 
 /* Popup Style */
 .popup {
-  width: 23.4375rem;
+  width: 500px;
   padding: 0rem 1.5rem 1.25rem 1.5rem;
   background-color: var(--white);
+}
+.popup p {
+  font-size: 0.875rem;
 }
 
 /* Global */
