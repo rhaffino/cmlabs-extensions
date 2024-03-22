@@ -28,6 +28,9 @@
   --secondary: #ff5252;
   --background: #eee;
   --highlight: #ffda79;
+  --hero-color: #666A74;
+  --alert-warning-color: #664C1A;
+  --alert-danger-color: #632727;
 }
 
 *, *::before, *::after {

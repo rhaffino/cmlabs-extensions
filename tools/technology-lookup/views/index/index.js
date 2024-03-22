@@ -241,8 +241,8 @@ chrome.runtime.onMessage.addListener((message) => {
         btnLimit.classList.remove("d-none");
         logButton.classList.add("d-none");
         logButton.classList.remove("d-block");
-        readLatestBlog.classList.remove("d-block");
-        readLatestBlog.classList.add("d-none");
+        readLatestBlog.classList.add("d-block");
+        readLatestBlog.classList.remove("d-none");
       }
       break;
     default:

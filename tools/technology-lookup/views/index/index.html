@@ -33,7 +33,7 @@
     <div class="popup">
       <div id="header" class="hero__extension">
         <img
-          src="../../assets/icon/bot.svg"
+          src="../../assets/icon/icon-technology-lookup.svg"
           alt="Icon Technology Lookup"
           class="icon__extension"
         />
@@ -42,15 +42,12 @@
         </p>
       </div>
 
-      <div
-        id="alert-limit"
-        class="alert alert-warning alert-dismissible fade show alert__extension text-14 border-0 d-none"
-        role="alert"
-      >
+      <!-- Alert -->
+      <div id="alert-limit" class="alert alert-warning alert-dismissible fade show alert__extension text-14 border-0 d-none" role="alert">
         You have reached the usage limit of this tool.
         <strong class="fw-bold">log in or register</strong> yourself.
         <img
-          src="../../assets/icon/close.svg"
+          src="../../assets/icon/close-warning.svg"
           alt="Logo Close Extension"
           class="btn__alert-close"
           data-bs-dismiss="alert"
@@ -58,7 +55,25 @@
         />
       </div>
 
-       <div class="col-12">
+      <div id="alert-error" class="alert alert-danger alert-dismissible fade show alert__extension text-14 border-0 d-none" role="alert">
+        An error has occured. If this issue persists, please <strong class="fw-bold">contact us</strong> for further assistance.
+        <img
+          src="../../assets/icon/close-danger.svg"
+          alt="Logo Close Extension"
+          class="btn__alert-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        />
+      </div>
+
+      <div class="consultation-box d-none">
+        <h2>Want to solve your website problems quickly?<br>Consult with cmlabs marketing for free!</h2>
+        <p>Get a free consultation with cmlabs marketing to discuss about how cmlabs can help you solve your website quickly and efficiently.</p>
+        <a href="#" class="btn__marketing">Contact Marketing</a>
+      </div>
+
+      <!-- Form -->
+      <div class="col-12">
         <div
           class="card p-3 flex flex-row align-items-center justify-content-between form__container"
         >
@@ -72,7 +87,7 @@
           </div>
 
           <button
-            class="btn w-25 px-2 py-1 text-white d-flex justify-content-center align-items-center gap-2 btn__form"
+            class="btn text-white d-flex justify-content-center align-items-center gap-2 btn__form"
             id="crawling-status"
           >
             <span> Crawling </span>
@@ -89,7 +104,7 @@
           </button>
           <button
             id="log-button"
-            class="btn btn__retest w-25 d-none justify-content-center btn__form"
+            class="btn btn__retest d-none justify-content-center btn__form"
           >
             Re-Test!
           </button>
