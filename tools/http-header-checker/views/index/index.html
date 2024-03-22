@@ -2,27 +2,15 @@
 <html>
   <head>
     <title>HTTP Header Checker - cmlabs Chrome Extension</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../assets/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../assets/css/header-checker.css"
-    />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/header-checker.css"/>
   </head>
   <body>
     <div class="header__container" id="navbar">
       <div class="logo__container">
-        <img
-          src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png"
-          alt="logo cmlabs"
-          class="logo__img"
-        />
+        <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" alt="logo cmlabs" class="logo__img"/>
         <span>HTTP Header Checker</span>
       </div>
       <div class="login__container">
@@ -32,65 +20,70 @@
 
     <div class="popup">
       <div id="header" class="hero__extension">
-        <img
-          src="../../assets/icon/code.svg"
-          alt="Icon HTTP Header Checker"
-          class="icon__extension"
-        />
-        <p>
-          A tool for inspecting and analyzing HTTP request and response headers between clients and servers.
-        </p>
+        <img src="../../assets/icon/code.svg" alt="Icon HTTP Header Checker" class="icon__extension"/>
+        <p>A tool for inspecting and analyzing HTTP request and response headers between clients and servers.</p>
       </div>
 
-      <div
-        id="alert-limit"
-        class="alert alert-warning alert-dismissible fade show alert__extension text-14 border-0 d-none"
-        role="alert"
-      >
+      <!-- Alert -->
+      <div id="alert-limit" class="alert alert-warning alert-dismissible fade show alert__extension text-14 border-0 d-none" role="alert">
         You have reached the usage limit of this tool.
         <strong class="fw-bold">log in or register</strong> yourself.
-        <img
-          src="../../assets/icon/close.svg"
-          alt="Logo Close Extension"
-          class="btn__alert-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        />
+        <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close"/>
       </div>
 
-      <div class="form__container">
-        <div class="label__url">
-          <img
-            src="../../assets/icon/shape.svg"
-            alt="Icon SSL Checker"
-            class="icon__form"
-          />
-          <span id="url-input"></span>
-        </div>
-        <div
-          id="loading__container"
-          class="loading-container d-flex w-100 justify-content-center align-items-center rounded-1 gap-2"
-        >
-          <div id="loading" class="d-none text-white text-14 fw-bold py-2">
-            Crawling
+      <div id="alert-error" class="alert alert-danger alert-dismissible fade show alert__extension text-14 border-0 d-none" role="alert">
+        An error has occured. If this issue persists, please <strong class="fw-bold">contact us</strong> for further assistance.
+        <img src="../../assets/icon/close-danger.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close"/>
+      </div>
+
+      <!-- Form -->
+      <div class="col-12">
+        <div class="card p-3 flex flex-row align-items-center justify-content-between form__container">
+          <div class="d-flex input__url">
+            <img src="../../assets/icon/shape.svg" alt="Icon Security" class="img__guard"/>
+            <span id="url-input" class="text-white"></span>
           </div>
-          <img
-            src="../../assets/icon/loader.svg"
-            alt="Icon Loader Extension"
-            class="icon__loader"
-          />
+
+          <button class="btn text-white d-flex justify-content-center align-items-center gap-2 btn__form" id="crawling-status">
+            <span> Crawling </span>
+            <div class="container-loading d-none justify-content-end align-items-center icon__loader" id="loading">
+              <img class="loader" src="../../assets/icon/loader.svg" alt="Loading Icon"/>
+            </div>
+          </button>
+          
+          <button id="log-button" class="btn btn__retest d-none justify-content-center btn__form">
+            Re-Test!
+          </button>
+          <button id="btn-limit" class="btn d-none justify-content-center btn__form">
+            Limit
+          </button>
         </div>
-        <div id="btn-check" class="full__col rounded-1">
-          <button class="btn btn__form" id="submit-btn">Re-test</button>
-          <button id="btn-limit" class="btn btn__form d-none">Limit</button>
+
+        <div class="consultation-box d-none">
+          <h2>Want to solve your website problems quickly?<br>Consult with cmlabs marketing for free!</h2>
+          <p>Get a free consultation with cmlabs marketing to discuss about how cmlabs can help you solve your website quickly and efficiently.</p>
+          <a href="#" class="btn__marketing">Contact Marketing</a>
+        </div>
+
+        <div id="result"></div>
+
+        <footer class="col-12 mt-3 d-block info__text" id="read__latest-blog">
+          The crawling process will take some time, while waiting please read
+          our latest blog
+          <a href="https://cmlabs.co/blog" target="_blank">here</a>
+        </footer>
+
+        <div class="details__container d-none" id="preview-detail">
+          <a
+            id="link-preview-detail"
+            href="#"
+            target="_blank"
+            class="see__details"
+            >Want to see more details? See details</a
+          >
+          <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon"/>
         </div>
       </div>
-
-      <p class="info__text" id="read__latest-blog">
-        The crawling process will take some time, while waiting please read our
-        latest blog <a href="https://cmlabs.co/blog" target="_blank">here</a>
-      </p>
-      <div id="result"></div>
     </div>
 
     <script src="../../assets/js/bootstrap.min.js"></script>
