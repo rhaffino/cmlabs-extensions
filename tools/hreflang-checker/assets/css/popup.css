@@ -23,7 +23,10 @@
   --Warning-50: #ffcb66;
   --Success-10: #cbe3d3;
   --Success-50: #73b38a;
-  --primary-font: "Helvetica Now Display", sans-serif;
+  --primary-font: "Helvetica Now Display", sans-serif;  
+  --hero-color: #666A74;
+  --alert-warning-color: #664C1A;
+  --alert-danger-color: #632727;
 }
 
 /* Scrollbar */
