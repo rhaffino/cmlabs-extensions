@@ -147,6 +147,10 @@ const displayResultHttpHeader = (response) => {
       continue;
     }
 
+    if (value.length > 100) {
+      continue;
+    }
+
     const bgColorClass = index % 2 === 0 ? "bg-light" : "bg-white";
     resultHTML += `
       <div class="result__link ${bgColorClass} px-2 py-1">

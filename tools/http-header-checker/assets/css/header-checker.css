@@ -1,6 +1,5 @@
 /* Header */
 .header__container {
-  position: -webkit-sticky;
   position: sticky;
   top: 0px;
   display: flex;
@@ -150,7 +149,7 @@
   padding: 8px;
   border: 0px;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: 1rem;
@@ -204,6 +203,7 @@
 
 /* Info */
 .info__text {
+  margin-top: 8px;
   color: var(--Dark-70);
   font-size: 0.8125rem;
   font-style: normal;
@@ -221,23 +221,6 @@
 .result__container {
   margin-top: 1rem;
   padding-bottom: 20px;
-}
-
-#analyzer-chart {
-  width: 9.375rem;
-  height: 9.4375rem;
-}
-
-.chart__info {
-  color: var(--Dark-70);
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
-}
-
-.chart__info p {
-  margin-bottom: 0px;
 }
 
 .list__result-link {
