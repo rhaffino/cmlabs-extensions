@@ -1,10 +1,9 @@
 const domainURL = "https://tools.cmlabs.co";
 let inputUrl = "";
 const loadingElement = document.getElementById("loading");
-const loadingContainer = document.getElementById("loading__container");
+const loadingContainer = document.getElementById("crawling-status");
 const headerHero = document.getElementById("header");
 const alertLimit = document.getElementById("alert-limit");
-const btnCheck = document.getElementById("btn-check");
 const btnLimit = document.getElementById("btn-limit");
 const logButton = document.getElementById("submit-btn");
 const resultElement = document.getElementById("result");
@@ -112,8 +111,6 @@ const showLoading = (status) => {
     loadingContainer.classList.add("d-block");
     headerHero.classList.remove("d-none");
     headerHero.classList.add("d-flex");
-    btnCheck.classList.remove("d-block");
-    btnCheck.classList.add("d-none");
     readLatestBlog.classList.remove("d-none");
     readLatestBlog.classList.add("d-block");
   } else {
@@ -123,8 +120,6 @@ const showLoading = (status) => {
     loadingContainer.classList.add("d-none");
     headerHero.classList.remove("d-block");
     headerHero.classList.add("d-none");
-    btnCheck.classList.remove("d-none");
-    btnCheck.classList.add("d-flex");
     readLatestBlog.classList.remove("d-block");
     readLatestBlog.classList.add("d-none");
   }
@@ -147,6 +142,10 @@ const displayResultHttpHeader = (response) => {
   let index = 0;
   for (const [key, value] of Object.entries(headers)) {
     if (key === "setCookie") {
+      continue;
+    }
+
+    if (value.length > 100) {
       continue;
     }
 
