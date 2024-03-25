@@ -2,12 +2,12 @@
 .header__container {
   position: -webkit-sticky;
   position: sticky;
-  top: 0px;
+  top: 0;
   display: flex;
   min-height: 3.25rem;
   justify-content: space-between;
   align-items: flex-start;  
-  width: 23.4375rem;
+  width: 500px;
   padding: 1.25rem 1.5rem;
   background-color: var(--white);
 }
@@ -73,28 +73,27 @@
 }
 
 .hero__extension p {
-  width: 18.4375rem;
-  color: var(--Primary-130);
+  width: 20.4375rem;
+  color: var(--hero-color);
   text-align: center;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 /* Alert */
 .alert__extension {
-  width: 20.4375rem;
   padding: 0.75rem 2rem 0.75rem 0.75rem;
   flex-shrink: 0;
   border-radius: 0.25rem;
-  background: rgba(255, 190, 64, 0.2);
-  color: var(--Secondary-70);
+  font-family: var(--primary-font);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
+  text-align: start;
 }
 
 .alert__extension strong {
@@ -108,7 +107,7 @@
   font-size: 1rem;
   position: absolute;
   right: 0.5rem;
-  top: 1.25rem;
+  top: 0.75rem;
 }
 
 .btn__alert-close:hover {
@@ -117,8 +116,8 @@
 
 /* Form */
 .form__container {
-  display: flex;
-  width: 20.4375rem;
+
+  width: 100%;
   padding: 0.75rem 1rem;
   align-items: center;
   align-content: center;
@@ -143,22 +142,18 @@
   line-height: 1.25rem;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 260px;
+  width: 350px;
   white-space: nowrap;
   text-align: left;
 }
 
 .btn__form {
-  display: flex;
-  width: 18.4375rem;
+  margin-top: 10px;
+  width: 100%;
   padding: 0.375rem 0.875rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
   border-radius: 0.25rem;
-  border: 0px;
+  border: 0;
   background: var(--Gray-20);
-  flex-shrink: 0;
   color: var(--Primary-70);
   text-align: center;
   font-size: 0.875rem;
@@ -168,6 +163,7 @@
 }
 
 .loading-container {
+  margin-top: 10px;
   background-color: var(--Primary-130);
 }
 
@@ -181,6 +177,7 @@
   color: var(--Gray-100);
   opacity: 1;
   cursor: default;
+  text-align: center;
 }
 
 .icon__loader {
@@ -383,4 +380,44 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
+}
+/* Consult */
+.consultation-box {
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  padding: 20px 24px;
+  max-width: 452px;
+  margin: 12px 0px;
+  background: linear-gradient(258.17deg, rgba(255, 236, 198, 0.45) -35.11%, rgba(188, 223, 252, 0.45) 142.12%);
+}
+.consultation-box h2 {
+  color: var(--Primary-130);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+.consultation-box p {
+  color: var(--Primary-130);
+  color: #666;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 20px;
+}
+
+.consultation-box .btn__marketing {
+  background-color: var(--Primary-130);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.consultation-box .btn__marketing:hover {
+  opacity: .9;
 }

@@ -124,7 +124,7 @@ const showLoading = (status) => {
     headerHero.classList.remove("d-block");
     headerHero.classList.add("d-none");
     btnCheck.classList.remove("d-none");
-    btnCheck.classList.add("d-flex");
+    btnCheck.classList.add("d-block");
     readLatestBlog.classList.remove("d-block");
     readLatestBlog.classList.add("d-none");
   }
@@ -471,7 +471,7 @@ chrome.runtime.onMessage.addListener((message) => {
         headerHero.classList.remove("d-none");
         alertLimit.classList.add("d-block");
         alertLimit.classList.remove("d-none");
-        btnLimit.classList.add("d-flex");
+        btnLimit.classList.add("d-block");
         btnLimit.classList.remove("d-none");
         logButton.classList.add("d-none");
         logButton.classList.remove("d-block");
