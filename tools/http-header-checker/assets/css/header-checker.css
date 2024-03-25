@@ -1,7 +1,7 @@
 /* Header */
 .header__container {
   position: sticky;
-  top: 0px;
+  top: 0;
   display: flex;
   min-height: 3.25rem;
   justify-content: space-between;
@@ -123,7 +123,7 @@
 .form__container {
   background-color: var(--Primary-70);
   color: var(--white);
-  border: 0px;
+  border: 0;
   padding: 12px 16px;
 }
 
@@ -136,7 +136,7 @@
   height: 1.5rem;
 }
 
-#url-container {
+#url-input {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 275px;
@@ -147,7 +147,7 @@
 .btn__form {
   width: 8.5625rem;
   padding: 8px;
-  border: 0px;
+  border: 0;
   text-align: center;
   font-size: 14px;
   font-style: normal;
@@ -289,7 +289,7 @@
 
 /* Without result */
 .without__result {
-  margin: 2rem 0px 1.75rem 0px;
+  margin: 2rem 0 1.75rem 0;
   display: flex;
   row-gap: 0.5rem;
   flex-direction: column;
