@@ -1,3 +1,5 @@
+const domainURL = "https://tools.cmlabs.co";
+let inputUrl = "";
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const navbar = document.getElementById("navbar");
@@ -126,71 +128,82 @@ const displayResultLinkAnalysis = (response) => {
   previewDetail.classList.remove("d-none");
   previewDetail.classList.add("d-block");
 
-  const table = document.createElement("table");
-  table.className = "table table__result mt-3";
-  table.style.borderCollapse = "collapse";
+  if (data.length === 0) {
+    // Hide Link Preview Details
+    previewDetail.classList.add("d-none");
+    previewDetail.classList.remove("d-block");
+  }else{
+    const linkDetails = document.getElementById('link-preview-detail')
+    // Update Link Url Details
+    linkDetails.href = domainURL +"/en/redirect-checker?url=" + inputUrl.replace(/\/$/, "") +"&auto=true";
 
-  const thead = document.createElement("thead");
-  thead.style.backgroundColor = "#F9F9F9";
-  const tr = document.createElement("tr");
+    const table = document.createElement("table");
+    table.className = "table table__result mt-3";
+    table.style.borderCollapse = "collapse";
 
-  const headers = ["URL", "Date", "Status"];
-  const alignments = ["left", "left", "right"];
-
-  headers.forEach((headerText, index) => {
-    const th = document.createElement("th");
-    th.textContent = headerText;
-    th.style.textAlign = alignments[index];
-    tr.appendChild(th);
-  });
-
-  thead.appendChild(tr);
-  table.appendChild(thead);
-
-  const tbody = document.createElement("tbody");
-
-  data.redirects.forEach((redirect) => {
+    const thead = document.createElement("thead");
+    thead.style.backgroundColor = "#F9F9F9";
     const tr = document.createElement("tr");
 
-    const tdUrl = document.createElement("td");
-    const a = document.createElement("a");
+    const headers = ["URL", "Date", "Status"];
+    const alignments = ["left", "left", "right"];
 
-    a.href = redirect.url;
-    a.textContent = redirect.url;
+    headers.forEach((headerText, index) => {
+      const th = document.createElement("th");
+      th.textContent = headerText;
+      th.style.textAlign = alignments[index];
+      tr.appendChild(th);
+    });
 
-    tdUrl.style.textAlign = "left";
-    tdUrl.appendChild(a);
-    tr.appendChild(tdUrl);
+    thead.appendChild(tr);
+    table.appendChild(thead);
 
-    const tdDate = document.createElement("td");
-    tdDate.textContent = redirect.date;
-    tdDate.style.textAlign = "left";
-    tr.appendChild(tdDate);
+    const tbody = document.createElement("tbody");
 
-    const tdStatus = document.createElement("td");
-    tdStatus.style.textAlign = "right";
-    const span = document.createElement("span");
-    span.textContent = redirect.status;
+    data.redirects.forEach((redirect) => {
+      const tr = document.createElement("tr");
 
-    if (redirect.status >= 200 && redirect.status < 300) {
-      span.className = "badge badge__status badge__success";
-    } else if (redirect.status >= 300 && redirect.status < 400) {
-      span.className = "badge badge__status badge__warning";
-    } else if (redirect.status >= 400 && redirect.status <= 500) {
-      span.className = "badge badge__status badge__danger";
-    } else {
-      span.className = "badge badge__status badge__none";
-      span.textContent = "n/a";
-    }
+      const tdUrl = document.createElement("td");
+      const a = document.createElement("a");
 
-    tdStatus.appendChild(span);
-    tr.appendChild(tdStatus);
+      a.href = redirect.url;
+      a.textContent = redirect.url;
 
-    tbody.appendChild(tr);
-  });
+      tdUrl.style.textAlign = "left";
+      tdUrl.appendChild(a);
+      tr.appendChild(tdUrl);
 
-  table.appendChild(tbody);
-  resultElement.appendChild(table);
+      const tdDate = document.createElement("td");
+      tdDate.textContent = redirect.date;
+      tdDate.style.textAlign = "left";
+      tr.appendChild(tdDate);
+
+      const tdStatus = document.createElement("td");
+      tdStatus.style.textAlign = "right";
+      const span = document.createElement("span");
+      span.textContent = redirect.status;
+
+      if (redirect.status >= 200 && redirect.status < 300) {
+        span.className = "badge badge__status badge__success";
+      } else if (redirect.status >= 300 && redirect.status < 400) {
+        span.className = "badge badge__status badge__warning";
+      } else if (redirect.status >= 400 && redirect.status <= 500) {
+        span.className = "badge badge__status badge__danger";
+      } else {
+        span.className = "badge badge__status badge__none";
+        span.textContent = "n/a";
+      }
+
+      tdStatus.appendChild(span);
+      tr.appendChild(tdStatus);
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    resultElement.appendChild(table);
+  }
+
 
   alertLimit.classList.remove("d-block");
   alertLimit.classList.add("d-none");

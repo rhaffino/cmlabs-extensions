@@ -25,6 +25,9 @@
   --Secondary-50: #ffcb66;
   --Variant-50: #b47af1;
   --primary-font: "Helvetica Now Display", sans-serif;
+  --hero-color: #666A74;
+  --alert-warning-color: #664C1A;
+  --alert-danger-color: #632727;
 }
 
 /* Scrollbar */
@@ -49,12 +52,8 @@ body{
 /* Popup Style */
 .popup {
   width: 500px;
-  padding: 0 1.5rem 1.5rem 1.5rem;
-  background-color: #fff;
-  border-radius: 1rem;
-  border: 0 !important;
-  text-align: left;
-  position: relative;
+  padding: 0rem 1.5rem 1.25rem 1.5rem;
+  background-color: var(--white);
 }
 
 /* Global */

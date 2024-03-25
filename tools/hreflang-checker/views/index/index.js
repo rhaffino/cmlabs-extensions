@@ -1,3 +1,5 @@
+const domainURL = "https://tools.cmlabs.co";
+let inputUrl = "";
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const navbar = document.getElementById("navbar");
@@ -130,11 +132,32 @@ const displayResultLinkAnalysis = (response) => {
   navbar.style.width = "auto";
 
   if (data.length === 0) {
-    const p = document.createElement("p");
-    p.className = "mt-3";
-    p.textContent = "There is no hreflang found";
-    resultDiv.appendChild(p);
+    // Show Results Not Found
+    const containerNotFound = document.createElement("div");
+    containerNotFound.className = "container__notfound";
+    const imgNotFound = document.createElement("img");
+    imgNotFound.className = "img__notfound";
+    imgNotFound.src = "../../assets/icon/not-found.png";
+    const titleNotFound = document.createElement("h2");
+    titleNotFound.textContent = "No data was found";
+    const descNotFound = document.createElement("p");
+    descNotFound.textContent = "Lorem ipsum dolor sit amet consectetur.";
+
+    containerNotFound.appendChild(imgNotFound);
+    containerNotFound.appendChild(titleNotFound);
+    containerNotFound.appendChild(descNotFound);
+    resultDiv.appendChild(containerNotFound);
+
+    // Hide Link Preview Details
+    previewDetail.classList.add("d-none");
+    previewDetail.classList.remove("d-block");
+  
   } else {
+    const linkDetails = document.getElementById('link-preview-detail')
+    // Update Link Url Details
+    linkDetails.href = domainURL +"/en/hreflang-checker?url=" + inputUrl.replace(/\/$/, "") +"&auto=true";
+
+    // Show Results 
     popupContainer.style.width = "auto";
 
     const table = document.createElement("table");

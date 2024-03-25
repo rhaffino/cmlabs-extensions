@@ -21,6 +21,9 @@
   --Success-50: #73B38A;
   --Danger-50: #F98181;
   --primary-font: "Helvetica Now Display", sans-serif;
+  --hero-color: #666A74;
+  --alert-warning-color: #664C1A;
+  --alert-danger-color: #632727;
 }
 
 /* Scrollbar */
@@ -44,7 +47,7 @@ body{
 
 /* Popup Style */
 .popup {
-  width: 23.4375rem;
+  width: 500px;
   padding: 0rem 1.5rem 1.25rem 1.5rem;
   background-color: var(--white);
 }

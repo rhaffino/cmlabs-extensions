@@ -1,12 +1,11 @@
 const domainURL = "https://tools.cmlabs.co";
 let inputUrl = "";
-const loadingElement = document.getElementById("loading");
-const loadingContainer = document.getElementById("loading__container");
+const loadingElement = document.getElementById("loading");  
+const btnCrawlingStatus = document.getElementById("crawling-status");
 const headerHero = document.getElementById("header");
 const alertLimit = document.getElementById("alert-limit");
-const btnCheck = document.getElementById("btn-check");
 const btnLimit = document.getElementById("btn-limit");
-const logButton = document.getElementById("submit-btn");
+const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const readLatestBlog = document.getElementById("read__latest-blog");
 var analyzeChart = undefined;
@@ -36,7 +35,7 @@ function tabChrome() {
 // Load DOM Extension
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
-    var urlContainer = document.getElementById("url-input");
+    var urlContainer = document.getElementById("url-container");
     urlContainer.textContent = currentUrl;
     inputUrl = currentUrl;
   });
@@ -114,30 +113,26 @@ function toggleAccordion(index) {
   }
 }
 
-
-
 // Show / Hide Section
 const showLoading = (status) => {
   if (status) {
+    btnCrawlingStatus.classList.remove("d-none");
+    btnCrawlingStatus.classList.add("d-block");
     loadingElement.classList.remove("d-none");
     loadingElement.classList.add("d-block");
-    loadingContainer.classList.remove("d-none");
-    loadingContainer.classList.add("d-block");
     headerHero.classList.remove("d-none");
     headerHero.classList.add("d-flex");
-    btnCheck.classList.remove("d-block");
-    btnCheck.classList.add("d-none");
     readLatestBlog.classList.remove("d-none");
     readLatestBlog.classList.add("d-block");
+    logButton.classList.remove("d-block");
+    logButton.classList.add("d-none");
   } else {
+    btnCrawlingStatus.classList.remove("d-block");
+    btnCrawlingStatus.classList.add("d-none");
     loadingElement.classList.remove("d-block");
     loadingElement.classList.add("d-none");
-    loadingContainer.classList.remove("d-block");
-    loadingContainer.classList.add("d-none");
     headerHero.classList.remove("d-block");
     headerHero.classList.add("d-none");
-    btnCheck.classList.remove("d-none");
-    btnCheck.classList.add("d-flex");
     readLatestBlog.classList.remove("d-block");
     readLatestBlog.classList.add("d-none");
   }
@@ -224,8 +219,6 @@ const displayResultHttpHeader = (response) => {
   chrome.runtime.sendMessage(message);
 };
 
-
-
 // After Run Service Worker
 chrome.runtime.onMessage.addListener((message) => {
   const { event, response, status, info } = message;
@@ -237,7 +230,9 @@ chrome.runtime.onMessage.addListener((message) => {
       } else {
         showLoading(false);
         resultElement.innerHTML = "";
-
+        
+        btnCrawlingStatus.classList.remove("d-block");
+        btnCrawlingStatus.classList.add("d-none");
         headerHero.classList.add("d-flex");
         headerHero.classList.remove("d-none");
         alertLimit.classList.add("d-block");
@@ -246,8 +241,8 @@ chrome.runtime.onMessage.addListener((message) => {
         btnLimit.classList.remove("d-none");
         logButton.classList.add("d-none");
         logButton.classList.remove("d-block");
-        readLatestBlog.classList.remove("d-block");
-        readLatestBlog.classList.add("d-none");
+        readLatestBlog.classList.add("d-block");
+        readLatestBlog.classList.remove("d-none");
       }
       break;
     default:
