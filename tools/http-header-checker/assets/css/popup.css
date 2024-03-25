@@ -48,9 +48,13 @@ body{
 
 /* Popup Style */
 .popup {
-  width: 23.4375rem;
-  padding: 0rem 1.5rem 1.25rem 1.5rem;
-  background-color: var(--white);
+  width: 500px;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  border: 0 !important;
+  text-align: left;
+  position: relative;
 }
 
 /* Global */
