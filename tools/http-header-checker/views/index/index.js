@@ -8,7 +8,6 @@ const btnLimit = document.getElementById("btn-limit");
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const readLatestBlog = document.getElementById("read__latest-blog");
-var analyzeChart = undefined;
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
@@ -35,7 +34,7 @@ function tabChrome() {
 // Load DOM Extension
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
-    var urlContainer = document.getElementById("url-input");
+    let urlContainer = document.getElementById("url-input");
     urlContainer.textContent = currentUrl;
     inputUrl = currentUrl;
   });

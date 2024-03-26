@@ -8,7 +8,6 @@ const btnLimit = document.getElementById("btn-limit");
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const readLatestBlog = document.getElementById("read__latest-blog");
-var analyzeChart = undefined;
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
@@ -35,7 +34,7 @@ function tabChrome() {
 // Load DOM Extension
 document.addEventListener("DOMContentLoaded", function () {
   tabChrome().then((currentUrl) => {
-    var urlContainer = document.getElementById("url-container");
+    let urlContainer = document.getElementById("url-container");
     urlContainer.textContent = currentUrl;
     inputUrl = currentUrl;
   });
@@ -43,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
   logButton.addEventListener("click", function () {
     launch();
   });
-
   checkLocalStorage();
 });
 
@@ -101,17 +99,6 @@ const checkLocalStorage = () => {
     }
   });
 };
-
-function toggleAccordion(index) {
-  const content = document.getElementById(`accordionContent${index}`);
-  const item = document.querySelector(`#accordionContent${index}.accordion-item`);
-
-  if (content.style.display === "block") {
-    item.classList.remove('active');
-  } else {
-    item.classList.add('active');
-  }
-}
 
 // Show / Hide Section
 const showLoading = (status) => {
@@ -191,7 +178,6 @@ const displayResultHttpHeader = (response) => {
                      </div>
                      `;
     });
-
     resultHTML += `
         </div>
       </div>

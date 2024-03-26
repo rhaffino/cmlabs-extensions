@@ -6,7 +6,7 @@
   display: flex;
   min-height: 3.25rem;
   justify-content: space-between;
-  align-items: flex-start;  
+  align-items: flex-start;
   width: 23.4375rem;
   padding: 1.25rem 1.5rem;
   background-color: var(--white);
@@ -73,8 +73,8 @@
 }
 
 .hero__extension p {
-  width: 18.4375rem;
-  color: var(--Primary-130);
+  width: 100%;
+  color: var(--hero-color);
   text-align: center;
   font-size: 0.875rem;
   font-style: normal;
@@ -90,7 +90,7 @@
   flex-shrink: 0;
   border-radius: 0.25rem;
   background: rgba(255, 190, 64, 0.2);
-  color: var(--Secondary-70);
+  color: var(--alert-warning-color);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
@@ -320,11 +320,11 @@
 }
 
 .list__link span.list__link-url{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 300px;
-    white-space: nowrap;
-    display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 300px;
+  white-space: nowrap;
+  display: block;
 }
 
 .list__link-space{

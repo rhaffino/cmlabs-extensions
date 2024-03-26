@@ -16,8 +16,8 @@ const shadowHeader = () => {
   const navbar = document.getElementById("navbar");
   // When the scroll is greater than 50 viewport height, add the shadow-navbar class
   this.scrollY >= 50
-    ? navbar.classList.add("shadow-navbar")
-    : navbar.classList.remove("shadow-navbar");
+      ? navbar.classList.add("shadow-navbar")
+      : navbar.classList.remove("shadow-navbar");
 };
 window.addEventListener("scroll", shadowHeader);
 
@@ -132,10 +132,10 @@ const showLoading = (status) => {
 
 // Function Create Chart
 function createChart(
-  internal_link_value,
-  external_link_value,
-  nofollow_link_value,
-  dofollow_link_value
+    internal_link_value,
+    external_link_value,
+    nofollow_link_value,
+    dofollow_link_value
 ) {
   var ctx = document.getElementById("analyzer-chart").getContext("2d");
   analyzeChart = new Chart(ctx, {
@@ -203,15 +203,15 @@ const displayResultLinkAnalysis = (response) => {
   const externalLinks = response.data.external_links.links;
   const allLinks = internalLinks.concat(externalLinks);
   const linksNofollow = allLinks.filter((link) =>
-    link.rels.includes("nofollow")
+      link.rels.includes("nofollow")
   );
   const linksDofollow = allLinks.filter(
-    (link) => !link.rels.includes("nofollow")
+      (link) => !link.rels.includes("nofollow")
   );
 
   showLoading(false);
   resultElement.innerHTML =
-    `
+      `
       <div class="result__container">
         <div class="container">
           <div class="row align-items-center">
@@ -220,36 +220,36 @@ const displayResultLinkAnalysis = (response) => {
             </div>
             <div class="col-6 chart__info">
               <p>Total Links: <span id="total-links">` +
-    totalLinks +
-    `</span></p>
+      totalLinks +
+      `</span></p>
 
               <div class="list__result-link">
                 <div class="result__link">
                   <span class="badge__link internal__link"></span>
                   <p>Internal Link (<span id="internal-link">` +
-    totalInternalLinks +
-    `</span>)</p>
+      totalInternalLinks +
+      `</span>)</p>
                 </div>
 
                 <div class="result__link">
                   <span class="badge__link external__link"></span>
                   <p>External Link (<span id="external-link">` +
-    totalExternalLinks +
-    `</span>)</p>
+      totalExternalLinks +
+      `</span>)</p>
                 </div>
 
                 <div class="result__link">
                   <span class="badge__link no__follow"></span>
                   <p>No Follow (<span id="no-follow">` +
-    totalNofollowLinks +
-    `</span>)</p>
+      totalNofollowLinks +
+      `</span>)</p>
                 </div>
 
                 <div class="result__link">
                   <span class="badge__link do__follow"></span>
                   <p>Do Follow (<span id="do-follow">` +
-    totalDofollowLinks +
-    `</span>)</p>
+      totalDofollowLinks +
+      `</span>)</p>
                 </div>
               </div>
             </div>
@@ -285,8 +285,8 @@ const displayResultLinkAnalysis = (response) => {
           <div class="tab-pane fade show active" id="content-tab-internal-link" role="tabpanel" aria-labelledby="tab-internal-link">
             <div class="list__links">
               ${
-                internalLinks.length === 0
-                  ? `
+          internalLinks.length === 0
+              ? `
                 <div class="without__result">
                     <img src="../../assets/icon/time.svg" class="img__no-result">
                     <p class="description__no-result">
@@ -294,35 +294,35 @@ const displayResultLinkAnalysis = (response) => {
                     </p>
                 </div>
               `
-                  : internalLinks
-                      .map(
-                        (link, index) => `
+              : internalLinks
+                  .map(
+                      (link, index) => `
                   ${
-                    index < 5 || (index >= 7 && index < 8)
-                      ? `
+                          index < 5 || (index >= 7 && index < 8)
+                              ? `
                       <div class="list__link">
                           <span>${index + 1} .</span>
                           <span>${link.url}</span>
                       </div>
                       ${
-                        index % 5 === 4
-                          ? '<div class="list__link list__link-space"><span>---</span></div>'
-                          : ""
-                      }
+                                  index % 5 === 4
+                                      ? '<div class="list__link list__link-space"><span>---</span></div>'
+                                      : ""
+                              }
                   `
-                      : ""
-                  }
+                              : ""
+                      }
               `
-                      )
-                      .join("")
-              }
+                  )
+                  .join("")
+      }
             </div>
           </div>
           <div class="tab-pane fade" id="content-tab-external-link" role="tabpanel" aria-labelledby="tab-external-link">
             <div class="list__links">
                ${
-                 externalLinks.length === 0
-                   ? `
+          externalLinks.length === 0
+              ? `
                 <div class="without__result">
                     <img src="../../assets/icon/time.svg" class="img__no-result">
                     <p class="description__no-result">
@@ -330,34 +330,34 @@ const displayResultLinkAnalysis = (response) => {
                     </p>
                 </div>
               `
-                   : externalLinks
-                       .map(
-                         (link, index) => `
+              : externalLinks
+                  .map(
+                      (link, index) => `
                   ${
-                    index < 5 || (index >= 7 && index < 8)
-                      ? `
+                          index < 5 || (index >= 7 && index < 8)
+                              ? `
                       <div class="list__link">
                           <span>${index + 1} .</span>
                           <span class="list__link-url">${link.url}</span>
                       </div>
                       ${
-                        index % 5 === 4
-                          ? '<div class="list__link list__link-space"><span>---</span></div>'
-                          : ""
-                      }
+                                  index % 5 === 4
+                                      ? '<div class="list__link list__link-space"><span>---</span></div>'
+                                      : ""
+                              }
                   `
-                      : ""
-                  }
+                              : ""
+                      }
               `
-                       )
-                       .join("")
-               }
+                  )
+                  .join("")
+      }
             </div>
           </div>
           <div class="tab-pane fade" id="content-tab-no-follow" role="tabpanel" aria-labelledby="tab-no-follow">
             ${
-              linksNofollow.length === 0
-                ? `
+          linksNofollow.length === 0
+              ? `
                 <div class="without__result">
                     <img src="../../assets/icon/time.svg" class="img__no-result">
                     <p class="description__no-result">
@@ -365,33 +365,33 @@ const displayResultLinkAnalysis = (response) => {
                     </p>
                 </div>
               `
-                : linksNofollow
-                    .map(
+              : linksNofollow
+                  .map(
                       (link, index) => `
                   ${
-                    index < 5 || (index >= 7 && index < 8)
-                      ? `
+                          index < 5 || (index >= 7 && index < 8)
+                              ? `
                       <div class="list__link">
                           <span>${index + 1} .</span>
                           <span>${link.url}</span>
                       </div>
                       ${
-                        index % 5 === 4
-                          ? '<div class="list__link list__link-space"><span>---</span></div>'
-                          : ""
-                      }
+                                  index % 5 === 4
+                                      ? '<div class="list__link list__link-space"><span>---</span></div>'
+                                      : ""
+                              }
                   `
-                      : ""
-                  }
+                              : ""
+                      }
               `
-                    )
-                    .join("")
-            }
+                  )
+                  .join("")
+      }
           </div>
           <div class="tab-pane fade" id="content-tab-do-follow" role="tabpanel" aria-labelledby="tab-do-follow">
             ${
-              linksDofollow.length === 0
-                ? `
+          linksDofollow.length === 0
+              ? `
                 <div class="without__result">
                     <img src="../../assets/icon/time.svg" class="img__no-result">
                     <p class="description__no-result">
@@ -399,38 +399,38 @@ const displayResultLinkAnalysis = (response) => {
                     </p>
                 </div>
               `
-                : linksDofollow
-                    .map(
+              : linksDofollow
+                  .map(
                       (link, index) => `
                   ${
-                    index < 5 || (index >= 7 && index < 8)
-                      ? `
+                          index < 5 || (index >= 7 && index < 8)
+                              ? `
                       <div class="list__link">
                           <span>${index + 1} .</span>
                           <span>${link.url}</span>
                       </div>
                       ${
-                        index % 5 === 4
-                          ? '<div class="list__link list__link-space"><span>---</span></div>'
-                          : ""
-                      }
+                                  index % 5 === 4
+                                      ? '<div class="list__link list__link-space"><span>---</span></div>'
+                                      : ""
+                              }
                   `
-                      : ""
-                  }
+                              : ""
+                      }
               `
-                    )
-                    .join("")
-            }
+                  )
+                  .join("")
+      }
           </div>
         </div>
 
         <div class="details__container">
           <a href="` +
-    domainURL +
-    "/en/link-analyzer?url=" +
-    inputUrl.replace(/\/$/, "") +
-    "&auto=true" +
-    `" target="_blank" class="see__details">Want to see more details? See details</a>
+      domainURL +
+      "/en/link-analyzer?url=" +
+      inputUrl.replace(/\/$/, "") +
+      "&auto=true" +
+      `" target="_blank" class="see__details">Want to see more details? See details</a>
           <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
         </div>
       </div>
@@ -442,10 +442,10 @@ const displayResultLinkAnalysis = (response) => {
   logButton.classList.add("d-block");
 
   createChart(
-    totalInternalLinks,
-    totalExternalLinks,
-    totalNofollowLinks,
-    totalDofollowLinks
+      totalInternalLinks,
+      totalExternalLinks,
+      totalNofollowLinks,
+      totalDofollowLinks
   );
 
   const message = {
