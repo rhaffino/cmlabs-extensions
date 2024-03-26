@@ -118,12 +118,18 @@
   line-height: 1rem;
 }
 
-#crawling-status {
+.btn__retest{
+  background: var(--white);
+  color: var(--Primary-70);
+  transition: background .4s, color .4s;
+}
+.btn__retest:hover{
   background: var(--Primary-130);
+  color: var(--white);
 }
 
-#log-button{
-  color: var(--Primary-70);
+#crawling-status {
+  background: var(--Primary-130);
 }
 
 #btn-limit{
