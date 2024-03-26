@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="68c22d2d-7311-4706-b391-9d201e64cb04" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../hreflang-checker/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hreflang-checker/.idea/hreflang-checker.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hreflang-checker/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hreflang-checker/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../http-header-checker/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../http-header-checker/.idea/http-header-checker.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../http-header-checker/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../http-header-checker/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/link-analyze.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../page-speed/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../page-speed/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../page-speed/.idea/page-speed.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../page-speed/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../technology-lookup/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../technology-lookup/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../technology-lookup/.idea/technology-lookup.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../technology-lookup/.idea/vcs.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2eAVxl3eMGipSAnGRnrIL4Sw0er" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev-sincan&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/sincanmaulana/Coding/cmlabs-chrome-extension/tools/link-analyze&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68c22d2d-7311-4706-b391-9d201e64cb04" name="Changes" comment="" />
+      <created>1711347617652</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711347617652</updated>
+      <workItem from="1711347618670" duration="35000" />
+      <workItem from="1711352798367" duration="1588000" />
+      <workItem from="1711354411582" duration="17000" />
+      <workItem from="1711354479733" duration="17000" />
+      <workItem from="1711354517805" duration="13000" />
+      <workItem from="1711354539491" duration="1256000" />
+      <workItem from="1711355817755" duration="20000" />
+      <workItem from="1711355894339" duration="18000" />
+      <workItem from="1711355936282" duration="1191000" />
+      <workItem from="1711357181342" duration="40000" />
+      <workItem from="1711357256138" duration="1297000" />
+      <workItem from="1711419284054" duration="3607000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
