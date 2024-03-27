@@ -384,3 +384,44 @@
   font-weight: 400;
   line-height: 1rem;
 }
+
+/* Consult */
+.consultation-box {
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  padding: 20px 18px;
+  max-width: 452px;
+  margin: 12px 0px;
+  background: linear-gradient(258.17deg, rgba(255, 236, 198, 0.45) -35.11%, rgba(188, 223, 252, 0.45) 142.12%);
+}
+.consultation-box h2 {
+  color: var(--Primary-130);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  margin-bottom: 8px;
+}
+.consultation-box p {
+  color: var(--Primary-130);
+  color: #666;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 20px;
+}
+
+.consultation-box .btn__marketing {
+  background-color: var(--Primary-130);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.consultation-box .btn__marketing:hover {
+  opacity: .9;
+}
