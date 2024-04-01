@@ -8,6 +8,7 @@ const btnLimit = document.getElementById("btn-limit");
 const logButton = document.getElementById("log-button");
 const resultElement = document.getElementById("result");
 const readLatestBlog = document.getElementById("read__latest-blog");
+const consultationBox = document.getElementById("consultation-box");
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
@@ -84,6 +85,28 @@ const checkFetchStatus = () => {
   });
 };
 
+// Check Daily Use
+const checkDailyUse = () => {
+  chrome.storage.local.get(["thirdUseTime"], (result) => {
+    let thirdUseTime = result.thirdUseTime
+      ? JSON.parse(result.thirdUseTime)
+      : null;
+
+    if (thirdUseTime && thirdUseTime.countThirdTime === 3) {
+      const timeDifference = new Date() - new Date(thirdUseTime.last);
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+
+      if (timeDifferenceInHours < 24) {
+        consultationBox.classList.remove("d-none");
+        consultationBox.classList.add("d-block");
+      } else {
+        consultationBox.classList.remove("d-block");
+        consultationBox.classList.add("d-none");
+      }
+    }
+  });
+};
+
 // Local Storage
 const checkLocalStorage = () => {
   showLoading(true);
@@ -104,6 +127,8 @@ const checkLocalStorage = () => {
 // Show / Hide Section
 const showLoading = (status) => {
   if (status) {
+    consultationBox.classList.remove("d-block");
+    consultationBox.classList.add("d-none");
     btnCrawlingStatus.classList.remove("d-none");
     btnCrawlingStatus.classList.add("d-block");
     loadingElement.classList.remove("d-none");
@@ -129,6 +154,7 @@ const showLoading = (status) => {
 // Display Result HTTP Header
 const displayResultHttpHeader = (response) => {
   showLoading(false);
+  checkDailyUse();
   const headers = response.data;
 
   let resultHTML = `
