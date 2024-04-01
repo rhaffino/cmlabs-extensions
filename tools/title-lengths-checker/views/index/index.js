@@ -11,6 +11,7 @@ const limitBtn = document.getElementById("btn-limit");
 const alertLimit = document.getElementById("alert-limit");
 const latestBlog = document.getElementById("latest-blog");
 const seeDetails = document.getElementById("link-see-details");
+const consultationBox = document.getElementById("consultation-box");
 
 // Title and Desc
 const titleElement = document.getElementById("title");
@@ -109,6 +110,28 @@ const checkFetchStatus = () => {
   });
 };
 
+// Check Daily Use
+const checkDailyUse = () => {
+  chrome.storage.local.get(["thirdUseTime"], (result) => {
+    let thirdUseTime = result.thirdUseTime
+      ? JSON.parse(result.thirdUseTime)
+      : null;
+
+    if (thirdUseTime && thirdUseTime.countThirdTime === 3) {
+      const timeDifference = new Date() - new Date(thirdUseTime.last);
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+
+      if (timeDifferenceInHours < 24) {
+        consultationBox.classList.remove("d-none");
+        consultationBox.classList.add("d-block");
+      } else {
+        consultationBox.classList.remove("d-block");
+        consultationBox.classList.add("d-none");
+      }
+    }
+  });
+};
+
 // Local Storage
 const checkLocalStorage = () => {
   showLoading(true);
@@ -128,6 +151,8 @@ const checkLocalStorage = () => {
 // Show / Hide Section hero
 const showLoading = (status) => {
   if (status) {
+    consultationBox.classList.remove("d-block");
+    consultationBox.classList.add("d-none");
     loadingElement.classList.remove("d-none");
     loadingElement.classList.add("d-flex");
   } else {
@@ -390,6 +415,7 @@ const displayResultTitleLengthChecker = (response) => {
   alertLimit.classList.remove("d-block");
   alertLimit.classList.add("d-none");
   showLoading(false);
+  checkDailyUse();
   showResult(true);
 };
 
