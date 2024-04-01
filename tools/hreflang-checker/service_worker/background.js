@@ -1,25 +1,22 @@
 import postToAnalyze from "./utils/postToAnalyze.js";
 import validateAndExtractBaseUrl from "./utils/validateUrl.js";
 
-let tempCount;
-let tempLastFetchTime;
-
 // Run to get Local Storage
 chrome.runtime.onInstalled.addListener((details) => {
   // Get Data Before
-  chrome.storage.local.get(["count", "lastFetchTime"], (result) => {
-    if (result.count) {
-      tempCount = result.count;
-    }
-    if (result.lastFetchTime) {
-      tempLastFetchTime = new Date(result.lastFetchTime);
-    }
+  chrome.storage.local.get(["count", "lastFetchTime", "thirdUseTime"], (result) => {
+    let tempCount = result.count;
+    let tempLastFetchTime = result.lastFetchTime ? new Date(result.lastFetchTime) : null;
+    let tempThirdUseTime = result.thirdUseTime
+      ? JSON.parse(result.thirdUseTime)
+      : { time: null, last: null, countThirdTime: 0 };
 
     // clear storage after the previous data is retrieved
     chrome.storage.local.clear(() => {
       if (!tempCount) {
         tempCount = 0;
       }
+
       if (!tempLastFetchTime) {
         tempLastFetchTime = null;
       }
@@ -29,6 +26,7 @@ chrome.runtime.onInstalled.addListener((details) => {
           isDataFetched: false,
           count: tempCount,
           lastFetchTime: tempLastFetchTime?.toString(),
+          thirdUseTime: JSON.stringify(tempThirdUseTime),
         },
         () => {
           console.log("isDataFetched and fetch count data init");
@@ -116,6 +114,8 @@ const processAnalyze = async (url) => {
           lastFetchTime: lastFetchTime,
         });
 
+        await checkAndUpdateThirdUseTime();
+
         chrome.runtime.sendMessage(message, () => {
           if (chrome.runtime.lastError) {
             chrome.storage.local.set({ response: data });
@@ -149,4 +149,63 @@ const resetLocal = () => {
       console.log("isDataFetched saved as false.");
     });
   });
+};
+
+const checkAndUpdateThirdUseTime = async () => {
+  const currentTime = new Date();
+  const result = await chrome.storage.local.get(["count", "thirdUseTime"]);
+  let count = result.count || 0;
+  let thirdUseTime = result.thirdUseTime
+    ? JSON.parse(result.thirdUseTime)
+    : null;
+
+  if (count === 3) {
+    if (!thirdUseTime) {
+      thirdUseTime = {
+        time: currentTime,
+        last: currentTime,
+        countThirdTime: count,
+      };
+    } else {
+      // check if 24 hours or not
+      const timeDifference = currentTime - new Date(thirdUseTime.last);
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+
+      if (timeDifferenceInHours >= 24) {
+        thirdUseTime = {
+          time: currentTime,
+          last: currentTime,
+          countThirdTime: count,
+        };
+      } else {
+        thirdUseTime.time = currentTime;
+
+        if (thirdUseTime.countThirdTime < 3) {
+          thirdUseTime.countThirdTime = count;
+        }
+      }
+    }
+
+    chrome.storage.local.set({
+      thirdUseTime: JSON.stringify(thirdUseTime),
+    });
+  } else if (count < 3) {
+    if (!thirdUseTime) {
+      thirdUseTime = {
+        time: currentTime,
+        last: currentTime,
+        countThirdTime: count,
+      };
+    } else {
+      thirdUseTime.time = currentTime;
+
+      if (thirdUseTime.countThirdTime < 3) {
+        thirdUseTime.countThirdTime = count;
+      }
+    }
+
+    chrome.storage.local.set({
+      thirdUseTime: JSON.stringify(thirdUseTime),
+    });
+  }
 };
