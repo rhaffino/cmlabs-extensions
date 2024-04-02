@@ -54,12 +54,12 @@
   line-height: 1rem;
 }
 
-.btn__retest{
+.btn__retest {
   background-color: var(--white);
   color: var(--Primary-70);
-  transition: background-color .4s, color .4s;
+  transition: background-color 0.4s, color 0.4s;
 }
-.btn__retest:hover{
+.btn__retest:hover {
   background-color: var(--Dark-70);
   color: var(--white);
 }
@@ -80,7 +80,7 @@
 }
 
 .hero__extension p {
-  width: 18.4375rem;
+  width: 20.4375rem;
   color: var(--hero-color);
   text-align: center;
   font-size: 0.875rem;
@@ -229,7 +229,7 @@
 }
 .tab__label {
   justify-content: space-between;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 .tab__label img {
   text-align: center;
@@ -244,11 +244,11 @@
   font-size: 0.75rem;
 }
 
-.tab__label div{
+.tab__label div {
   display: flex;
   align-items: center;
 }
-.tab__label .name{
+.tab__label .name {
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
@@ -257,7 +257,7 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  color: #A8AAAF;
+  color: #a8aaaf;
   margin-left: 4px;
   background-color: #f7f7f7;
   padding: 0;
@@ -284,7 +284,7 @@
   align-items: center;
 }
 .tab__content .item_container .tech_item img {
-  width:20px;
+  width: 20px;
   height: 20px;
 }
 .tab__content p {
@@ -295,9 +295,9 @@
   line-height: 16px;
 }
 .tab__content .item_container .tech_version {
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   font-size: 12px;
-  color: #666A74;
+  color: #666a74;
   border-radius: 4px;
   padding: 4px 8px;
 }
@@ -358,7 +358,11 @@
   padding: 20px 24px;
   max-width: 452px;
   margin: 12px 0px;
-  background: linear-gradient(258.17deg, rgba(255, 236, 198, 0.45) -35.11%, rgba(188, 223, 252, 0.45) 142.12%);
+  background: linear-gradient(
+    258.17deg,
+    rgba(255, 236, 198, 0.45) -35.11%,
+    rgba(188, 223, 252, 0.45) 142.12%
+  );
 }
 .consultation-box h2 {
   color: var(--Primary-130);
@@ -389,5 +393,5 @@
   display: inline-block;
 }
 .consultation-box .btn__marketing:hover {
-  opacity: .9;
+  opacity: 0.9;
 }
