@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SSL Checker - cmlabs Tools",
-  "description": "SSL Checker is a free tool from cmlabs that you can use to check SSL Certificate.",
+  "description": "Check whether the SSL (Secure Socket Layer) certificate on your web server is installed correctly and is valid. Try now!",
   "version": "1.0.0",
   "author": "Developer from cmlabs",
   "action": {
