@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Technology Lookup - cmlabs Tools",
-  "description": "cmlabs tools for Technology Lookup",
+  "description": "Technology Lookup is a tool that you can use to identify what technology was used to build a website by simply entering its URL.",
   "version": "1.0.0",
   "action": {
     "default_popup": "views/index/index.html"

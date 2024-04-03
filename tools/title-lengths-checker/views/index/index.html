@@ -2,84 +2,130 @@
 <html>
   <head>
     <title>Title & Lengths Checker - cmlabs Chrome Extension</title>
-    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css"/>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" href="../../assets/css/boxicons.min.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
-    <link rel="stylesheet" href="text/css" href="../../assets/css/title-lengths-checker.css"/>
+    <link
+      rel="stylesheet"
+      href="text/css"
+      href="../../assets/css/title-lengths-checker.css"
+    />
   </head>
 
   <body>
-    <div class="header__container d-flex justify-content-between align-items-center" id="navbar">
+    <div
+      class="header__container d-flex justify-content-between align-items-center"
+      id="navbar"
+    >
       <div class="row gap-1">
         <div class="col-4 pe-0">
-          <img src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png" class="img-fluid" alt="logo cmlabs">
+          <img
+            src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png"
+            class="img-fluid"
+            alt="logo cmlabs"
+          />
         </div>
         <div class="col-7 px-0">
           <div class="app-title mb-0">Title Lengths Checker</div>
         </div>
       </div>
-        <button class="btn btn-sm btn-light px-3">Login</button>
+      <button class="btn btn-sm btn-light px-3">Login</button>
     </div>
 
     <div class="popup">
       <div id="title-length-checker">
         <div
           class="container-loading position-relative d-flex align-items-center flex-column mb-3"
-          id="loading">
+          id="loading"
+        >
           <div class="col-12 hero__extension">
             <div class="header">
               <div class="header-img mb-3 d-flex justify-content-center">
-                <img class="img-fluid" src="../../assets/icon/title.svg" alt="Logo tools">
+                <img
+                  class="img-fluid"
+                  src="../../assets/icon/title.svg"
+                  alt="Logo tools"
+                />
               </div>
               <div class="text-14 text-center text-secondary">
-                <p>The length of meta-information must be ideal. So, it will display fully in SERP.</p>
+                <p>
+                  Assess Title & Meta Description Length to Boost SEO Rankings
+                </p>
               </div>
             </div>
           </div>
 
-          <div id="alert-limit" class="alert-limit alert alert-warning alert-dismissible fade show border-0 d-none" role="alert">
+          <!-- Alert -->
+          <div
+            id="alert-limit"
+            class="alert-limit alert alert-warning alert-dismissible fade show border-0 d-none"
+            role="alert"
+          >
             <p class="mb-0 text-warning-emphasis">
-              You have reached the usage limit of this tool. Please <a class="text-warning-emphasis fw-bold" href="#">log in or register</a> yourself.
+              You have reached the usage limit of this tool. Please
+              <a class="text-warning-emphasis fw-bold" href="#"
+                >log in or register</a
+              >
+              yourself.
             </p>
-            <img src="../../assets/icon/close.svg" alt="Logo Close Extension" class="btn__alert-close" data-bs-dismiss="alert" aria-label="Close">
+            <img
+              src="../../assets/icon/close.svg"
+              alt="Logo Close Extension"
+              class="btn__alert-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            />
           </div>
 
+          <div
+            id="alert-error"
+            class="alert alert-danger alert-dismissible fade show alert__extension text-14 border-0 d-none"
+            role="alert"
+          >
+            An error has occured. If this issue persists, please
+            <strong class="fw-bold">contact us</strong> for further assistance.
+            <img
+              src="../../assets/icon/close-danger.svg"
+              alt="Logo Close Extension"
+              class="btn__alert-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            />
+          </div>
+
+          <!-- Form -->
           <div class="col-12 bg-primaryblue border-radius-5px row">
             <div class="d-flex gap-3 align-items-center mt-3">
-              <img src="../../assets/images/guard-icon.png" alt="">
+              <img src="../../assets/images/guard-icon.png" alt="" />
               <p class="mb-0 text-white text-16" id="url-here">http://....</p>
             </div>
-            <div id="check-btn" class="check-stat col-11 rounded-3 mx-auto bg-primarydark d-flex align-items-center my-3 gap-2 justify-content-center">
+            <div
+              id="check-btn"
+              class="check-stat col-11 rounded-3 mx-auto bg-primarydark d-flex align-items-center my-3 gap-2 justify-content-center"
+            >
               <p class="mb-0 text-white text-14">Checking</p>
               <div class="loader">
-                <img src="../../assets/images/loader.png" alt="Loading icon">
+                <img src="../../assets/images/loader.png" alt="Loading icon" />
               </div>
             </div>
-            <button id="btn-limit" class="btn btn__form d-none check-stat col-11 rounded-3 mx-auto align-items-center my-3 gap-2 justify-content-center">
+            <button
+              id="btn-limit"
+              class="btn btn__form d-none check-stat col-11 rounded-3 mx-auto align-items-center my-3 gap-2 justify-content-center"
+            >
               Limit
             </button>
           </div>
-    
-          <p id="latest-blog" class="mt-2 mb-0">The checking process will take some time, while waiting please read our latest blog <a href="https://cmlabs.co/blog" target="_blank">here</a></p>
-        </div>
-        
-        <div id="result-container" class="d-none">
-          <div class="col-12 bg-primaryblue border-radius-5px row mb-3 mx-auto">
-            <div class="d-flex gap-3 align-items-center mt-3">
-              <img src="../../assets/images/guard-icon.png" alt="">
-              <p class="mb-0 text-white text-wrap text-16 text-ellipsis" id="url-check">http://....</p>
-            </div>
-              <a href="#" class="check-stat check-stat-btn col-11 rounded-3 mx-auto bg-white d-flex align-items-center gap-2 justify-content-center my-3 text-primaryblue fw-bold text-14 text-decoration-none" id="submit-btn">
-                Check Again!
-              </a>
-          </div>
 
           <!-- Consultant Box -->
-          <div class="consultation-box d-none" id="consultation-box">
+          <div class="consultation-box d-none">
             <h2>
-              Want to solve your website problems quickly?<br />Consult with cmlabs
-              marketing for free!
+              Want to solve your website problems quickly?<br />Consult with
+              cmlabs marketing for free!
             </h2>
             <p>
               Get a free consultation with cmlabs marketing to discuss about how
@@ -87,16 +133,44 @@
             </p>
             <a href="#" class="btn__marketing">Contact Marketing</a>
           </div>
-          
+
+          <p id="latest-blog" class="mt-2 mb-0">
+            The checking process will take some time, while waiting please read
+            our latest blog
+            <a href="https://cmlabs.co/blog" target="_blank">here</a>
+          </p>
+        </div>
+
+        <div id="result-container" class="d-none">
+          <div class="col-12 bg-primaryblue border-radius-5px row mb-3 mx-auto">
+            <div class="d-flex gap-3 align-items-center mt-3">
+              <img src="../../assets/images/guard-icon.png" alt="" />
+              <p
+                class="mb-0 text-white text-wrap text-16 text-ellipsis"
+                id="url-check"
+              >
+                http://....
+              </p>
+            </div>
+            <a
+              href="#"
+              class="check-stat check-stat-btn col-11 rounded-3 mx-auto bg-white d-flex align-items-center gap-2 justify-content-center my-3 text-primaryblue fw-bold text-14 text-decoration-none"
+              id="submit-btn"
+            >
+              Check Again!
+            </a>
+          </div>
+
           <div class="border border-2 border-radius-5px mb-3 mt-4 px-3 py-3">
             <div class="row d-flex flex-column disable-mx">
               <div
                 class="d-flex flex-column align-items-center justify-content-between flex-row disable-px"
               >
-              
                 <div class="d-flex flex-column align-items-center">
                   <span class="meta-title">PAGE TITLE</span>
-                  <div class="progress-bar_wrap d-flex justify-content-center d-none">
+                  <div
+                    class="progress-bar_wrap d-flex justify-content-center d-none"
+                  >
                     <div
                       id="titlebar1"
                       class="progress-bar_item progress-bar_item-1 blank"
@@ -111,28 +185,40 @@
                     ></div>
                   </div>
                 </div>
-                <div class="d-flex align-items-center justify-content-between w-100 mt-3">
+                <div
+                  class="d-flex align-items-center justify-content-between w-100 mt-3"
+                >
                   <div class="col-3">
                     <div class="text-center">
                       <p class="mb-0 text-dark">
-                        <strong class="text-primaryblue text-16" id="title-char">0</strong>
-                        <p class="text-secondary text-14 mt-1">Character</p>
+                        <strong class="text-primaryblue text-16" id="title-char"
+                          >0</strong
+                        >
+                        <span class="text-secondary text-14 mt-1"
+                          >Character</span
+                        >
                       </p>
                     </div>
                   </div>
                   <div class="col-3">
                     <div class="text-center">
                       <p class="mb-0 text-dark">
-                        <strong class="text-16 text-primaryblue" id="title-pixel">0</strong>
-                        <p class="text-secondary text-14 mt-1">Pixel</p>
+                        <strong
+                          class="text-16 text-primaryblue"
+                          id="title-pixel"
+                          >0</strong
+                        >
+                        <span class="text-secondary text-14 mt-1">Pixel</span>
                       </p>
                     </div>
                   </div>
                   <div class="col-3">
                     <div class="text-center">
                       <p class="mb-0 text-dark">
-                        <strong class="text-16 text-primaryblue" id="title-word">0</strong>
-                        <p class="text-secondary text-14 mt-1">Word</p>
+                        <strong class="text-16 text-primaryblue" id="title-word"
+                          >0</strong
+                        >
+                        <span class="text-secondary text-14 mt-1">Word</span>
                       </p>
                     </div>
                   </div>
@@ -149,12 +235,12 @@
                 class="align-items-center d-none disable-px"
                 id="title-bad-char"
               >
-              <img
-                style="width: 20px;"
-                class="mr-2"
-                src="../../assets/images/alert-icon.png"
-              />
-            
+                <img
+                  style="width: 20px"
+                  class="mr-2"
+                  src="../../assets/images/alert-icon.png"
+                />
+
                 <p class="mb-0 alert-text" id="title-bad-char-point">
                   Character More Than 12
                 </p>
@@ -196,31 +282,40 @@
                         class="progress-bar_item progress-bar_item-3 blank"
                       ></div>
                     </div>
-
                   </div>
                 </div>
-                <div class="row align-items-center justify-content-between w-100 mt-3">
+                <div
+                  class="row align-items-center justify-content-between w-100 mt-3"
+                >
                   <div class="col-3">
                     <div class="text-center">
                       <p class="mb-0 text-dark">
-                        <strong class="text-primaryblue text-16" id="desc-char">0</strong>
-                        <p class="text-secondary text-14 mt-1">Character</p>
+                        <strong class="text-primaryblue text-16" id="desc-char"
+                          >0</strong
+                        >
+                        <span class="text-secondary text-14 mt-1"
+                          >Character</span
+                        >
                       </p>
                     </div>
                   </div>
                   <div class="col-3">
                     <div class="text-center">
                       <p class="mb-0 text-dark">
-                        <strong class="text-primaryblue text-16" id="desc-pixel">0</strong>
-                        <p class="text-secondary text-14 mt-1">Pixel</p>
+                        <strong class="text-primaryblue text-16" id="desc-pixel"
+                          >0</strong
+                        >
+                        <span class="text-secondary text-14 mt-1">Pixel</span>
                       </p>
                     </div>
                   </div>
                   <div class="col-3">
                     <div class="text-center">
                       <p class="mb-0 text-dark">
-                        <strong class="text-primaryblue text-16" id="desc-word">0</strong>
-                        <p class="text-secondary text-14 mt-1">Word</p>
+                        <strong class="text-primaryblue text-16" id="desc-word"
+                          >0</strong
+                        >
+                        <span class="text-secondary text-14 mt-1">Word</span>
                       </p>
                     </div>
                   </div>
@@ -264,8 +359,18 @@
             </div>
           </div>
           <div class="details__container">
-            <a href="#" target="_blank" class="see__details" id="link-see-details">Want to see more details? See details</a>
-            <img src="../../assets/icon/external-link.svg" alt="icon arrow" class="detail__icon">
+            <a
+              href="#"
+              target="_blank"
+              class="see__details"
+              id="link-see-details"
+              >Want to see more details? See details</a
+            >
+            <img
+              src="../../assets/icon/external-link.svg"
+              alt="icon arrow"
+              class="detail__icon"
+            />
           </div>
         </div>
       </div>
@@ -273,7 +378,7 @@
 
     <span id="titlesizer"></span>
     <span id="descsizer"></span>
-    
+
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     <script src="./index.js"></script>
   </body>
