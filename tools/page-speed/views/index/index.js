@@ -8,6 +8,7 @@ const crawlingElement = document.getElementById("crawling-status");
 const chartElement = document.getElementById("pagespeed-tab");
 const readLatestBlog = document.getElementById("read__latest-blog");
 const previewDetail = document.getElementById("preview-detail");
+const consultationBox = document.getElementById("consultation-box");
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
@@ -82,6 +83,28 @@ const checkFetchStatus = () => {
   });
 };
 
+// Check Daily Use
+const checkDailyUse = () => {
+  chrome.storage.local.get(["thirdUseTime"], (result) => {
+    let thirdUseTime = result.thirdUseTime
+      ? JSON.parse(result.thirdUseTime)
+      : null;
+
+    if (thirdUseTime && thirdUseTime.countThirdTime === 3) {
+      const timeDifference = new Date() - new Date(thirdUseTime.last);
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+
+      if (timeDifferenceInHours < 24) {
+        consultationBox.classList.remove("d-none");
+        consultationBox.classList.add("d-block");
+      } else {
+        consultationBox.classList.remove("d-block");
+        consultationBox.classList.add("d-none");
+      }
+    }
+  });
+};
+
 // Local Storage
 const checkLocalStorage = () => {
   showLoading(true);
@@ -103,6 +126,8 @@ const checkLocalStorage = () => {
 const showLoading = (status) => {
   var loading = document.getElementById("loading");
   if (status) {
+    consultationBox.classList.remove("d-block");
+    consultationBox.classList.add("d-none");
     headerHero.classList.remove("d-none");
     headerHero.classList.add("d-flex");
     loading.classList.remove("d-none");
@@ -199,6 +224,7 @@ function animateValue(id, start, end, duration) {
 // Display Result Pagespeed
 function renderResult(data) {
   showLoading(false);
+  checkDailyUse();
   resultElement.innerHTML = "";
 
   if(data){

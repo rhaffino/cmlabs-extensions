@@ -11,6 +11,7 @@ const alertLimit = document.getElementById("alert-limit");
 const loadingElement = document.getElementById("loading");
 const loadingContainer = document.getElementById("loading__container");
 const headerHero = document.getElementById("header");
+const consultationBox = document.getElementById("consultation-box");
 
 // Add Box Shadow Navbar
 const shadowHeader = () => {
@@ -83,6 +84,28 @@ const checkFetchStatus = () => {
   });
 };
 
+// Check Daily Use
+const checkDailyUse = () => {
+  chrome.storage.local.get(["thirdUseTime"], (result) => {
+    let thirdUseTime = result.thirdUseTime
+      ? JSON.parse(result.thirdUseTime)
+      : null;
+
+    if (thirdUseTime && thirdUseTime.countThirdTime === 3) {
+      const timeDifference = new Date() - new Date(thirdUseTime.last);
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+
+      if (timeDifferenceInHours < 24) {
+        consultationBox.classList.remove("d-none");
+        consultationBox.classList.add("d-block");
+      } else {
+        consultationBox.classList.remove("d-block");
+        consultationBox.classList.add("d-none");
+      }
+    }
+  });
+};
+
 const checkLocalStorage = () => {
   showLoading(true);
   resultElement.innerHTML = "";
@@ -101,6 +124,8 @@ const checkLocalStorage = () => {
 
 const showLoading = (status) => {
   if (status) {
+    consultationBox.classList.remove("d-block");
+    consultationBox.classList.add("d-none");
     loadingElement.classList.remove("d-none");
     loadingElement.classList.add("d-block");
     headerHero.classList.remove("d-none");
@@ -127,6 +152,7 @@ const showLoading = (status) => {
 
 const displayResultLinkAnalysis = (response) => {
   showLoading(false);
+  checkDailyUse();
   resultElement.innerHTML = "";
 
   if (response) {

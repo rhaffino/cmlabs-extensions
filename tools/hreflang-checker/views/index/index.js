@@ -10,6 +10,7 @@ const previewDetail = document.getElementById("preview-detail");
 const popupContainer = document.getElementById("popup_container");
 const btnLimit = document.getElementById("btn-limit");
 const alertLimit = document.getElementById("alert-limit");
+const consultationBox = document.getElementById("consultation-box");
 
 function tabChrome() {
   return new Promise((resolve, reject) => {
@@ -85,6 +86,28 @@ const checkFetchStatus = () => {
   });
 };
 
+// Check Daily Use
+const checkDailyUse = () => {
+  chrome.storage.local.get(["thirdUseTime"], (result) => {
+    let thirdUseTime = result.thirdUseTime
+      ? JSON.parse(result.thirdUseTime)
+      : null;
+
+    if (thirdUseTime && thirdUseTime.countThirdTime === 3) {
+      const timeDifference = new Date() - new Date(thirdUseTime.last);
+      const timeDifferenceInHours = timeDifference / 1000 / 60 / 60;
+
+      if (timeDifferenceInHours < 24) {
+        consultationBox.classList.remove("d-none");
+        consultationBox.classList.add("d-block");
+      } else {
+        consultationBox.classList.remove("d-block");
+        consultationBox.classList.add("d-none");
+      }
+    }
+  });
+};
+
 const checkLocalStorage = () => {
   showLoading(true);
   resultElement.innerHTML = "";
@@ -105,6 +128,8 @@ const showLoading = (status) => {
   const loadingElement = document.getElementById("loading");
 
   if (status) {
+    consultationBox.classList.remove("d-block");
+    consultationBox.classList.add("d-none");
     loadingElement.classList.remove("d-none");
     loadingElement.classList.add("d-block");
   } else {
@@ -117,6 +142,7 @@ const displayResultLinkAnalysis = (response) => {
   const data = response.data;
 
   showLoading(false);
+  checkDailyUse();
 
   header.classList.remove("d-flex");
   header.classList.add("d-none");
