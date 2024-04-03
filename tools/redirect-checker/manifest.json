@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Redirect Checker - cmlabs Tools",
-  "description": "cmlabs tools for redirect chain check",
+  "name": "Redirect Chain Checker - cmlabs Tools",
+  "description": "The Redirect Chain Checker tool helps you check redirect links and the ​HTTP status codes efficiently.",
   "version": "1.0.0",
   "action": {
     "default_popup": "views/index/index.html"

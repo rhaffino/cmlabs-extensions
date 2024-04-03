@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Title & Lengths Checker",
-  "description": "cmlabs tools for title & lengths checker",
+  "name": "Title & Meta Description Checkers - cmlabs Tools",
+  "description": "This tool helps you produce concise, attractive, and SEO-friendly elements to be seen on the SERP and attract readers.",
   "version": "1.0.0",
   "action": {
     "default_popup": "views/index/index.html"
