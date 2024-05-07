@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "HTTP Header Checker - cmlabs Tools",
+  "name": "HTTP Header Checker - cmlabs SEO Tools",
   "description": "This tool helps you inspect and analyze the headers of HTTP requests and responses exchanged between client and server.",
   "version": "1.0.0",
   "action": {

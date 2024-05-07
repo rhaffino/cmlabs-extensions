@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Redirect Chain Checker - cmlabs Tools",
+  "name": "Redirect Chain Checker - cmlabs SEO Tools",
   "description": "The Redirect Chain Checker tool helps you check redirect links and the ​HTTP status codes efficiently.",
   "version": "1.0.0",
   "action": {
