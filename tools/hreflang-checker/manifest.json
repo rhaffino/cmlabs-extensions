@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Hreflang Checker - cmlabs Tools",
+  "name": "Hreflang Checker - cmlabs SEO Tools",
   "description": "Hreflang Checker helps you identify hreflang tags automatically and determine the target language or region of a website.",
   "version": "1.0.0",
   "action": {

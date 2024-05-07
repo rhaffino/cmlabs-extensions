@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Robots.txt Checker - cmlabs Tools",
+  "name": "Robots.txt Checker - cmlabs SEO Tools",
   "description": "Robots.txt Checker is an essential tool designed to ensure the efficiency, accuracy, and validity of a website's robots.txt file.",
   "version": "1.0.0",
   "action": {
