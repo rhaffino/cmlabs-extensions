@@ -7,10 +7,10 @@
     "default_popup": "views/index/index.html"
   },
   "icons": {
-    "16": "assets/images/icon.png",
-    "32": "assets/images/icon.png",
-    "48": "assets/images/icon.png",
-    "128": "assets/images/icon.png"
+    "16": "assets/images/icon-link-analyzer.png",
+    "32": "assets/images/icon-link-analyzer.png",
+    "48": "assets/images/icon-link-analyzer.png",
+    "128": "assets/images/icon-link-analyzer.png"
   },
   "background": {
     "service_worker": "service_worker/background.js",
