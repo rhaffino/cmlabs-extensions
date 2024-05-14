@@ -8,10 +8,10 @@
     "default_popup": "views/index/index.html"
   },
   "icons": {
-    "16": "assets/images/icon.png",
-    "32": "assets/images/icon.png",
-    "48": "assets/images/icon.png",
-    "128": "assets/images/icon.png"
+    "16": "assets/images/icon-pagespeed.png",
+    "32": "assets/images/icon-pagespeed.png",
+    "48": "assets/images/icon-pagespeed.png",
+    "128": "assets/images/icon-pagespeed.png"
   },
   "background": {
     "service_worker": "service_worker/background.js",
