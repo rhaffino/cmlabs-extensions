@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "SSL Checker - cmlabs SEO Tools",
   "description": "Check whether the SSL (Secure Socket Layer) certificate on your web server is installed correctly and is valid. Try now!",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Developer from cmlabs",
   "action": {
     "default_popup": "views/index/index.html"

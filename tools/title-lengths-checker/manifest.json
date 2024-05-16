@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Title & Meta Description Checkers - cmlabs SEO Tools",
   "description": "This tool helps you produce concise, attractive, and SEO-friendly elements to be seen on the SERP and attract readers.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "action": {
     "default_popup": "views/index/index.html"
   },
