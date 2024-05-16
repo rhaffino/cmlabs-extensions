@@ -245,14 +245,12 @@ function renderResult(data) {
   
     for (let j = 0; j < 5; j++) {
       let score;
-      if (data.lighthouseResult.categories[categories[j]].score == null) {
+      if (data.lighthouseResult.categories[categories[j]] == undefined || data.lighthouseResult.categories[categories[j]].score == null) {
         score = 0;
       } else {
-        score = (
-          data.lighthouseResult.categories[categories[j]].score * 100
-        ).toFixed(0);
+        score = (data.lighthouseResult.categories[categories[j]].score * 100).toFixed(0);
       }
-  
+      
       strokeValue(score, j + 1, categories[j]);
   
       const message = {
