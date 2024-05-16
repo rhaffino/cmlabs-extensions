@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Ping Checker - cmlabs SEO Tools",
   "description": "Ping Tool helps you test the existence of a website's IP address/domain and analyzes its quality and responsiveness.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "action": {
     "default_popup": "views/index/index.html"
   },
