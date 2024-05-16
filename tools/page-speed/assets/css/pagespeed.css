@@ -454,6 +454,7 @@ footer {
   justify-content: start;
   align-items: start;
   background: linear-gradient(258.17deg, rgba(255, 236, 198, 0.45) -35.11%, rgba(188, 223, 252, 0.45) 142.12%);
+  text-align: start;
 }
 .consultation-box h2 {
   color: var(--Primary-130);
