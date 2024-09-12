@@ -1,0 +1,83 @@
+/* Global Variable */
+:root {
+  --primaryblue: #18a0fb;
+  --black: #2d393d;
+  --darkgrey: #66757f;
+  --grey: #ccd6dd;
+  --lightgrey: #e1e8ed;
+  --white: #ffffff;
+  --primaryred: #fb1818;
+  --Gray-20: #f9f9f9;
+  --Dark-30: #92959c;
+  --Gray-60: #f0f0f0;
+  --Gray-80: #d0d0d0;
+  --Gray-100: #959595;
+  --Dark-60: #3b3f4c;
+  --Dark-70: #252a38;
+  --Primary-70: #1f95f5;
+  --Primary-130: #092d49;
+  --Secondary-70: #ffbe40;
+  --Danger-10: #fdd0d0;
+  --Danger-50: #f98181;
+  --Warning-10: #ffecc6;
+  --Warning-50: #ffcb66;
+  --Success-10: #cbe3d3;
+  --Success-50: #73b38a;
+  --primary-font: "Helvetica Now Display", sans-serif;
+  --hero-color: #666A74;
+  --alert-warning-color: #664C1A;
+  --alert-danger-color: #632727;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 0.6rem;
+  background-color: var(--Gray-80);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--Gray-100);
+}
+
+/* General */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--primary-font);
+}
+
+/* Popup Style */
+.popup {
+  width: 500px;
+  padding: 0rem 1.5rem 1.5rem 1.5rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  border: 0px !important;
+  text-align: center;
+  position: relative;
+}
+
+.popup p {
+  font-size: 0.875rem;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
