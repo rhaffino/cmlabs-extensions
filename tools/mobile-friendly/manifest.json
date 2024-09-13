@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Mobile-friendly Test - cmlabs SEO Tools",
+    "description": "Mobile-friendly test is one of the free SEO tools provided by cmlabs. This tool functions to test the mobile-friendliness of a URL from a website. By entering the website address into the box provided, you can find out how well the website is on a mobile display.",
+    "version": "1.0.1",
+    "author": "Developer from cmlabs",
+    "action": {
+      "default_popup": "views/index/index.html"
+    },
+    "icons": {
+      "16": "assets/images/icon-pagespeed.png",
+      "32": "assets/images/icon-pagespeed.png",
+      "48": "assets/images/icon-pagespeed.png",
+      "128": "assets/images/icon-pagespeed.png"
+    },
+    "background": {
+      "service_worker": "service_worker/background.js",
+      "type": "module"
+    },
+    "permissions": ["activeTab", "tabs", "commands", "storage"]
+  }
+  
