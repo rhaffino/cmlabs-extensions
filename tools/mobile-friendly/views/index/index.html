@@ -124,7 +124,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-7">
-                  <div id="crawlResult" class="px-5 mb-5 d-flex align-items-center justify-content-between">
+                  <div id="crawlResult" class="mb-3 d-flex align-items-center justify-content-between">
                     <div class="mr-3 text-container">
                         <p class="text-darkgrey" id="result-date"></p>
                         <p class="h3 text-black" id="result-title"></p>
@@ -137,10 +137,10 @@
                 </div>
                 
         
-                  <div id="mobileIssues" class="px-5">
-                    <p class="font-weight-boldest text-black">Audit Information</p>
+                  <div id="mobileIssues">
                     <!-- Results Information -->
-                    <div id="ResultsInformation" class="mb-5">
+                    <p class="font-weight-boldest text-black text-start mb-2">Audit Information</p>
+                    <div id="ResultsInformation" class="accordion mb-3">
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -186,13 +186,12 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <p class="font-weight-boldest text-black">Page loading checks</p>        
-                    <div id="ResultsMobileIssuesPassed">
-                      <div id="PassedChecksAccordion" class="mb-5"></div>
+                    <p class="font-weight-boldest text-black text-start mb-2">Page loading checks</p>        
+                    <div id="ResultsMobileIssuesPassed" class="accordion mb-3">
+                      <div id="PassedChecksAccordion"></div>
                     </div>
-                    <p class="font-weight-boldest text-black">Page loading issues</p>
-                    <div id="ResultsMobileIssuesFailed" class="mb-5">
+                    <p class="font-weight-boldest text-black text-start mb-2">Page loading issues</p>
+                    <div id="ResultsMobileIssuesFailed" class="accordion mb-3">
                         <div id="IssuesAccordion"></div>
                     </div>
         

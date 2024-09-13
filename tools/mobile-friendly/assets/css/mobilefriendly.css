@@ -33,9 +33,12 @@
   --primary-font: "Helvetica Now Display", sans-serif;
 }
 
-
 .bg-green {
   background-color: var(--green) !important;
+}
+
+.bg-orange {
+  background-color: var(--yellow) !important;
 }
 
 .bg-red {
@@ -61,6 +64,7 @@
   width: 600px;
   padding: 1.25rem 1.5rem;
   background-color: var(--white);
+  z-index: 1;
 }
 
 .shadow-navbar {
@@ -450,7 +454,23 @@ footer {
   text-align: left;
   text-decoration: none;
 }
-.consultation-box .btn__
-marketing:hover {
+.consultation-box .btn__marketing:hover {
   opacity: .9;
+}
+
+/* Results */
+.accordion .card .card-header {
+  cursor: inherit;
+  margin: 0;
+  border-bottom: 0;
+  padding: 0;
+  background-color: #F3F6F9;
+}
+.accordion .card .card-header button:hover{
+  cursor: inherit;
+}
+.accordion .card .card-header button:focus:not(:focus-visible),
+.accordion .card .card-header .btn-check:focus+.btn, 
+.accordion .card .card-header .btn:focus{
+  box-shadow: none;
 }
