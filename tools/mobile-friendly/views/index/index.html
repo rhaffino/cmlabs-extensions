@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mobile-Friendly - cmlabs Chrome Extension</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/popup.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/mobilefriendly.css"
+    />
+  </head>
+  <body>
+    <div class="header__container" id="navbar">
+      <div class="logo__container">
+        <img
+          src="https://cmlabs-co.s3.ap-southeast-1.amazonaws.com/logos/cmlabs-logo-new.png"
+          alt="logo cmlabs"
+          class="logo__img"
+        />
+        <span>Mobile-Friendly Test</span>
+      </div>
+      <div class="login__container">
+        <a href="#" class="btn btn__login d-none">Login</a>
+      </div>
+    </div>
+
+    <div class="popup">
+      <div id="header" class="hero__extension">
+        <img
+          src="../../assets/icon/mobile-logo.svg"
+          alt="Icon Mobile-Friendly Test"
+          class="icon__extension"
+        />
+        <p>Preview Website Performance in Mobile for SEO</p>
+      </div>
+
+      <!-- Alert -->
+      <div
+        id="alert-limit"
+        class="alert alert-warning alert-dismissible fade show alert__extension text-14 border-0 d-none"
+        role="alert"
+      >
+        You have reached the usage limit of this tool. Please
+        <strong class="fw-bold">log in or register</strong> yourself.
+        <img
+          src="../../assets/icon/close.svg"
+          alt="Logo Close Extension"
+          class="btn__alert-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        />
+      </div>
+
+      <div
+        id="alert-error"
+        class="alert alert-danger alert-dismissible fade show alert__extension text-14 border-0 d-none"
+        role="alert"
+      >
+        An error has occured. If this issue persists, please
+        <strong class="fw-bold">contact us</strong> for further assistance.
+        <img
+          src="../../assets/icon/close-danger.svg"
+          alt="Logo Close Extension"
+          class="btn__alert-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        />
+      </div>
+
+      <!-- Form -->
+
+      <div id="result"></div>
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="card p-3 flex flex-row align-items-center justify-content-between form__container"
+          >
+            <div class="d-flex input__url">
+              <img
+                src="../../assets/icon/guard.svg"
+                alt="Icon Mobile-Friendly Test"
+                class="img__guard"
+              />
+              <span id="url-container" class="text-white"></span>
+            </div>
+
+            <button
+              class="btn text-white d-flex justify-content-center align-items-center gap-2 btn__form"
+              id="crawling-status"
+            >
+              <span> Crawling </span>
+              <div
+                class="container-loading d-none justify-content-end align-items-center icon__loader"
+                id="loading"
+              >
+                <img
+                  class="loader"
+                  src="../../assets/icon/loader.svg"
+                  alt="Loading Icon"
+                />
+              </div>
+            </button>
+            <button
+              id="log-button"
+              class="btn btn__retest d-none justify-content-center btn__form"
+            >
+              Re-Test!
+            </button>
+            <button
+              id="btn-limit"
+              class="btn bg-white d-none justify-content-center btn__form"
+            >
+              Limit
+            </button>
+          </div>
+
+          <div class="d-none" id="mobile-friendly-tab">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-7">
+                  <div id="crawlResult" class="px-5 mb-5 d-flex align-items-center justify-content-between">
+                    <div class="mr-3 text-container">
+                        <p class="text-darkgrey" id="result-date"></p>
+                        <p class="h3 text-black" id="result-title"></p>
+                        <p class="mb-0 text-darkgrey" id="result-subtitle"></p>
+                    </div>
+                    <div class="icon-container ml-auto">
+                        <img id="mobileFriendlyIcon" class="d-none" src="../../assets/images/bx_bx-mobile.png" alt="Mobile Friendly Icon">
+                        <img id="notMobileFriendlyIcon" class="d-none" src="../../assets/images/bx_bx-mobilered.png" alt="Not Mobile Friendly Icon">
+                    </div>
+                </div>
+                
+        
+                  <div id="mobileIssues" class="px-5">
+                    <p class="font-weight-boldest text-black">Audit Information</p>
+                    <!-- Results Information -->
+                    <div id="ResultsInformation" class="mb-5">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <div class="d-flex align-items-center" style="font-size: 14px;">
+                                        <div id="indicator-mobile-score" class="btn btn-icon btn-circle mr-2 bg-green" style="height:15px; width:15px;"></div>
+                                        Mobile Score Performance <span id="mobile-score" class="ml-2 text-green"></span>
+                                    </div>
+                                </button>
+                            </div>
+        
+                            <div id="collapseOne" class="" aria-labelledby="headingOne" data-parent="#ResultsInformation">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <div class="d-flex align-items-center" style="font-size: 14px;">
+                                        <div id="indicator-emulation-Mobile" class="btn btn-icon btn-circle mr-2 bg-green" style="height:15px; width:15px"></div>
+                                        <span id="mobile-emulation"></span>
+                                    </div>
+                                </button>
+                            </h2>
+                            </div>
+                            <div id="collapseTwo" class="" aria-labelledby="headingTwo" data-parent="#ResultsInformation">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <div class="d-flex align-items-center" style="font-size: 14px;">
+                                        <div id="indicator-speed-index" class="btn btn-icon btn-circle mr-2 bg-green" style="height:15px; width:15px"></div>
+                                        Speed Index <span id="speedIndexValue" class="ml-2 text-green"></span>
+                                    </div>
+                                </button>
+                            </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#ResultsInformation">
+                            <div class="card-body">
+                                <p id="speedIndexDesc" class="mb-0"></p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="font-weight-boldest text-black">Page loading checks</p>        
+                    <div id="ResultsMobileIssuesPassed">
+                      <div id="PassedChecksAccordion" class="mb-5"></div>
+                    </div>
+                    <p class="font-weight-boldest text-black">Page loading issues</p>
+                    <div id="ResultsMobileIssuesFailed" class="mb-5">
+                        <div id="IssuesAccordion"></div>
+                    </div>
+        
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+
+      <!-- Box Consultant -->
+      <div id="consultation-box" class="consultation-box d-none">
+        <h2>
+          Want to solve your website problems quickly?<br />Consult with cmlabs
+          marketing for free!
+        </h2>
+        <p>
+          Get a free consultation with cmlabs marketing to discuss about how
+          cmlabs can help you solve your website quickly and efficiently.
+        </p>
+        <a href="https://cmlabs.co/en-id/company/contact" target="_blank" class="btn__marketing">Contact Marketing</a>
+      </div>
+
+      <footer class="col-12 d-block info__text" id="read__latest-blog">
+        The crawling process will take some time, while waiting please read our
+        latest blog <a href="https://cmlabs.co/blog" target="_blank">here</a>
+      </footer>
+
+      <div class="details__container" id="preview-detail">
+        <a
+          id="link-preview-detail"
+          href="#"
+          target="_blank"
+          class="see__details"
+          >Want to see more details? See details</a
+        >
+        <img
+          src="../../assets/icon/external-link.svg"
+          alt="icon arrow"
+          class="detail__icon"
+        />
+      </div>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
