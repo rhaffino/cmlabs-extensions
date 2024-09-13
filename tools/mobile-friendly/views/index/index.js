@@ -47,7 +47,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   logButton.addEventListener("click", function () {
-    launch();
+    // Clear local storage before launching
+    chrome.storage.local.clear(() => {
+      if (chrome.runtime.lastError) {
+        console.log(`Error clearing local storage: ${chrome.runtime.lastError.message}`);
+      } else {
+        console.log("Local storage cleared");
+        launch();
+      }
+    });
   });
 
   checkLocalStorage();
@@ -72,7 +80,13 @@ const launch = async () => {
           },
         };
 
-        chrome.runtime.sendMessage(message);
+        chrome.runtime.sendMessage(message, (response) => {
+          if (chrome.runtime.lastError) {
+            console.log(`Error sending message: ${chrome.runtime.lastError.message}`);
+          } else {
+            console.log(`Message sent successfully. Response: ${JSON.stringify(response)}`);
+          }
+        });
       });
     }
   }, 5000);
@@ -83,8 +97,10 @@ const checkFetchStatus = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["isDataFetched"], (result) => {
       if (chrome.runtime.lastError) {
+        console.log(`Error in checkFetchStatus: ${chrome.runtime.lastError.message}`);
         reject(chrome.runtime.lastError);
       } else {
+        console.log(`isDataFetched from storage: ${result.isDataFetched}`);
         resolve(result.isDataFetched);
       }
     });
@@ -122,8 +138,10 @@ const checkLocalStorage = () => {
     showLoading(false);
 
     if (result.response) {
+      console.log("Response found in local storage, rendering result");
       renderResult(result.response);
     } else {
+      console.log("No response in local storage, launching new analysis");
       showLoading(true);
       launch();
     }
@@ -412,7 +430,7 @@ function mobileIssues(rules) {
     const title = audit.score === 1 ? audit.titlePass : audit.titleFail;
     return `
           <div class="card">
-              <div class="card-header" id="heading${index}">
+              <div class="card-header" id="heading${index}" style="font-size: 14px;">
                   <h2 class="mb-0">
                       <button class="btn btn-block text-left ${index === 0 ? "" : "collapsed"}" type="button" data-toggle="collapse" data-target="#collapse${index}MobileIssues" aria-expanded="${index === 0 ? "true" : "false"}" aria-controls="collapse${index}MobileIssues">
                           <div class="d-flex align-items-center">
@@ -452,14 +470,16 @@ function formatDate(date) {
 }
 
 // After Run Service Worker
-chrome.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const { event, response, status, info } = message;
 
   switch (event) {
     case "OnFinishLinkAnalysis":
       if (status) {
+        console.log("Link analysis finished successfully");
         renderResult(response);
       } else {
+        console.log("Link analysis failed");
         showLoading(false);
         resultElement.innerHTML = "";
 
@@ -478,5 +498,6 @@ chrome.runtime.onMessage.addListener((message) => {
       }
       break;
     default:
+      console.log(`Unhandled event: ${event}`);
   }
 });
