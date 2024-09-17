@@ -40,5 +40,7 @@ The HTTP Header Checker is a tool designed to inspect and analyze the headers of
 Redirect Checker is a link analysis tool that linked to a URL with a status code preview. Manage your redirects, get the list and make the best SEO prospect for your website.
 ## Hreflang Checker
 The Hreflang Checker is a tool for the process of automatically implementing the site's hreflang tag. Help Google target the correct content on your site to expand the market.
+## Mobile Friendly Test
+This tool functions to test the mobile-friendliness of a URL from a website. By entering the website address into the box provided, you can find out how well the website is on a mobile display.
 # Security
 If you discover any security related issues, please email dev@cmlabs.co instead of using the issue tracker.
